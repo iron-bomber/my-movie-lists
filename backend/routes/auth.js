@@ -4,6 +4,7 @@ const User = require('../models/User');
 const passport = require('../config/passport');
 
 router.post('/signup', (req, res, next) => {
+  
   User.register(req.body, req.body.password)
     .then((user) => { 
         req.login(user, function(err,result){
@@ -11,7 +12,8 @@ router.post('/signup', (req, res, next) => {
         })
     })
     .catch((err) => { 
-      res.status(500).json({ err })
+      // res.status(500).json({ err })
+      res.json(err);
     });
 });
 

@@ -7,6 +7,7 @@ import LogIn from './components/auth/LogIn';
 import Profile from './components/profile/Profile'
 import actions from './services/index'
 
+
 class App extends Component {
   
   state = { }
