@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import actions from '../../services/index'
 import axios from 'axios';
+import {NavLink} from 'react-router-dom'
 
 
 class Home extends Component {
@@ -32,15 +33,14 @@ class Home extends Component {
 
   render() {
     return (
+      
       <div>
-        Welcome {this.props.user.name}
-        <br/>
-        <br/>
-        <br/>
-        Search movies
-        <form onSubmit={this.searchApi}>
-          <input type="text" name="search" placeholder="Search" onChange={this.updateValues} />
-        </form>
+      <nav>
+        <button>All</button>
+        <button>Watching</button>
+        <button>Want to watch</button>
+        <NavLink to="/add">Add</NavLink>
+      </nav>
       </div>
     );
   }
