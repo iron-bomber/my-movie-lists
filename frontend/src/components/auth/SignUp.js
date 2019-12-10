@@ -19,8 +19,9 @@ class SignUp extends Component {
             <Fragment>
                 <h2>Sign Up</h2>
                 <form onSubmit={this.handleSubmit}>
-                    <input name="email" type="email" onChange={this.handleChange} />
-                    <input name="password" type="password" onChange={this.handleChange} />
+                    Name: <input name="name" type="text" onChange={this.handleChange} />
+                    Email: <input name="email" type="email" onChange={this.handleChange} />
+                    Password: <input name="password" type="password" onChange={this.handleChange} />
                     <input type="submit" value="Sign Up"/>
                 </form>
             </Fragment>
