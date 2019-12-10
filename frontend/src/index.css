@@ -40,3 +40,8 @@ code {
   padding: 8px;
   margin: 8px;
 }
+
+.navbar-icons{
+  height: 80%;
+  width: auto;
+}
