@@ -27,3 +27,16 @@ code {
   align-items: center;
   justify-content: center;
 }
+
+.one-movie-result{
+  border-bottom: 1px solid palevioletred;
+}
+
+.description{
+  text-align: left;
+  width: 90%;
+  height: auto;
+  background-color: lightblue;
+  padding: 8px;
+  margin: 8px;
+}
