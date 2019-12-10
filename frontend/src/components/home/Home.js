@@ -9,7 +9,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        
+        Welcome {this.props.user.email}.
       </div>
     );
   }

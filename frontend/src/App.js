@@ -27,7 +27,6 @@ class App extends Component {
 
     return (
     <BrowserRouter>
-      {this.state.email}
       <nav>
         <NavLink to="/">Home |</NavLink>
   
@@ -42,10 +41,10 @@ class App extends Component {
            <NavLink to="/log-in">Log In |</NavLink>
            </Fragment>
           }
-        
+
       </nav>
       <Switch>
-        <Route exact path="/" render={(props) => <Home {...props} />} />
+        <Route exact path="/" render={(props) => <Home {...props} user={this.state}/>} />
         <Route exact path="/sign-up" render={(props)=><SignUp {...props} setUser={this.setUser} />} />
         <Route exact path="/log-in" render={(props) => <LogIn {...props} setUser={this.setUser}/>} />
         <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state}/>} />
