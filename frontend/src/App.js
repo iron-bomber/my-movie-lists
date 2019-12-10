@@ -27,6 +27,12 @@ class App extends Component {
 
     return (
     <BrowserRouter>
+      <nav className="navbar">
+        <NavLink to="/" className="navbar-item">Home</NavLink>
+        <NavLink to="/mylist" className="navbar-item">My List</NavLink>
+        <NavLink to="/social" className="navbar-item">Social</NavLink>
+        <NavLink to="/settings" className="navbar-item">Me Icon</NavLink>
+      </nav>
       <nav>
         <NavLink to="/">Home |</NavLink>
   

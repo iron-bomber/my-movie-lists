@@ -11,11 +11,13 @@ class SignUp extends Component {
         e.preventDefault()
         let user = await actions.signUp(this.state);
         this.props.setUser({...user.data})  
+        this.props.history.push('/')
     }
+
     render() {
         return (
             <Fragment>
-                <h2>SignUP</h2>
+                <h2>Sign Up</h2>
                 <form onSubmit={this.handleSubmit}>
                     <input name="email" type="email" onChange={this.handleChange} />
                     <input name="password" type="password" onChange={this.handleChange} />
