@@ -19,6 +19,9 @@ const actions = {
   },
   logOut: async () => {
     return await service.get('/logout');
+  },
+  validEmail: async (email) => {
+    return await service.post('/validEmail', email);
   }
 };
 

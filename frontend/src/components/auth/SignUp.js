@@ -7,46 +7,145 @@ class SignUp extends Component {
         firstName: "",
         lastName: "",
         email: "",
+        emailClass : 'form-control input-lg',
+        emailMessage: "",
         password: "",
         confirmPassword: "",
+        submissionAttempt: false,
     } 
     handleChange = e => {
+        if (this.state.submissionAttempt){
+            this.isValidEmail();
+        }
         this.setState({
             [e.target.name]: e.target.value
         })
-    } 
+    }
 
-    formDefaults = {
-        firstName: {value: '', isValid: true, message: ''},
-        lastName: {value: '', isValid: true, message: ''},
-        email: { value: '', isValid: true, message: '' },
-        password: { value:'', isValid: true, message: '' },
-        confirmPassword: { value: '', isValid: true, message: '' }
+    validator = input => {
+        switch (input){
+            case 'firstName':
+            case 'lastName':
+                if (this.state[input].length < 1) {
+                    let message = 'Field cannot be empty';
+                    return {valid: false, message: message};
+                } else {
+                    return {valid: true}
+                }
+            // case 'email':
+            //     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)){ 
+            //         let validEmail = await actions.validEmail(this.state.email);
+            //         if (validEmail.data.free){
+            //             return {valid: true};
+            //         } else {
+            //             let message = 'That email is already in use, please choose another.';
+            //             return {valid: false, message: message};
+            //         }
+            //     } else {
+            //         let message = 'Invalid email address.';
+            //         return {valid: false, message: message};
+            //     }
+            case 'password':
+            case 'confirmPassword':
+                if (this.state.password.length < 6) {
+                    let message = 'Password must be at least 6 characters long.';
+                    return {valid: false, message: message};
+                } else if (this.state.password !== this.state.confirmPassword){
+                    let message = 'Password do not match.';
+                    return {valid: false, message: message};
+                } else {
+                    return {valid: true}
+                }
+        }
     }
 
     isValid = input => {
-        let valid = '';
-        switch (input){
-            case 'firstName':
-                if (this.state.firstName.length < 1) {
-                    valid = "is-invalid";
-                } else {
-                    valid = "is-valid"
-                }
-                break;
+        let wert = {}
+        if (this.state.submissionAttempt){
+            let valid = this.validator(input);
+            if (valid.message){
+                wert.message = valid.message;
+                wert.class = classNames('form-control', 'input-lg', 'is-invalid');
+            } else {
+                wert.message = "";
+                wert.class = classNames('form-control', 'input-lg', 'is-valid' );
+            } return wert;
+        } else {
+            wert.class = classNames('form-control', 'input-lg');
+            wert.message = "";
+            return wert;
+        }  
+    }
+
+    isValidEmail = () => {
+        if (this.state.submissionAttempt){
+            console.log(this.state.email);
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)){ 
+                actions.validEmail(this.state.email)
+                .then((validEmail) => {
+                    if (validEmail.data.free){
+                        let theClass = classNames('form-control', 'input-lg', 'is-valid');
+                        this.setState({
+                            emailClass: theClass,
+                            emailMessage: ""
+                        })
+                    } else {
+                        let message = 'That email is already in use, please choose another.';
+                        let theClass = classNames('form-control', 'input-lg', 'is-invalid');
+                        this.setState({
+                            emailClass: theClass,
+                            emailMessage: message
+                        })
+                    }
+                })
+            } else {
+                let message = 'Invalid email address.';
+                let theClass = classNames('form-control', 'input-lg', 'is-invalid');
+                this.setState({
+                    emailClass: theClass,
+                    emailMessage: message
+                })
+            }
+        } else {
+            let theClass = classNames('form-control', 'input-lg');
+            this.setState({
+                emailClass: theClass
+            })
         }
-        console.log(classNames('form-control', 'input-lg', valid ));
-        return classNames('form-control', 'input-lg', valid ); // => 'foo bar'
     }
 
     handleSubmit = async e => {
         e.preventDefault()
-        let user = await actions.signUp(this.state);
-        this.props.setUser({...user.data})  
-        this.props.history.push('/')
+        await this.setState({
+            submissionAttempt: true
+        })
+        let allValid = true;
+        let formValues = ['firstName', 'lastName', 'password'];
+        for (let value of formValues){
+            if (this.validator(value).valid) {
+                continue;
+            } else {
+                allValid = false;
+            }
+        }
+        this.isValidEmail();
+        if (this.state.emailMessage.length > 0){
+            allValid = false;
+        }
+        if (allValid) {
+            let user = await actions.signUp({
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                email: this.state.email,
+                password: this.state.password
+            });
+            this.props.setUser({...user.data})  
+            this.props.history.push('/')
+        }
     }
 
     render() {
+
         return (
             <div className="container" id="wrap">
                 <div className="row">
@@ -54,27 +153,51 @@ class SignUp extends Component {
                         <form accept-charset="utf-8" className="form" role="form" onSubmit={this.handleSubmit}>   <legend>Sign Up</legend>
                             <div className="row">
                                 <div className="col-6 mb-2">
-                                    <input type="text" name="firstName" value={this.state.firstName} className={this.isValid('firstName')} onChange={this.handleChange} placeholder="First Name"/>
+                                    <input type="text" name="firstName" value={this.state.firstName} className={this.isValid('firstName').class} onChange={this.handleChange} placeholder="First Name"/>
                                     <div className="valid-feedback text-left">
                                         Looks good!
                                     </div>
                                     <div className="invalid-feedback text-left">
-                                        Please enter a first name
+                                        Field cannot be empty
                                     </div>
                                 </div>
                                 <div className="col-6 mb-2">
-                                    <input type="text" name="lastName" value={this.state.lastName} className="form-control input-lg" placeholder="Last Name"/>
+                                    <input type="text" name="lastName" value={this.state.lastName} className={this.isValid('lastName').class} onChange={this.handleChange} placeholder="Last Name"/>
                                     <div className="valid-feedback text-left">
                                         Looks good!
                                     </div>
                                     <div className="invalid-feedback text-left">
-                                        Please enter a last name
+                                        Field cannot be empty
                                     </div>
                                 </div>
                             </div>
-                            <input type="email" name="email" value="" className="form-control input-lg mb-2" placeholder="Your Email"/>
-                            <input type="password" name="password" value="" className="form-control input-lg mb-2" placeholder="Password"/>
-                            <input type="password" name="confirmPassword" value="" className="form-control input-lg mb-2" placeholder="Confirm Password"/>
+                            <div>
+                                <input type="email" name="email" value={this.state.email} className={this.state.emailClass} onChange={this.handleChange} placeholder="Your Email"/>
+                                <div className="valid-feedback text-left">
+                                    Looks good!
+                                </div>
+                                <div className="invalid-feedback text-left">
+                                    {this.state.emailMessage}
+                                </div>
+                            </div>
+                            <div>
+                                <input type="password" name="password" value={this.state.password} className={this.isValid('password').class} onChange={this.handleChange} placeholder="Password"/>
+                                <div className="valid-feedback text-left">
+                                    Looks good!
+                                </div>
+                                <div className="invalid-feedback text-left">
+                                    {this.isValid('password').message}
+                                </div>
+                            </div>
+                            <div>
+                                <input type="password" name="confirmPassword" value={this.state.confirmPassword} className={this.isValid('confirmPassword').class} onChange={this.handleChange} placeholder="Confirm Password"/>
+                                <div className="valid-feedback text-left">
+                                    Looks good!
+                                </div>
+                                <div className="invalid-feedback text-left">
+                                    {this.isValid('confirmPassword').message}
+                                </div>
+                            </div>
                             <br />
                             <button className="btn btn-lg btn-primary btn-block signup-btn" type="submit">
                                 Create my account

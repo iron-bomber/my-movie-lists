@@ -12,10 +12,33 @@ router.post('/signup', (req, res, next) => {
         })
     })
     .catch((err) => { 
-      // res.status(500).json({ err })
-      res.json(err);
+      res.status(500).json({ err })
     });
 });
+
+// Checks db to see if email is taken during registration
+router.post('/validEmail', (req, res, next) => {
+  let email = req.body.email;
+    User.findOne({"email": email})
+    .then((user) => {
+        if (!user) {
+            res.json({
+                free: true
+              });
+            return;
+        } else {
+          res.json({
+            free: false
+          });
+          return;
+        }
+    })
+    .catch(error => {
+      res.json({
+        error: error
+      })
+    })
+})
 
 
 //return await service.get('/is-logged-in');
