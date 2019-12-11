@@ -30,6 +30,7 @@ code {
 
 .one-movie-result{
   border-bottom: 1px solid palevioletred;
+  display: flex
 }
 
 .description{
@@ -47,5 +48,24 @@ code {
 }
 
 .poster-size{
-  width: 185px;
+  width: auto;
+  height: 200px;
+}
+
+.listing-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.listing-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.listing-info h1, .listing-info h2, .listing-info h3, .listing-info h4, .listing-info h5,.listing-info p{
+  margin: 0 16px;
+  padding: 8px;
 }
