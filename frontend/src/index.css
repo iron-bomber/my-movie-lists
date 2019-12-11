@@ -11,7 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-.navbar{
+.ourbar{
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -30,6 +30,7 @@ code {
 
 .one-movie-result{
   border-bottom: 1px solid palevioletred;
+  display: flex
 }
 
 .description{
@@ -39,4 +40,32 @@ code {
   background-color: lightblue;
   padding: 8px;
   margin: 8px;
+}
+
+.navbar-icons{
+  height: 80%;
+  width: auto;
+}
+
+.poster-size{
+  width: auto;
+  height: 200px;
+}
+
+.listing-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.listing-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.listing-info h1, .listing-info h2, .listing-info h3, .listing-info h4, .listing-info h5,.listing-info p{
+  margin: 0 16px;
+  padding: 8px;
 }
