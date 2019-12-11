@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import {NavLink} from 'react-router-dom'
+import React from 'react';
+// import {NavLink} from 'react-router-dom'
 
 const Profile = (props) => {
     // if(!props.user.email){ 
@@ -8,6 +8,7 @@ const Profile = (props) => {
 
     return (
         <div>
+        Profile
             {/* Welcome {props.user.email} !!!  */}
          {/* {this.state.email ? 
             <div>

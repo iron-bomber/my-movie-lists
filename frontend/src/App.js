@@ -20,8 +20,7 @@ class App extends Component {
 
     return (
     <BrowserRouter>
-      <nav className="navbar">
-      
+      <nav className="ourbar">
         <NavLink to="/" className="navbar-item">
         <img src={require("./images/list.png")} className="navbar-icons"/>
         </NavLink>
@@ -29,9 +28,11 @@ class App extends Component {
         <NavLink to="/my-feed" className="navbar-item">
           <img src={require("./images/social.png")} className="navbar-icons"/>
         </NavLink>
+
         <NavLink to="/my-friends" className="navbar-item">
           <img src={require("./images/user.png")} className="navbar-icons"/>
         </NavLink>
+
         <NavLink to ="/profile" className="navbar-item">
             <img src={require("./images/cog.png")} className="navbar-icons"/>
         </NavLink>

@@ -11,7 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-.navbar{
+.ourbar{
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -44,4 +44,8 @@ code {
 .navbar-icons{
   height: 80%;
   width: auto;
+}
+
+.poster-size{
+  width: 185px;
 }
