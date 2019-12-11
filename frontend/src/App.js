@@ -9,12 +9,25 @@ import LogIn from './components/auth/LogIn';
 import Profile from './components/profile/Profile'
 import actions from './services/index'
 import SearchMovies from './components/searchMovies'
-import Create from './components/create-post'
+import Movie from './components/create-post'
 import Friends from './components/friends'
 import Feed from './components/feed'
 
 
 class App extends Component {
+
+  state = { }
+  
+  async componentDidMount() {
+    let user = await actions.isLoggedIn()
+    this.setState({...user.data})
+  }
+  setUser = (user) => this.setState(user)
+  
+  logOut = async () => {
+    let res = await actions.logOut()
+    this.setUser({email:null, createdAt: null, updatedAt: null, _id: null }) //FIX 
+  }
 
   render(){
 
@@ -43,11 +56,12 @@ class App extends Component {
         <Route exact path="/log-in" render={(props) => <LogIn {...props} setUser={this.setUser}/>} />
         <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state}/>} />
         <Route exact path="/add" render={(props) => <SearchMovies {...props} user={this.state}/>} />
-        <Route exact path="/create" render={(props) => <Create {...props}/>} />
+        <Route exact path="/movies/:id" render={(props) => <Movie {...props}/>} />
         <Route exact path="/my-friends" render={(props) => <Friends {...props}/>} />
         <Route exact path="/my-feed" render={(props) => <Feed {...props}/>} />
 
         <Route component={NotFound} />
+
       </Switch>
     </BrowserRouter>
   );

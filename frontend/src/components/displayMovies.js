@@ -62,7 +62,7 @@ export default class displayMovies extends Component {
                     <h3>
                         {each.original_title} 
                         <Link to={{
-                        pathname: '/create',
+                        pathname: `/movies/${each.id}`,
                         each: {
                             each
                         }}}>
