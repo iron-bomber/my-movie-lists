@@ -35,7 +35,11 @@ export default class displayMovies extends Component {
                         {each.original_title} 
                     </h3>
                     <h4>
+                    {each.release_date &&
+                        <div>
                         {this.truncDate(each.release_date)}
+                        </div>
+                    }
                     </h4>
                     <p className="description">
                         {each.overview}
