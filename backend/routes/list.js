@@ -1,8 +1,8 @@
-const express   = require('express');
-const router    = express.Router();
-const Movie     = require('../models/Movie');
-const Show     = require('../models/Show');
-const Review     = require('../models/Review');
+const express       = require('express');
+const router        = express.Router();
+const User          = require('../models/User');
+const Movie         = require('../models/Movie');
+const MovieReview   = require('../models/MovieReview');
 
 // router.get('/movie-list', (req, res, next) => {
 
@@ -17,29 +17,28 @@ const Review     = require('../models/Review');
 // })
 
 router.post('/add-movie', async (req, res, next) => {
-    let theMovie = {
-        tmdbID: req.data.movie.id,
-        name: req.data.movie.original_title,
-        img: req.data.img,
-        plot: req.data.movie.overview,
-        rating: req.data.movie.vote_average,
-        runtime: req.data.movie.runtime,
-        release_date: req.data.movie.release_date,
-        genres: req.data.movie.genres
+    let newMovie = {
+        tmdbID: req.body.movie.id,
+        name: req.body.movie.original_title,
+        img: req.body.img,
+        plot: req.body.movie.overview,
+        rating: req.body.movie.vote_average,
+        runtime: req.body.movie.runtime,
+        release_date: req.body.movie.release_date,
+        genres: req.body.movie.genres
     };
-    let rating = req.data.rating;
-    let review = req.data.review;
-    let userId = req.data.user;
-    let newMovie = await Movie.findOne({"tmdbID": movie.tmdbID});
-    if (!newMovie) {
-        newMovie = await Movie.create(theMovie).catch( err => res.json(err) )
+    let dbMovie = await Movie.findOne({"tmdbID": movie.tmdbID});
+    if (!dbMovie) {
+        dbMovie = await Movie.create(newMovie).catch( err => res.json(err) )
     }
     let newReview = {
         rating: req.body.rating,
         review: req.body.review,
-        show: ,
-        user: {type: Schema.Types.ObjectId, ref: "User"}
-    }
+        movie: dbMovie._id,
+        user: req.body.user
+    };
+    let dbReview = await MovieReview.create(newReview);
+    let theUser = await User.findById(req.body.user)
 
 })
 

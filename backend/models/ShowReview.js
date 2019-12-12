@@ -1,9 +1,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const reviewSchema = new Schema(
+const ShowReviewSchema = new Schema(
     {
-        epsSeen: Number,
         rating: Number,
         review: String,
         show: {type: Schema.Types.ObjectId, ref: "Show"},
@@ -11,6 +10,6 @@ const reviewSchema = new Schema(
     }
 );
 
-const Review = mongoose.model("Review", reviewSchema)
+const ShowReview = mongoose.model("ShowReview", ShowReviewSchema)
 
-module.exports = Review
+module.exports = ShowReview
