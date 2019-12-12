@@ -8,6 +8,9 @@
     "preinstall": "echo --- preinstall --- && cd backend && npm install && cd ../frontend && npm install && npm run build && cd ..",
     "start": "echo --- start --- && cd backend && npm start"
   },
+  "engines": {
+    "node": "12.11.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/iron-bomber/final-project.git"

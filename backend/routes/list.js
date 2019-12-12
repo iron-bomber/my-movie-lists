@@ -4,9 +4,15 @@ const User          = require('../models/User');
 const Movie         = require('../models/Movie');
 const MovieReview   = require('../models/MovieReview');
 
-// router.get('/movie-list', (req, res, next) => {
-    
-// })
+router.get('/movie-list', async (req, res, next) => {
+    let theUser = await User.findById(req.body.user);
+    for (let movieListItem of theUser.movieList){
+        await movieListItem.populate('movie');
+        await movieListItem.populate('review');
+    }
+    console.log(theUser.movieList);
+    res.json({movieList: theUser.movieList});
+})
 
 // router.get('/show-list', (req, res, next) => {
 
@@ -40,6 +46,8 @@ router.post('/add-movie', async (req, res, next) => {
         movie: dbMovie._id,
         user: req.body.user
     };
+    // Checks to see if user already has a review, adds it to db if it isn't
+
     let dbReview = await MovieReview.findOne({$and : [{'user': req.body.user}, {movie: dbMovie._id}]});
     if (!dbReview){
         dbReview = await MovieReview.create(newReview);
@@ -51,11 +59,10 @@ router.post('/add-movie', async (req, res, next) => {
     };
     let userReview = await User.findOne({$and : [{_id: req.body.user}, {'movieList.movie': movieListItem.movie}]});
     if (!userReview){
-        console.log('56 ', movieListItem)
         // let theUser = await User.findById(req.body.user);
         // theUser.movieList.push(movieListItem);
         // User.findByIdAndUpdate(req.body.user, theUser);
-        let updatedList = await User.update({'_id': req.body.user}, {
+        let updatedList = await User.updateOne({'_id': req.body.user}, {
             $push: { movieList: movieListItem }
         });
     }

@@ -11,6 +11,7 @@ import SearchMovies from './components/searchMovies'
 import Movie from './components/create-post'
 import Friends from './components/friends'
 import Feed from './components/feed'
+import Axios from 'axios';
 
 
 class App extends Component {
