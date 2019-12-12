@@ -5,7 +5,8 @@ import actions from '../services/index'
 export default class CreatePost extends Component {
 
     state = {
-        rating: 0
+        rating: 0,
+        review: ''
     }
 
     truncDate = (a) =>{
@@ -51,6 +52,9 @@ export default class CreatePost extends Component {
     }
 
     submitForm = (e) =>{
+        if(!this.props.user._id){
+            this.props.history.push('/')
+        }
         e.preventDefault()
 
         let subData = {
@@ -58,16 +62,14 @@ export default class CreatePost extends Component {
             review: this.state.review,
             movie: this.state.movie,
             user: this.props.user._id,
-            img: this.state.poster
+            img: this.state.poster,
+            status: this.state.status
         }
-
         actions.addMovie(subData)
-
         console.log(subData)
     }
     
     render() {
-        // console.log(this.state.movie, this.props)
         return (
             <div>
                 {this.state.movie && 
@@ -89,6 +91,10 @@ export default class CreatePost extends Component {
                 </div>
                 }
                 <div>
+                <select>
+                    <option>Watched</option>
+                    <option>To-watch</option>
+                </select>
                     <h2>Rate It</h2>
                     <StarRatingComponent 
                         name="rate1" 
