@@ -22,7 +22,11 @@ const actions = {
   },
   validEmail: async (email) => {
     return await service.post('/validEmail', email);
-  }
+  },
+  // validEmail: async (email) => {
+  //   return await service.post('/reviewPost', review);
+  // },
+
 };
 
 export default actions;

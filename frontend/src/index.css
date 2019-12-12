@@ -30,7 +30,8 @@ code {
 
 .one-movie-result{
   border-bottom: 1px solid palevioletred;
-  display: flex
+  margin: 8px 0px;
+  width: 100%;
 }
 
 .description{
@@ -53,9 +54,17 @@ code {
 }
 
 .listing-img{
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0px 8px;
+}
+
+.listing-add-btn{
+  position: absolute;
+  top: 0;
+  right: 0
 }
 
 .listing-info{
@@ -63,9 +72,30 @@ code {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  max-width: inherit;
+  margin-bottom: 8px;
 }
 
 .listing-info h1, .listing-info h2, .listing-info h3, .listing-info h4, .listing-info h5,.listing-info p{
   margin: 0 16px;
   padding: 8px;
+}
+
+.dv-star-rating-star i{
+  font-size: 2em;
+}
+
+.review-input{
+  height: 200px;
+  width: 90vw;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.submit-rating{
+  width: 80vw;
+  height: 50px;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
 }
