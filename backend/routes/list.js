@@ -16,19 +16,20 @@ const Show     = require('../models/Show');
 // })
 
 router.post('/add-movie', async (req, res, next) => {
+    console.log(req)
     let movie = {
-        tmdbID: req.data.movie.id,
-        name: req.data.movie.original_title,
-        img: req.data.img,
-        plot: req.data.movie.overview,
-        rating: req.data.movie.vote_average,
-        runtime: req.data.movie.runtime,
-        release_date: req.data.movie.release_date,
-        genres: req.data.movie.genres
+        tmdbID: req.body.movie.id,
+        name: req.body.movie.original_title,
+        img: req.body.img,
+        plot: req.body.movie.overview,
+        rating: req.body.movie.vote_average,
+        runtime: req.body.movie.runtime,
+        release_date: req.body.movie.release_date,
+        genres: req.body.movie.genres
     };
-    let rating = req.data.rating;
-    let review = req.data.review;
-    let userId = req.data.user;
+    let rating = req.body.rating;
+    let review = req.body.review;
+    let userId = req.body.user;
     let newMovie = await Movie.findOne({"tmdbID": movie.tmdbID});
     if (!newMovie) {
         newMovie = await Movie.create(movie).catch( err => res.json(err) )
