@@ -26,7 +26,6 @@ const actions = {
   addMovie: async (data) => {
     return await service.post('/add-movie', data);
   }
-
 };
 
 export default actions;
