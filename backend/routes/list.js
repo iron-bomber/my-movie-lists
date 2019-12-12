@@ -37,7 +37,7 @@ router.post('/add-movie', async (req, res, next) => {
         movie: dbMovie._id,
         user: req.body.user
     };
-    let dbReview = await MovieReview.findOne({$and : [{'user': req.body.user}, {movie: newMovie.tmdbID}]});
+    let dbReview = await MovieReview.findOne({$and : [{'user': req.body.user}, {movie: dbMovie._id}]});
     if (!dbReview){
         dbReview = await MovieReview.create(newReview);
     }
@@ -46,7 +46,6 @@ router.post('/add-movie', async (req, res, next) => {
         review: dbReview._id,
         status: req.body.status
     };
-    db.inventory.find( { 'instock.qty': { $lte: 20 } } )
     let userReview = await User.find({$and : [{_id: req.body.user}, {'movieList.movie': movieListItem.movie}]});
     if (!userReview){
         User.findByIdAndUpdate(req.body.user, { $push: { movieList: movieListItem} });
