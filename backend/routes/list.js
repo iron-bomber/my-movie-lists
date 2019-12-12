@@ -5,7 +5,7 @@ const Movie         = require('../models/Movie');
 const MovieReview   = require('../models/MovieReview');
 
 // router.get('/movie-list', (req, res, next) => {
-    
+//     User.findById(req.body.user)
 // })
 
 // router.get('/show-list', (req, res, next) => {
