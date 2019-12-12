@@ -8,18 +8,17 @@ const userSchema = new Schema(
     lastName:  {type: String, required: true},
     friends: [{type: Schema.Types.ObjectId, ref: "User"}],
     requests: [{type: Schema.Types.ObjectId, ref: "User"}],
-    // movieList: [{
-    //   movie: {type: Schema.Types.ObjectId, ref: "Movie"},
-    //   review: {type: Schema.Types.ObjectId, ref: "MovieReview"},
-    //   status: {type: String}
-    //           }],
-    movieList: Array,
+    movieList: [{
+      movie: {type: Schema.Types.ObjectId, ref: "Movie"},
+      review: {type: Schema.Types.ObjectId, ref: "MovieReview"},
+      status: {type: String}
+    }],
     showList: [{
       show: {type: Schema.Types.ObjectId, ref: "Show"},
       review: {type: Schema.Types.ObjectId, ref: "ShowReview"},
       status: String,
       epsSeen: Number,
-              }]
+    }]
   },
   {
     timestamps: true,
