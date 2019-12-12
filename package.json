@@ -9,7 +9,7 @@
     "start": "echo --- start --- && cd backend && npm start"
   },
   "engines": {
-    "node": ">=8.0.0 <11.0.0"
+    "node": "12.11.1"
   },
   "repository": {
     "type": "git",
