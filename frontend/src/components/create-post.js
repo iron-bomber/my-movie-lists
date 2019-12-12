@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component';
+import actions from '../services/index';
 
 export default class CreatePost extends Component {
 
@@ -20,6 +21,7 @@ export default class CreatePost extends Component {
             })
             console.log(res.data)
             axios.get(`https://image.tmdb.org/t/p/w500${res.data.poster_path}`)
+            // axios.get(`https://image.tmdb.org/t/p/w500/ZQixhAZx6fH1VNafFXsqa1B8QI.jpg`)
             .then((res2)=>{
                 console.log(res2)
                 this.setState({
@@ -49,20 +51,24 @@ export default class CreatePost extends Component {
         this.props.history.push('/')
     }
 
-    submitForm = (e) =>{
+    submitForm = async (e) =>{
         e.preventDefault()
 
         let subData = {
             rating: this.state.rating,
             review: this.state.review,
             movie: this.state.movie,
-            // user: 
+            user: this.props.user._id,
+            img: this.state.poster
         }
-        console.log(subData)
+
+        let something = await actions.addMovie(subData)
+
+        console.log(subData, something)
     }
     
     render() {
-        console.log(this.state.movie)
+        console.log(this.state.movie, this.props)
         return (
             <div>
                 {this.state.movie && 
