@@ -13,13 +13,13 @@ class SignUp extends Component {
         confirmPassword: "",
         submissionAttempt: false,
     } 
-    handleChange = e => {
+    handleChange = async e => {
+        await this.setState({
+            [e.target.name]: e.target.value
+        })
         if (this.state.submissionAttempt){
             this.isValidEmail();
         }
-        this.setState({
-            [e.target.name]: e.target.value
-        })
     }
 
     validator = input => {
@@ -79,7 +79,6 @@ class SignUp extends Component {
 
     isValidEmail = () => {
         if (this.state.submissionAttempt){
-            console.log(this.state.email);
             if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)){ 
                 actions.validEmail(this.state.email)
                 .then((validEmail) => {

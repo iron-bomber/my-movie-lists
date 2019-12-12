@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 import styled, { css } from 'styled-components'
-
 import MyList from './components/myList';
 import NotFound from './components/404/NotFound.js';
 import SignUp from './components/auth/SignUp';
@@ -15,10 +14,24 @@ import Feed from './components/feed'
 
 
 class App extends Component {
+  state = { }
+  
+  async componentDidMount() {
+    let user = await actions.isLoggedIn()
+    this.setState({...user.data})
+  }
+
+  setUser = (user) => this.setState(user)
+  
+  logOut = async () => {
+    let res = await actions.logOut()
+    this.setUser({email:null, createdAt: null, updatedAt: null, _id: null }) //FIX 
+  }
 
   render(){
-
+    console.log(this.state.user);
     return (
+      
     <BrowserRouter>
       <nav className="ourbar">
         <NavLink to="/" className="navbar-item">

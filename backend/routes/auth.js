@@ -21,6 +21,7 @@ router.post('/validEmail', (req, res, next) => {
   let email = req.body.email;
     User.findOne({"email": email})
     .then((user) => {
+      console.log(user)
         if (!user) {
             res.json({
                 free: true
