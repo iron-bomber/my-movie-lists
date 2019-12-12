@@ -40,6 +40,8 @@ router.post('/add-movie', async (req, res, next) => {
         movie: dbMovie._id,
         user: req.body.user
     };
+    // Checks to see if user already has a review, adds it to db if it isn't
+
     let dbReview = await MovieReview.findOne({$and : [{'user': req.body.user}, {movie: dbMovie._id}]});
     if (!dbReview){
         dbReview = await MovieReview.create(newReview);
