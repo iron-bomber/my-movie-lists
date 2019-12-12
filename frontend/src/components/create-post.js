@@ -5,8 +5,9 @@ import actions from '../services/index'
 export default class CreatePost extends Component {
 
     state = {
-        rating: 0,
-        review: ''
+        rating: null,
+        review: '',
+        status: 'Completed',
     }
 
     truncDate = (a) =>{
@@ -91,8 +92,8 @@ export default class CreatePost extends Component {
                 </div>
                 }
                 <div>
-                <select>
-                    <option>Watched</option>
+                <select onChange={this.handleChange} name="status">
+                    <option>Completed</option>
                     <option>To-watch</option>
                 </select>
                     <h2>Rate It</h2>
