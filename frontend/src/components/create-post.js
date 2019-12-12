@@ -50,7 +50,7 @@ export default class CreatePost extends Component {
         this.props.history.push('/')
     }
 
-    submitForm = async (e) =>{
+    submitForm = (e) =>{
         e.preventDefault()
 
         let subData = {
@@ -61,13 +61,13 @@ export default class CreatePost extends Component {
             img: this.state.poster
         }
 
-        let something = await actions.addMovie(subData)
+        actions.addMovie(subData)
 
-        console.log(subData, something)
+        console.log(subData)
     }
     
     render() {
-        console.log(this.state.movie, this.props)
+        // console.log(this.state.movie, this.props)
         return (
             <div>
                 {this.state.movie && 
