@@ -1,7 +1,8 @@
-const express   = require('express');
-const router    = express.Router();
-const Movie     = require('../models/Movie');
-const Show     = require('../models/Show');
+const express       = require('express');
+const router        = express.Router();
+const User          = require('../models/User');
+const Movie         = require('../models/Movie');
+const MovieReview   = require('../models/MovieReview');
 
 // router.get('/movie-list', (req, res, next) => {
 
@@ -16,8 +17,7 @@ const Show     = require('../models/Show');
 // })
 
 router.post('/add-movie', async (req, res, next) => {
-    console.log(req)
-    let movie = {
+    let newMovie = {
         tmdbID: req.body.movie.id,
         name: req.body.movie.original_title,
         img: req.body.img,
@@ -27,15 +27,18 @@ router.post('/add-movie', async (req, res, next) => {
         release_date: req.body.movie.release_date,
         genres: req.body.movie.genres
     };
-    let rating = req.body.rating;
-    let review = req.body.review;
-    let userId = req.body.user;
-    let newMovie = await Movie.findOne({"tmdbID": movie.tmdbID});
-    if (!newMovie) {
-        newMovie = await Movie.create(movie).catch( err => res.json(err) )
+    let dbMovie = await Movie.findOne({"tmdbID": movie.tmdbID});
+    if (!dbMovie) {
+        dbMovie = await Movie.create(newMovie).catch( err => res.json(err) )
     }
-    console.log(newMovie);
-    res.json(newMovie);
+    let newReview = {
+        rating: req.body.rating,
+        review: req.body.review,
+        movie: dbMovie._id,
+        user: req.body.user
+    };
+    let dbReview = await MovieReview.create(newReview);
+    let theUser = await User.findById(req.body.user)
 
 })
 
