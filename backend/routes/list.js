@@ -27,7 +27,7 @@ router.post('/add-movie', async (req, res, next) => {
         release_date: req.body.movie.release_date,
         genres: req.body.movie.genres
     };
-    let dbMovie = await Movie.findOne({"tmdbID": movie.tmdbID});
+    let dbMovie = await Movie.findOne({"tmdbID": newMovie.tmdbID});
     if (!dbMovie) {
         dbMovie = await Movie.create(newMovie).catch( err => res.json(err) )
     }

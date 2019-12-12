@@ -5,7 +5,8 @@ import actions from '../services/index'
 export default class CreatePost extends Component {
 
     state = {
-        rating: 0
+        rating: 0,
+        review: ''
     }
 
     truncDate = (a) =>{
@@ -51,6 +52,9 @@ export default class CreatePost extends Component {
     }
 
     submitForm = (e) =>{
+        if(!this.props.user._id){
+            this.props.history.push('/')
+        }
         e.preventDefault()
 
         let subData = {
