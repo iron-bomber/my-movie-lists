@@ -6,11 +6,11 @@ const movieSchema = new Schema(
         tmdbID: String,
         name: String,
         img: String,
-        director: String,
-        cast: [String],
         plot: String,
         rating: Number,
-        runtime: Number
+        runtime: Number,
+        release_date: String,
+        genres: Array
     }
 );
 
