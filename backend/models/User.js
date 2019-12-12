@@ -4,7 +4,8 @@ const PLM = require('passport-local-mongoose');
 const userSchema = new Schema(
   {
     email: {type: String, unique: true, required: true},
-    name:  {type: String, required: true},
+    firstName:  {type: String, required: true},
+    lastName:  {type: String, required: true},
     friends: [{type: Schema.Types.ObjectId, ref: "User"}],
     requests: [{type: Schema.Types.ObjectId, ref: "User"}],
     movieList: [{

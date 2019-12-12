@@ -40,6 +40,8 @@ class MyList extends Component {
         <button>Watching</button>
         <button>Want to watch</button>
         <NavLink to="/add">Add</NavLink>
+        <NavLink to="/log-in">login</NavLink>
+        <NavLink to="/sign-up">signup</NavLink>
       </nav>
       </div>
     );

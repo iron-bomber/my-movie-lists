@@ -33,7 +33,12 @@ export default class CreatePost extends Component {
         .catch((err)=>{
             console.log(err)
         })
+    }
 
+    handleChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
     }
 
     onStarClick(nextValue, prevValue, name) {
@@ -42,6 +47,18 @@ export default class CreatePost extends Component {
 
     reroute = () =>{
         this.props.history.push('/')
+    }
+
+    submitForm = (e) =>{
+        e.preventDefault()
+
+        let subData = {
+            rating: this.state.rating,
+            review: this.state.review,
+            movie: this.state.movie,
+            // user: 
+        }
+        console.log(subData)
     }
     
     render() {
@@ -78,10 +95,10 @@ export default class CreatePost extends Component {
                 <div>
                     <h2>Leave your thoughts</h2>
                     <br />
-                    <textarea className="review-input"/>
+                    <textarea className="review-input" name="review" onChange={this.handleChange}/>
                 </div>
                 <div>
-                    <button className="submit-rating">
+                    <button className="submit-rating" onClick={this.submitForm}>
                         Submit
                     </button>
                 </div>
