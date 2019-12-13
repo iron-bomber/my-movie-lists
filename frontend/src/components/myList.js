@@ -11,7 +11,7 @@ class MyList extends Component {
   }
 
   async componentDidMount() {
-    //actions.test()
+    
   }
 
   updateValues = (e) =>{
@@ -31,6 +31,26 @@ class MyList extends Component {
     })
   }
 
+  showList = () =>{
+    return this.props.list.map((each, i)=>{
+      let movie = each.movie
+      let review = each.review
+      let status = each.status
+      return (
+      <div className="my-list-item">
+        <div className="listing-img">
+            <img src={movie.img} alt="img" className="poster-size"/>
+        </div>
+        <div className="my-list-item-header-div">
+          <h1 className="my-list-item-header">
+              {movie.original_title} 
+          </h1>
+        </div>
+      </div>
+      )
+    })
+  }
+
   render() {
     return (
       
@@ -43,6 +63,9 @@ class MyList extends Component {
         <NavLink to="/log-in">login</NavLink>
         <NavLink to="/sign-up">signup</NavLink>
       </nav>
+      <div>
+        {this.showList()}
+      </div>
       </div>
     );
   }

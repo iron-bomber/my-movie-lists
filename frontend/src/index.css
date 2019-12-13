@@ -99,3 +99,23 @@ code {
   color: white;
   border-radius: 10px;
 }
+
+.my-list-item-header-div{
+  position: absolute;
+  bottom: 0;
+  background-color: black;
+  color: white;
+  opacity: 0.5;
+  height: 50px;
+  width: 100%;
+}
+
+.my-list-item-header{
+  overflow: hidden;
+  
+}
+
+.my-list-item{
+  position: relative;
+
+}

@@ -20,6 +20,10 @@ class App extends Component {
   async componentDidMount() {
     let user = await actions.isLoggedIn()
     this.setState({...user.data})
+    // let res = await actions.getList(user.data._id)
+    // this.setState({
+    //   list: res.list
+    // })
   }
 
   setUser = (user) => this.setState(user)
@@ -56,9 +60,9 @@ class App extends Component {
             <img src={require("./images/cog.png")} className="navbar-icons"/>
         </NavLink>
       </nav>
-      <button onClick={this.testButton}>movie list</button>
+      {/* <button className="btn btn-success" onClick={this.testButton}>movie list</button> */}
       <Switch>
-        <Route exact path="/" render={(props) => <MyList {...props} user={this.state}/>} />
+        <Route exact path="/" render={(props) => <MyList {...props} list = {this.state.list} user={this.state}/>} />
         <Route exact path="/sign-up" render={(props)=><SignUp {...props} setUser={this.setUser} />} />
         <Route exact path="/log-in" render={(props) => <LogIn {...props} setUser={this.setUser}/>} />
         <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state}/>} />
