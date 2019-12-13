@@ -22,9 +22,17 @@ class App extends Component {
   
   async componentDidMount() {
     let user = await actions.isLoggedIn()
-    this.setState({
-      user: user.data
-    })
+    if (user.data.error){
+      this.setState({
+        user: null
+      }, () => {
+        console.log('Error code ' + user.data.error)
+      })
+    } else {
+      this.setState({
+        user: user.data
+      })
+    }
   }
 
   setUser = (user) => {

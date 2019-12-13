@@ -55,11 +55,10 @@ export default class CreatePost extends Component {
     }
 
     submitForm = (e) =>{
+        e.preventDefault()
         if(!this.props.user._id){
             this.props.history.push('/')
         }
-        e.preventDefault()
-
         let subData = {
             rating: this.state.rating,
             review: this.state.review,
@@ -68,8 +67,8 @@ export default class CreatePost extends Component {
             img: this.state.poster,
             status: this.state.status
         }
-        actions.addMovie(subData)
-        console.log(subData)
+        actions.addMovie(subData);
+        this.reroute();
     }
     
     render() {

@@ -3,12 +3,14 @@ import actions from '../services/index'
 import axios from 'axios';
 import {NavLink} from 'react-router-dom'
 import { loadPartialConfig } from '@babel/core';
+import StarRatingComponent from 'react-star-rating-component';
 
 
 class MyList extends Component {
 
   state = {
     movieList: false,
+    ratings: {},
   }
 
   async componentDidMount() {
@@ -34,6 +36,16 @@ class MyList extends Component {
     })
   }
 
+  openStarRater = (i) => {
+    let ratings = {};
+    ratings[i] = true;
+    this.setState({ratings: ratings, rating: null});
+  }
+
+  onStarClick(nextValue, prevValue, name) {
+    this.setState({rating: nextValue});
+  }
+
   showList = () =>{
     return this.props.user.movieList.map((each, i) => {
       console.log(each);
@@ -41,14 +53,46 @@ class MyList extends Component {
       let review = each.review
       let status = each.status
       return (
-      <div className="my-list-item">
-        <div className="listing-img">
+      // <div className="my-list-item">
+      //   <div className="listing-img">
+      //       <img src={movie.img} alt="img" className="poster-size"/>
+      //   </div>
+      //   <div className="my-list-item-header-div">
+      //     <h1 className="my-list-item-header">
+      //         {movie.name} 
+      //     </h1>
+      //   </div>
+      // </div>
+      <div className="col-12 movie-list-item">
+        <div className="row">
+          <div className="col-2 offset-4 offset-md-0">
             <img src={movie.img} alt="img" className="poster-size"/>
-        </div>
-        <div className="my-list-item-header-div">
-          <h1 className="my-list-item-header">
-              {movie.name} 
-          </h1>
+          </div>
+          <div className="col-4 text-left">
+            <h2>{movie.name}</h2>
+            {review.rating &&
+              <h4>Your rating: {review.rating}/10</h4>
+            }
+            {!review.rating && !this.state.ratings[`rate${i}`] &&
+              <div>
+                <h6>You haven't rated this yet.</h6>
+                <button onClick={() => {this.openStarRater(`rate${i}`)}}>Rate it!</button>
+              </div>
+            }
+            {this.state.ratings[`rate${i}`] &&
+              <div>
+                <form>
+                  <StarRatingComponent 
+                          name={'rate'+i}
+                          starCount={10}
+                          value={this.state.rating}
+                          onStarClick={this.onStarClick.bind(this)}
+                  />
+                  <button>Rate it</button>
+                </form>
+              </div>
+            }
+          </div>       
         </div>
       </div>
       )
@@ -66,9 +110,9 @@ class MyList extends Component {
         <button>Watching</button>
         <button>Want to watch</button>
       </nav>
-        <div>
+        <div className="container-fluid">
           {this.state.movieList &&
-          <div>
+          <div className="row">
             {this.showList()}
           </div>
           }
