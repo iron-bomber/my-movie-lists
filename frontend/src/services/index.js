@@ -25,6 +25,12 @@ const actions = {
   },
   addMovie: async (data) => {
     return await service.post('/add-movie', data);
+  },
+  getMovies: async () => {
+    return await service.get('/movie-list');
+  },
+  getShows: async () => {
+    return await service.get('/show-list');
   }
 };
 

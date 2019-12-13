@@ -21,7 +21,6 @@ router.post('/validEmail', (req, res, next) => {
   let email = req.body.email;
     User.findOne({"email": email})
     .then((user) => {
-      console.log(user)
         if (!user) {
             res.json({
                 free: true
@@ -48,8 +47,12 @@ router.get('/is-logged-in', (req, res, next) => {
 })
 
 
-router.post('/login', passport.authenticate('local'), (req, res, next) => {
-  const { user } = req;
+router.post('/login', passport.authenticate('local'), async (req, res, next) => {
+  const user = await User.findById(req.user._id)
+    .populate('movieList.movie')
+    .populate('movieList.review')
+    // .populate('showList.movie')
+    // .populate('showList.review')
   res.status(200).json(user);
 });
 

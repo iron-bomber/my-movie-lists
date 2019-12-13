@@ -29,6 +29,12 @@ class App extends Component {
     this.setUser({email:null, createdAt: null, updatedAt: null, _id: null }) //FIX 
   }
 
+  testButton = async () => {
+    console.log('33 ', this.state._id);
+    let theMovies = await actions.getMovies({theId: this.state._id});
+    console.log(theMovies);
+  }
+
   render(){
     return (
       
@@ -50,6 +56,7 @@ class App extends Component {
             <img src={require("./images/cog.png")} className="navbar-icons"/>
         </NavLink>
       </nav>
+      <button onClick={this.testButton}>movie list</button>
       <Switch>
         <Route exact path="/" render={(props) => <MyList {...props} user={this.state}/>} />
         <Route exact path="/sign-up" render={(props)=><SignUp {...props} setUser={this.setUser} />} />

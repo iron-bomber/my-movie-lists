@@ -3,26 +3,33 @@ const router        = express.Router();
 const User          = require('../models/User');
 const Movie         = require('../models/Movie');
 const MovieReview   = require('../models/MovieReview');
+const isLoggedIn    = require('../middleware');
 
-router.get('/movie-list', async (req, res, next) => {
-    let theUser = await User.findById(req.body.user);
-    for (let movieListItem of theUser.movieList){
-        await movieListItem.populate('movie');
-        await movieListItem.populate('review');
+// Returns a user's friends list and pending requests
+router.get('/friends-list', isLoggedIn, async (req, res, next) => {
+    let theUser = await User.findById(req.user._id).populate('friends').populate('requests');
+    let social = {
+        friends: [],
+        requests: []
+    };
+    for (let friend of theUser.friends) {
+        social.friends.push({
+            _id: friend._id,
+            firstName: friend.firstName,
+            lastName:  friend.lastName,
+        })
     }
-    console.log(theUser.movieList);
-    res.json({movieList: theUser.movieList});
+    for (let request of theUser.requests) {
+        social.requests.push({
+            _id: request._id,
+            firstName: request.firstName,
+            lastName:  request.lastName,
+        })
+    }
+    res.json({social: social});
 })
 
-// router.get('/show-list', (req, res, next) => {
-
-// })
-
-// router.get('/friends-list', (req, res, next) => {
-
-// })
-
-router.post('/add-movie', async (req, res, next) => {
+router.post('/add-movie', isLoggedIn, async (req, res, next) => {
     // Stores new movie info
     let newMovie = {
         tmdbID: req.body.movie.id,
