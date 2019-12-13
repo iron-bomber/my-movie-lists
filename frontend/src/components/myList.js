@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import actions from '../services/index'
 import axios from 'axios';
 import {NavLink} from 'react-router-dom'
+import { loadPartialConfig } from '@babel/core';
 
 
 class MyList extends Component {
 
   state = {
-
+    movieList: false,
   }
 
   async componentDidMount() {
-    
+    if (this.props.user.movieList.length > 0){
+      this.setState({movieList: true});
+    }
   }
 
   updateValues = (e) =>{
@@ -32,7 +35,8 @@ class MyList extends Component {
   }
 
   showList = () =>{
-    return this.props.list.map((each, i)=>{
+    return this.props.user.movieList.map((each, i) => {
+      console.log(each);
       let movie = each.movie
       let review = each.review
       let status = each.status
@@ -43,7 +47,7 @@ class MyList extends Component {
         </div>
         <div className="my-list-item-header-div">
           <h1 className="my-list-item-header">
-              {movie.original_title} 
+              {movie.name} 
           </h1>
         </div>
       </div>
@@ -52,21 +56,29 @@ class MyList extends Component {
   }
 
   render() {
+  
     return (
-      
-      <div>
+    <div>
+      <NavLink to="/add">Add a movie</NavLink>
+      <button onClick={() => this.props.logOut(this.props.history)} >Log out</button>
       <nav>
         <button>All</button>
         <button>Watching</button>
         <button>Want to watch</button>
-        <NavLink to="/add">Add</NavLink>
-        <NavLink to="/log-in">login</NavLink>
-        <NavLink to="/sign-up">signup</NavLink>
       </nav>
-      <div>
-        {this.showList()}
-      </div>
-      </div>
+        <div>
+          {this.state.movieList &&
+          <div>
+            {this.showList()}
+          </div>
+          }
+          {!this.state.movieList &&
+            <div>
+              <h2>It looks like you don't currently have a list. Get to work!</h2>
+            </div>
+          }
+        </div>
+    </div>
     );
   }
 }

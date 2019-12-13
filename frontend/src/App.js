@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
-import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import styled, { css } from 'styled-components'
-import MyList from './components/myList';
+import Home from './components/home';
 import NotFound from './components/404/NotFound.js';
 import SignUp from './components/auth/SignUp';
 import LogIn from './components/auth/LogIn';
@@ -12,25 +12,31 @@ import Movie from './components/create-post'
 import Friends from './components/friends'
 import Feed from './components/feed'
 import Axios from 'axios';
+import Navbar from './components/navbar';
 
 
 class App extends Component {
-  state = { }
+  state = { 
+    user: null
+  }
   
   async componentDidMount() {
     let user = await actions.isLoggedIn()
-    this.setState({...user.data})
-    // let res = await actions.getList(user.data._id)
-    // this.setState({
-    //   list: res.list
-    // })
+    this.setState({
+      user: user.data
+    })
   }
 
-  setUser = (user) => this.setState(user)
+  setUser = (user) => {
+    this.setState({
+      user: user
+    })
+  }
   
-  logOut = async () => {
+  logOut = async (history) => {
     let res = await actions.logOut()
-    this.setUser({email:null, createdAt: null, updatedAt: null, _id: null }) //FIX 
+    this.setUser(null);
+    history.push('/');
   }
 
   testButton = async () => {
@@ -40,34 +46,19 @@ class App extends Component {
   }
 
   render(){
+    console.log('app.js 48 ', this.state.user)
     return (
       
     <BrowserRouter>
-      <nav className="ourbar">
-        <NavLink to="/" className="navbar-item">
-        <img src={require("./images/list.png")} className="navbar-icons"/>
-        </NavLink>
-      
-        <NavLink to="/my-feed" className="navbar-item">
-          <img src={require("./images/social.png")} className="navbar-icons"/>
-        </NavLink>
-
-        <NavLink to="/my-friends" className="navbar-item">
-          <img src={require("./images/user.png")} className="navbar-icons"/>
-        </NavLink>
-
-        <NavLink to ="/profile" className="navbar-item">
-            <img src={require("./images/cog.png")} className="navbar-icons"/>
-        </NavLink>
-      </nav>
-      {/* <button className="btn btn-success" onClick={this.testButton}>movie list</button> */}
+      <Navbar/>
+      <button className="btn btn-success" onClick={this.testButton}>movie list</button>
       <Switch>
-        <Route exact path="/" render={(props) => <MyList {...props} list = {this.state.list} user={this.state}/>} />
+        <Route exact path="/" render={(props) => <Home {...props} user={this.state.user} logOut={this.logOut} /> } />
         <Route exact path="/sign-up" render={(props)=><SignUp {...props} setUser={this.setUser} />} />
         <Route exact path="/log-in" render={(props) => <LogIn {...props} setUser={this.setUser}/>} />
-        <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state}/>} />
-        <Route exact path="/add" render={(props) => <SearchMovies {...props} user={this.state}/>} />
-        <Route exact path="/movies/:id" render={(props) => <Movie {...props} user={this.state}/>} />
+        <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state.user}/>} />
+        <Route exact path="/add" render={(props) => <SearchMovies {...props} user={this.state.user}/>} />
+        <Route exact path="/movies/:id" render={(props) => <Movie {...props} user={this.state.user}/>} />
         <Route exact path="/my-friends" render={(props) => <Friends {...props}/>} />
         <Route exact path="/my-feed" render={(props) => <Feed {...props}/>} />
 

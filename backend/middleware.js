@@ -6,8 +6,9 @@ Error Codes
 function isLoggedIn (req, res, next) {
     if (req.user) {
       return next();
+    } else {
+      return res.json(null);
     }
-    return res.json({error: 1}) ;
 }
 
 module.exports = isLoggedIn;

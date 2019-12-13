@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const passport = require('../config/passport');
+const isLoggedIn    = require('../middleware');
+
 
 router.post('/signup', (req, res, next) => {
   
@@ -42,7 +44,10 @@ router.post('/validEmail', (req, res, next) => {
 
 
 //return await service.get('/is-logged-in');
-router.get('/is-logged-in', (req, res, next) => {  
+router.get('/is-logged-in', isLoggedIn, async (req, res, next) => {
+  const user = await User.findById(req.user._id)
+    .populate('movieList.movie')
+    .populate('movieList.review')
   res.json(req.user)
 })
 

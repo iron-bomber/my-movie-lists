@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component';
 import actions from '../services/index'
+
+
 export default class CreatePost extends Component {
 
     state = {
