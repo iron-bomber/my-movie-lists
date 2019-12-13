@@ -25,6 +25,9 @@ const actions = {
   },
   addMovie: async (data) => {
     return await service.post('/add-movie', data);
+  },
+  updateRating: async (data) => {
+    return await service.post('/update-rating', data);
   }
 };
 

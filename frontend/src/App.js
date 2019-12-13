@@ -20,7 +20,11 @@ class App extends Component {
     user: null
   }
   
-  async componentDidMount() {
+  componentDidMount() {
+    this.updateData();
+  }
+
+  updateData = async () => {
     let user = await actions.isLoggedIn()
     if (user.data.error){
       this.setState({
@@ -61,12 +65,12 @@ class App extends Component {
       <Navbar/>
       <button className="btn btn-success" onClick={this.testButton}>movie list</button>
       <Switch>
-        <Route exact path="/" render={(props) => <Home {...props} user={this.state.user} logOut={this.logOut} /> } />
+        <Route exact path="/" render={(props) => <Home {...props} user={this.state.user} logOut={this.logOut} updateData={this.updateData} /> } />
         <Route exact path="/sign-up" render={(props)=><SignUp {...props} setUser={this.setUser} />} />
         <Route exact path="/log-in" render={(props) => <LogIn {...props} setUser={this.setUser}/>} />
         <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state.user}/>} />
-        <Route exact path="/add" render={(props) => <SearchMovies {...props} user={this.state.user}/>} />
-        <Route exact path="/movies/:id" render={(props) => <Movie {...props} user={this.state.user}/>} />
+        <Route exact path="/add" render={(props) => <SearchMovies {...props} user={this.state.user}  />} />
+        <Route exact path="/movies/:id" render={(props) => <Movie {...props} user={this.state.user} updateData={this.updateData} />} />
         <Route exact path="/my-friends" render={(props) => <Friends {...props}/>} />
         <Route exact path="/my-feed" render={(props) => <Feed {...props}/>} />
 

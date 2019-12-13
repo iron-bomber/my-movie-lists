@@ -5,6 +5,13 @@ const Movie         = require('../models/Movie');
 const MovieReview   = require('../models/MovieReview');
 const isLoggedIn    = require('../middleware');
 
+
+
+router.post('/update-rating', isLoggedIn, async (req, res, next) => {
+    let newMovieReview = await MovieReview.findByIdAndUpdate(req.body.id, { rating: req.body.rating }, {new: true});
+    return res.json(newMovieReview);
+})
+
 // Returns a user's friends list and pending requests
 router.get('/friends-list', isLoggedIn, async (req, res, next) => {
     let theUser = await User.findById(req.user._id).populate('friends').populate('requests');

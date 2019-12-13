@@ -68,6 +68,7 @@ export default class CreatePost extends Component {
             status: this.state.status
         }
         actions.addMovie(subData);
+        this.props.updateData();
         this.reroute();
     }
     

@@ -42,6 +42,21 @@ class MyList extends Component {
     this.setState({ratings: ratings, rating: null});
   }
 
+  updateRating = async (reviewId, i) => {
+    if (this.state.rating){
+      let updatedReview = {
+        id: reviewId,
+        rating: this.state.rating,
+      }
+      await actions.updateRating(updatedReview);
+      this.setState({
+        ratings: {}
+      }, () => {
+        this.props.updateData();
+      })
+    }
+  }
+
   onStarClick(nextValue, prevValue, name) {
     this.setState({rating: nextValue});
   }
@@ -73,23 +88,21 @@ class MyList extends Component {
             {review.rating &&
               <h4>Your rating: {review.rating}/10</h4>
             }
-            {!review.rating && !this.state.ratings[`rate${i}`] &&
+            {!review.rating && !this.state.ratings[review._id] &&
               <div>
                 <h6>You haven't rated this yet.</h6>
-                <button onClick={() => {this.openStarRater(`rate${i}`)}}>Rate it!</button>
+                <button onClick={() => {this.openStarRater(review._id, i)}}>Rate it!</button>
               </div>
             }
-            {this.state.ratings[`rate${i}`] &&
+            {this.state.ratings[review._id] &&
               <div>
-                <form>
                   <StarRatingComponent 
                           name={'rate'+i}
                           starCount={10}
                           value={this.state.rating}
                           onStarClick={this.onStarClick.bind(this)}
                   />
-                  <button>Rate it</button>
-                </form>
+                  <button onClick={() => {this.updateRating(review._id)}}>Rate it</button>
               </div>
             }
           </div>       
