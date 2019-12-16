@@ -53,7 +53,6 @@ class App extends Component {
   }
 
   render(){
-    console.log('app.js 48 ', this.state.user)
     return (
       
     <BrowserRouter>

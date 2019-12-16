@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component';
-import actions from '../services/index'
+import actions from '../services/index';
 
 
 export default class Show extends Component {
@@ -12,7 +12,8 @@ export default class Show extends Component {
         status: 'watching',
         epsSeen: null,
         watching: false,
-        season: 1,
+        season: "1",
+        episode: "1",
     }
 
     truncDate = (a) =>{
@@ -26,11 +27,9 @@ export default class Show extends Component {
                 show: res.data,
                 watching: true
             })
-            console.log(res.data)
             axios.get(`https://image.tmdb.org/t/p/w500${res.data.poster_path}`)
             // axios.get(`https://image.tmdb.org/t/p/w500/ZQixhAZx6fH1VNafFXsqa1B8QI.jpg`)
             .then((res2)=>{
-                console.log(res2)
                 this.setState({
                     poster: res2.config.url
                 })
@@ -48,10 +47,16 @@ export default class Show extends Component {
         let watching = true;
         if (e.target.name === 'status' && e.target.value !== 'watching'){
             watching = false;
+        } else if (e.target.name === 'season') {
+            this.setState({
+                episode: "1"
+            })
         }
         this.setState({
             [e.target.name]: e.target.value,
             watching: watching
+        }, () => {
+            console.log(this.state)
         })
     }
 
@@ -75,7 +80,8 @@ export default class Show extends Component {
             user: this.props.user._id,
             img: this.state.poster,
             status: this.state.status,
-            epsSeen: this.state.epsSeen
+            season: this.state.season,
+            episode: this.state.episode
         }
         actions.addShow(subData);
         this.props.updateData();
@@ -106,20 +112,28 @@ export default class Show extends Component {
             </option>
             )
         })
-        console.log(seasons);
         return seasons
     }
 
     displayEpisodes = () => {
-        console.log('seasons ', this.state.show.seasons, 'season', this.state.season)
         let season = this.state.show.seasons.find( season => season.season_number == this.state.season)
         let episodes = [];
         for (let i = 1; i <= season.episode_count; i++){
-            episodes.push(
-                <option value={i}>
+            if(i == this.state.episode){
+                console.log('yes!', i)
+                episodes.push(
+                    <option value={i} selected={true}>
+                        Episode {i}
+                    </option>
+                )
+            } else{
+
+                episodes.push(
+                    <option value={i}>
                     Episode {i}
                 </option>
             )
+        }
         }
         return episodes;
     }
