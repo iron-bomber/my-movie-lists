@@ -123,3 +123,11 @@ code {
 .movie-list-item{
   margin-bottom: 20px;
 }
+
+.not-a-button{
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  text-decoration: underline;
+  cursor: pointer;
+}

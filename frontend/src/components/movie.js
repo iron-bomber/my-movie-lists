@@ -22,11 +22,9 @@ export default class Movie extends Component {
             this.setState({
                 movie: res.data
             })
-            console.log(res.data)
             axios.get(`https://image.tmdb.org/t/p/w500${res.data.poster_path}`)
             // axios.get(`https://image.tmdb.org/t/p/w500/ZQixhAZx6fH1VNafFXsqa1B8QI.jpg`)
             .then((res2)=>{
-                console.log(res2)
                 this.setState({
                     poster: res2.config.url
                 })
@@ -56,7 +54,6 @@ export default class Movie extends Component {
     }
 
     submitForm = async (e) =>{
-        console.log('theform')
         e.preventDefault()
         if(!this.props.user._id){
             this.props.history.push('/')
@@ -70,7 +67,6 @@ export default class Movie extends Component {
             status: this.state.status
         }
         let newMovie = actions.addMovie(subData);
-        console.log(newMovie);
         this.reroute();
     }
     

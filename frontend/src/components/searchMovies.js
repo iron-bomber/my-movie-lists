@@ -78,7 +78,7 @@ export default class add extends Component {
               </div>
               {this.state.results &&
                 <div>
-                  <DisplayMovies state = {this.state} />
+                  <DisplayMovies state = {this.state} user={this.props.user} />
                 </div>
               }
             </div>

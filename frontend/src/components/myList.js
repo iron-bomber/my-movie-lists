@@ -80,16 +80,6 @@ class MyList extends Component {
         backgroundPosition: 'center'
       };
       return (
-      // <div className="my-list-item">
-      //   <div className="listing-img">
-      //       <img src={movie.img} alt="img" className="poster-size"/>
-      //   </div>
-      //   <div className="my-list-item-header-div">
-      //     <h1 className="my-list-item-header">
-      //         {movie.name} 
-      //     </h1>
-      //   </div>
-      // </div>
       <div className="singlebubble" style={sectionStyle}>
       <div className="bubble-bg">
 
