@@ -72,13 +72,13 @@ export default class add extends Component {
                       <option value="movie">Movies</option>
                       <option value="tv">Shows</option>
                   </select>
-                  <input type="text" className="form-control" name="search" placeholder="Search" onChange={this.updateValues} />
+                  <input type="text" className="form-control" name="search" placeholder="Search" autocomplete="off" onChange={this.updateValues} />
                   <button type="submit" className="btn"><FaSearch/></button>
                 </form>
               </div>
               {this.state.results &&
                 <div>
-                  <DisplayMovies state = {this.state} />
+                  <DisplayMovies state = {this.state} user={this.props.user} />
                 </div>
               }
             </div>

@@ -17,16 +17,37 @@ export default class Movie extends Component {
     }
 
     componentDidMount(){
+        this.apiGets()
+        this.checkStatus()
+    }
+
+    checkStatus = () =>{
+        console.log('hi', this.props.user)
+        if(this.props.user){
+            let ok = this.props.user.movieList.find((each)=>{
+                return each.movie.tmdbID == this.props.match.params.id
+            })
+            if(ok){
+                console.log(ok)
+                this.setState({
+                    rating: ok.review.rating,
+                    review: ok.review.review,
+                    status: ok.status
+                })
+            }
+        }
+        
+    }
+
+    apiGets = () =>{
         axios.get(`https://api.themoviedb.org/3/movie/${this.props.match.params.id}?api_key=4e7508386ba64e46c3202cad3c021203&language=en-US&page=1&include_adult=false`)
         .then((res)=>{
             this.setState({
                 movie: res.data
             })
-            console.log(res.data)
             axios.get(`https://image.tmdb.org/t/p/w500${res.data.poster_path}`)
             // axios.get(`https://image.tmdb.org/t/p/w500/ZQixhAZx6fH1VNafFXsqa1B8QI.jpg`)
             .then((res2)=>{
-                console.log(res2)
                 this.setState({
                     poster: res2.config.url
                 })
@@ -56,7 +77,6 @@ export default class Movie extends Component {
     }
 
     submitForm = async (e) =>{
-        console.log('theform')
         e.preventDefault()
         if(!this.props.user._id){
             this.props.history.push('/')
@@ -111,7 +131,7 @@ export default class Movie extends Component {
                 <div>
                     <h2>What did you think of it?</h2>
                     <br />
-                    <textarea className="review-input" name="review" onChange={this.handleChange}/>
+                    <textarea className="review-input" name="review" value={this.state.review} onChange={this.handleChange}/>
                 </div>
                 <div>
                     <button className="submit-rating" onClick={this.submitForm}>
