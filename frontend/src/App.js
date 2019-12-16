@@ -5,11 +5,12 @@ import Home from './components/home';
 import NotFound from './components/404/NotFound.js';
 import SignUp from './components/auth/SignUp';
 import LogIn from './components/auth/LogIn';
-import Profile from './components/profile/Profile'
-import actions from './services/index'
-import SearchMovies from './components/searchMovies'
-import Movie from './components/create-post'
-import Friends from './components/friends'
+import Profile from './components/profile/Profile';
+import actions from './services/index';
+import SearchMovies from './components/searchMovies';
+import Movie from './components/movie';
+import Show from './components/show';
+import Friends from './components/friends';
 import Feed from './components/feed'
 import Axios from 'axios';
 import Navbar from './components/navbar';
@@ -51,26 +52,20 @@ class App extends Component {
     history.push('/');
   }
 
-  testButton = async () => {
-    console.log('33 ', this.state._id);
-    let theMovies = await actions.getMovies({theId: this.state._id});
-    console.log(theMovies);
-  }
-
   render(){
     console.log('app.js 48 ', this.state.user)
     return (
       
     <BrowserRouter>
       <Navbar/>
-      <button className="btn btn-success" onClick={this.testButton}>movie list</button>
       <Switch>
         <Route exact path="/" render={(props) => <Home {...props} user={this.state.user} logOut={this.logOut} updateData={this.updateData} /> } />
         <Route exact path="/sign-up" render={(props)=><SignUp {...props} setUser={this.setUser} />} />
         <Route exact path="/log-in" render={(props) => <LogIn {...props} setUser={this.setUser}/>} />
         <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state.user}/>} />
         <Route exact path="/add" render={(props) => <SearchMovies {...props} user={this.state.user}  />} />
-        <Route exact path="/movies/:id" render={(props) => <Movie {...props} user={this.state.user} updateData={this.updateData} />} />
+        <Route exact path="/movie/:id" render={(props) => <Movie {...props} user={this.state.user} updateData={this.updateData} />} />
+        <Route exact path="/tv/:id" render={(props) => <Show {...props} user={this.state.user} updateData={this.updateData} />} />
         <Route exact path="/my-friends" render={(props) => <Friends {...props}/>} />
         <Route exact path="/my-feed" render={(props) => <Feed {...props}/>} />
 

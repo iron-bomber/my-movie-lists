@@ -6,8 +6,11 @@ const MovieReviewSchema = new Schema(
         rating: {type: Number, default: null},
         review: {type: String, default: null},
         movie: {type: Schema.Types.ObjectId, ref: "Movie"},
-        user: {type: Schema.Types.ObjectId, ref: "User"},
-        dateAdded: {type: Date, default: Date()}
+        user: {type: Schema.Types.ObjectId, ref: "User"}
+    },
+    {
+        timestamps: true,
+        versionKey: false
     }
 );
 
