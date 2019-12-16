@@ -5,6 +5,7 @@ import {NavLink} from 'react-router-dom'
 import { loadPartialConfig } from '@babel/core';
 import StarRatingComponent from 'react-star-rating-component';
 import listcss from '../css/listcss.css'
+import {Link} from 'react-router-dom'
 
 
 class MyList extends Component {
@@ -45,11 +46,6 @@ class MyList extends Component {
   }
 
   updateRating = async (reviewId, i) => {
-    let renderRating = this.state.renderRating
-    renderRating[reviewId] = true;
-    this.setState({
-      renderRating: renderRating
-    })
     if (this.state.rating){
       let updatedReview = {
         id: reviewId,
@@ -92,14 +88,22 @@ class MyList extends Component {
       //     </h1>
       //   </div>
       // </div>
-      <div className="singlebubble" style={sectionStyle}>
+      <Link to={"/movie/"+ movie.tmdbID}className="singlebubble" style={sectionStyle}>
       <div className="bubble-bg">
 
       </div>
           <div className="bubble-info">
             <p className="bubble-header">{movie.name}</p>
             {review.rating &&
-              <p className="bubble-rating">{review.rating}/10</p>
+              <p className="bubble-rating">
+              <StarRatingComponent 
+                          starCount={1}
+                          value={1}
+                          onStarClick={this.onStarClick.bind(this)}
+                          className="list-star"
+                  />
+              {review.rating} 
+              </p>
             }
             {!review.rating && 
             !this.state.ratings[review._id] &&
@@ -121,7 +125,7 @@ class MyList extends Component {
               </div>
             }
           </div>       
-        </div>
+        </Link>
       )
     })
   }
