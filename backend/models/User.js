@@ -17,7 +17,8 @@ const userSchema = new Schema(
       show: {type: Schema.Types.ObjectId, ref: "Show"},
       review: {type: Schema.Types.ObjectId, ref: "ShowReview"},
       status: String,
-      epsSeen: Number,
+      currentSeason: Number,
+      currentEpisode: Number
     }]
   },
   {

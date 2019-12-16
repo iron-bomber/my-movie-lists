@@ -51,10 +51,12 @@ export default class Movie extends Component {
     }
 
     reroute = () =>{
+        this.props.updateData();
         this.props.history.push('/')
     }
 
-    submitForm = (e) =>{
+    submitForm = async (e) =>{
+        console.log('theform')
         e.preventDefault()
         if(!this.props.user._id){
             this.props.history.push('/')
@@ -67,8 +69,8 @@ export default class Movie extends Component {
             img: this.state.poster,
             status: this.state.status
         }
-        actions.addMovie(subData);
-        this.props.updateData();
+        let newMovie = actions.addMovie(subData);
+        console.log(newMovie);
         this.reroute();
     }
     

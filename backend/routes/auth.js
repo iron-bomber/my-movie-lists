@@ -45,7 +45,6 @@ router.post('/validEmail', (req, res, next) => {
 
 //return await service.get('/is-logged-in');
 router.get('/is-logged-in', isLoggedIn, async (req, res, next) => {
-  console.log(req.user);
   const user = await User.findById(req.user._id)
     .populate('movieList.movie')
     .populate('movieList.review')

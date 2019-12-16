@@ -68,16 +68,6 @@ class MyList extends Component {
       let review = each.review
       let status = each.status
       return (
-      // <div className="my-list-item">
-      //   <div className="listing-img">
-      //       <img src={movie.img} alt="img" className="poster-size"/>
-      //   </div>
-      //   <div className="my-list-item-header-div">
-      //     <h1 className="my-list-item-header">
-      //         {movie.name} 
-      //     </h1>
-      //   </div>
-      // </div>
       <div className="col-12 movie-list-item">
         <div className="row">
           <div className="col-2 offset-4 offset-md-0">

@@ -55,8 +55,6 @@ export default class Show extends Component {
         this.setState({
             [e.target.name]: e.target.value,
             watching: watching
-        }, () => {
-            console.log(this.state)
         })
     }
 
@@ -114,13 +112,11 @@ export default class Show extends Component {
         })
         return seasons
     }
-
     displayEpisodes = () => {
         let season = this.state.show.seasons.find( season => season.season_number == this.state.season)
         let episodes = [];
         for (let i = 1; i <= season.episode_count; i++){
             if(i == this.state.episode){
-                console.log('yes!', i)
                 episodes.push(
                     <option value={i} selected={true}>
                         Episode {i}

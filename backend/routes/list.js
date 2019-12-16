@@ -3,12 +3,15 @@ const router        = express.Router();
 const User          = require('../models/User');
 const Movie         = require('../models/Movie');
 const MovieReview   = require('../models/MovieReview');
+const Show         = require('../models/Show');
+const ShowReview   = require('../models/ShowReview');
 const isLoggedIn    = require('../middleware');
 
 
 
 router.post('/add-show', isLoggedIn, async (req, res, next) => {
     // Stores new show info
+    console.log('adding show')
     let newShow = {
         tmdbID: req.body.show.id,
         name: req.body.show.name,
@@ -29,7 +32,6 @@ router.post('/add-show', isLoggedIn, async (req, res, next) => {
         rating: req.body.rating,
         review: req.body.review,
         show: dbShow._id,
-
         user: req.body.user
     };
     // Checks to see if user already has a review, adds it to db if it isn't
@@ -42,7 +44,8 @@ router.post('/add-show', isLoggedIn, async (req, res, next) => {
         show: dbShow._id,
         review: dbReview._id,
         status: req.body.status,
-        epsSeen: req.body.epsSeen
+        currentSeason: req.body.season,
+        currentEpisode: req.body.episode
     };
     let userReview = await User.findOne({$and : [{_id: req.body.user}, {'showList.show': showListItem.show}]});
     if (!userReview){
@@ -120,9 +123,6 @@ router.post('/add-movie', isLoggedIn, async (req, res, next) => {
     };
     let userReview = await User.findOne({$and : [{_id: req.body.user}, {'movieList.movie': movieListItem.movie}]});
     if (!userReview){
-        // let theUser = await User.findById(req.body.user);
-        // theUser.movieList.push(movieListItem);
-        // User.findByIdAndUpdate(req.body.user, theUser);
         let updatedList = await User.updateOne({'_id': req.body.user}, {
             $push: { movieList: movieListItem }
         });
