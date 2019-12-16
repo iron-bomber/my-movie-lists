@@ -24,7 +24,7 @@ const actions = {
     return await service.post('/validEmail', email);
   },
   addMovie: async (data) => {
-    return await service.post('/add-movie', data);
+    return service.post('/add-movie', data);
   },
   updateRating: async (data) => {
     return await service.post('/update-rating', data);

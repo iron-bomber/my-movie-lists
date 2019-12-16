@@ -69,8 +69,8 @@ export default class Movie extends Component {
             img: this.state.poster,
             status: this.state.status
         }
-        let newMovie = actions.addMovie(subData);
-        console.log(newMovie);
+        let newMovie = await actions.addMovie(subData);
+        console.log(newMovie, "ok");
         this.reroute();
     }
     

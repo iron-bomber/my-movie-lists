@@ -126,6 +126,7 @@ router.post('/add-movie', isLoggedIn, async (req, res, next) => {
         let updatedList = await User.updateOne({'_id': req.body.user}, {
             $push: { movieList: movieListItem }
         });
+        res.json(updatedList)
     }
 })
 
