@@ -17,6 +17,31 @@ export default class Movie extends Component {
     }
 
     componentDidMount(){
+        this.apiGets()
+        this.checkStatus()
+    }
+
+    checkStatus = () =>{
+        console.log('hi', this.props.user)
+        if(this.props.user){
+            let ok = this.props.user.movieList.find((each)=>{
+                return each.movie.tmdbID == this.props.match.params.id
+            })
+            if(ok){
+                console.log(ok)
+                this.setState({
+                    rating: ok.review.rating,
+                    review: ok.review.review,
+                    status: ok.status,
+                    found: true,
+                    id: ok.review._id
+                })
+            }
+        }
+        
+    }
+
+    apiGets = () =>{
         axios.get(`https://api.themoviedb.org/3/movie/${this.props.match.params.id}?api_key=4e7508386ba64e46c3202cad3c021203&language=en-US&page=1&include_adult=false`)
         .then((res)=>{
             this.setState({
@@ -66,8 +91,24 @@ export default class Movie extends Component {
             img: this.state.poster,
             status: this.state.status
         }
-        let newMovie = actions.addMovie(subData);
-        this.reroute();
+        if(this.state.found){
+            let review = {
+                review: this.state.review,
+                id: this.state.id
+            }
+            let rating = {
+                rating: this.state.rating,
+                id: this.state.id
+            }
+            let stuff = await actions.updateReview(review)
+            let go = await actions.updateRating(rating)
+            console.log(stuff)
+            this.reroute();
+        }else{
+            let newMovie = await actions.addMovie(subData);
+            console.log(newMovie, "ok");
+            this.reroute();
+        }
     }
     
     render() {
@@ -107,7 +148,7 @@ export default class Movie extends Component {
                 <div>
                     <h2>What did you think of it?</h2>
                     <br />
-                    <textarea className="review-input" name="review" onChange={this.handleChange}/>
+                    <textarea className="review-input" name="review" value={this.state.review} onChange={this.handleChange}/>
                 </div>
                 <div>
                     <button className="submit-rating" onClick={this.submitForm}>

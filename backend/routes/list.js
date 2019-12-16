@@ -79,6 +79,12 @@ router.post('/update-rating', isLoggedIn, async (req, res, next) => {
     return res.json(newMovieReview);
 })
 
+router.post('/update-review', isLoggedIn, async (req, res, next) => {
+    console.log(req, "65")
+    let newMovieReview = await MovieReview.findByIdAndUpdate(req.body.id, { review: req.body.review }, {new: true});
+    return res.json(newMovieReview);
+})
+
 // Returns a user's friends list and pending requests
 router.get('/friends-list', isLoggedIn, async (req, res, next) => {
     let theUser = await User.findById(req.user._id).populate('friends').populate('requests');
@@ -144,6 +150,7 @@ router.post('/add-movie', isLoggedIn, async (req, res, next) => {
         let updatedList = await User.updateOne({'_id': req.body.user}, {
             $push: { movieList: movieListItem }
         });
+        res.json(updatedList)
     }
 })
 

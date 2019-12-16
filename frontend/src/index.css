@@ -50,11 +50,14 @@ code {
 
 .description{
   text-align: left;
-  width: 90%;
   height: auto;
-  background-color: lightblue;
+  background-color: #edc7b7;
   padding: 8px;
   margin: 8px;
+  margin-bottom: 16px !important;
+  -moz-box-shadow: 5px 5px 5px rgb(112, 112, 112);
+  -webkit-box-shadow: 5px 5px 5px rgb(112, 112, 112);
+  box-shadow: 5px 5px 5px rgb(112, 112, 112);
 }
 
 .navbar-icons{

@@ -29,6 +29,9 @@ const actions = {
   updateRating: async (data) => {
     return await service.post('/update-rating', data);
   },
+  updateReview: async (data) => {
+    return await service.post('/update-review', data);
+  },
   addShow: async (data) => {
     return await service.post('/add-show', data);
   },
