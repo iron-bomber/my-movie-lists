@@ -12,7 +12,7 @@ class MyList extends Component {
   state = {
     movieList: false,
     ratings: {},
-    renderRating: {},
+    loading: {},
   }
 
   async componentDidMount() {
@@ -45,22 +45,20 @@ class MyList extends Component {
   }
 
   updateRating = async (reviewId, i) => {
-    let renderRating = this.state.renderRating
-    renderRating[reviewId] = true;
-    this.setState({
-      renderRating: renderRating
-    })
     if (this.state.rating){
+      let loading = {};
+      loading[i] = true;
+      await this.setState({loading: loading});
       let updatedReview = {
         id: reviewId,
         rating: this.state.rating,
       }
       await actions.updateRating(updatedReview);
-      this.setState({
-        ratings: {}
-      }, () => {
-        this.props.updateData();
-      })
+      await this.props.updateData();
+      await this.setState({
+        ratings: {},
+        loading: {},
+      }) 
     }
   }
 
@@ -101,9 +99,7 @@ class MyList extends Component {
             {review.rating &&
               <p className="bubble-rating">{review.rating}/10</p>
             }
-            {!review.rating && 
-            !this.state.ratings[review._id] &&
-            !this.state.renderRating[this.ID] &&
+            {!review.rating && !this.state.ratings[review._id] && !this.state.loading[review._id] &&
               <div>
                 <h6>You haven't rated this yet.</h6>
                 <button onClick={() => {this.openStarRater(review._id, i)}}>Rate it!</button>
