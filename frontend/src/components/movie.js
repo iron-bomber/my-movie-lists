@@ -32,7 +32,9 @@ export default class Movie extends Component {
                 this.setState({
                     rating: ok.review.rating,
                     review: ok.review.review,
-                    status: ok.status
+                    status: ok.status,
+                    found: true,
+                    id: ok.review._id
                 })
             }
         }
@@ -89,9 +91,24 @@ export default class Movie extends Component {
             img: this.state.poster,
             status: this.state.status
         }
-        let newMovie = await actions.addMovie(subData);
-        console.log(newMovie, "ok");
-        this.reroute();
+        if(this.state.found){
+            let review = {
+                review: this.state.review,
+                id: this.state.id
+            }
+            let rating = {
+                rating: this.state.rating,
+                id: this.state.id
+            }
+            let stuff = await actions.updateReview(review)
+            let go = await actions.updateRating(rating)
+            console.log(stuff)
+            this.reroute();
+        }else{
+            let newMovie = await actions.addMovie(subData);
+            console.log(newMovie, "ok");
+            this.reroute();
+        }
     }
     
     render() {

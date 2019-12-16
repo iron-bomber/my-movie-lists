@@ -24,14 +24,17 @@ const actions = {
     return await service.post('/validEmail', email);
   },
   addMovie: async (data) => {
-    return service.post('/add-movie', data);
+    return await service.post('/add-movie', data);
   },
   updateRating: async (data) => {
     return await service.post('/update-rating', data);
   },
+  updateReview: async (data) => {
+    return await service.post('/update-review', data);
+  },
   addShow: async (data) => {
     return await service.post('/add-show', data);
-  }
+  },
 };
 
 export default actions;
