@@ -1,0 +1,53 @@
+.singlebubble{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    height: 200px;
+    width: 45%;
+    margin: 10px 0px;
+    border-radius: 5px;
+}
+
+.bubble-bg{
+    opacity: 70%;
+    background-color: black;
+    height: 50px;
+    width: 100%;
+    border-bottom: 1px solid black;
+    border-radius: 5px;
+}
+
+.bubble-info{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 50px;
+    color: white;
+}
+
+.bubble-info p{
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bubble-header{
+    width: 70%;
+    height: auto;
+    text-overflow: ellipsis;
+}
+
+.bubble-rating{
+    width: 30%;
+    height: auto
+}
+
+.row{
+    display: flex;
+    justify-content: space-around;
+}
