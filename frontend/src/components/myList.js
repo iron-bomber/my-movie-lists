@@ -4,6 +4,7 @@ import axios from 'axios';
 import {NavLink} from 'react-router-dom'
 import { loadPartialConfig } from '@babel/core';
 import StarRatingComponent from 'react-star-rating-component';
+import listcss from '../css/listcss.css'
 
 
 class MyList extends Component {
@@ -11,6 +12,7 @@ class MyList extends Component {
   state = {
     movieList: false,
     ratings: {},
+    renderRating: {},
   }
 
   async componentDidMount() {
@@ -43,6 +45,11 @@ class MyList extends Component {
   }
 
   updateRating = async (reviewId, i) => {
+    let renderRating = this.state.renderRating
+    renderRating[reviewId] = true;
+    this.setState({
+      renderRating: renderRating
+    })
     if (this.state.rating){
       let updatedReview = {
         id: reviewId,
@@ -67,18 +74,36 @@ class MyList extends Component {
       let movie = each.movie
       let review = each.review
       let status = each.status
+      var sectionStyle = {
+        // height: "300px",
+        // width: "auto",
+        backgroundImage: `url('${movie.img}')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      };
       return (
-      <div className="col-12 movie-list-item">
-        <div className="row">
-          <div className="col-2 offset-4 offset-md-0">
-            <img src={movie.img} alt="img" className="poster-size"/>
-          </div>
-          <div className="col-4 text-left">
-            <h2>{movie.name}</h2>
+      // <div className="my-list-item">
+      //   <div className="listing-img">
+      //       <img src={movie.img} alt="img" className="poster-size"/>
+      //   </div>
+      //   <div className="my-list-item-header-div">
+      //     <h1 className="my-list-item-header">
+      //         {movie.name} 
+      //     </h1>
+      //   </div>
+      // </div>
+      <div className="singlebubble" style={sectionStyle}>
+      <div className="bubble-bg">
+
+      </div>
+          <div className="bubble-info">
+            <p className="bubble-header">{movie.name}</p>
             {review.rating &&
-              <h4>Your rating: {review.rating}/10</h4>
+              <p className="bubble-rating">{review.rating}/10</p>
             }
-            {!review.rating && !this.state.ratings[review._id] &&
+            {!review.rating && 
+            !this.state.ratings[review._id] &&
+            !this.state.renderRating[this.ID] &&
               <div>
                 <h6>You haven't rated this yet.</h6>
                 <button onClick={() => {this.openStarRater(review._id, i)}}>Rate it!</button>
@@ -97,7 +122,6 @@ class MyList extends Component {
             }
           </div>       
         </div>
-      </div>
       )
     })
   }
