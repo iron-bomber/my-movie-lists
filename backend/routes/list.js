@@ -9,9 +9,26 @@ const isLoggedIn    = require('../middleware');
 
 
 
+
+
+router.post('/remove-show', isLoggedIn, async (req, res, next) => {
+    let theShowObject = await Show.findOne({tmdbID: req.body.showId});
+    await User.update({_id: req.user._id}, {$pull: {showList: {show: theShowObject._id} } });
+    let deletedReview = await ShowReview.deleteOne({$and : [{'user': req.user._id}, {show: theShowObject._id}]});
+    res.json(deletedReview);
+})
+
+router.post('/remove-movie', isLoggedIn, async (req, res, next) => {
+    let theMovieObject = await Movie.findOne({tmdbID: req.body.movieId});
+    await User.update({_id: req.user._id}, {$pull: {movieList: {movie: theMovieObject._id} } });
+    let deletedReview = await MovieReview.deleteOne({$and : [{'user': req.user._id}, {movie: theMovieObject._id}]});
+    res.json(deletedReview);
+})
+
+
+// Adds a show to your show list
 router.post('/add-show', isLoggedIn, async (req, res, next) => {
     // Stores new show info
-    console.log('adding show')
     let newShow = {
         tmdbID: req.body.show.id,
         name: req.body.show.name,
@@ -52,6 +69,7 @@ router.post('/add-show', isLoggedIn, async (req, res, next) => {
         let updatedList = await User.updateOne({'_id': req.body.user}, {
             $push: { showList: showListItem }
         });
+        res.json(updatedList);
     }
 })
 

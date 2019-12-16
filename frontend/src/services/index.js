@@ -31,6 +31,12 @@ const actions = {
   },
   addShow: async (data) => {
     return await service.post('/add-show', data);
+  },
+  removeShow: async showId => {
+    return await service.post('/remove-show', {showId: showId});
+  },
+  removeMovie: async movieId => {
+    return await service.post('/remove-movie', {movieId: movieId});
   }
 };
 

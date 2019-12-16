@@ -56,7 +56,7 @@ export default class Movie extends Component {
     submitForm = async (e) =>{
         e.preventDefault()
         if(!this.props.user._id){
-            this.props.history.push('/')
+            this.props.history.push('/log-in')
         }
         let subData = {
             rating: this.state.rating,

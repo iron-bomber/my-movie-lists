@@ -81,9 +81,6 @@ class MyList extends Component {
         backgroundPosition: 'center'
       };
       return (
-<<<<<<< HEAD
-      <div className="singlebubble" style={sectionStyle}>
-=======
       // <div className="my-list-item">
       //   <div className="listing-img">
       //       <img src={movie.img} alt="img" className="poster-size"/>
@@ -95,7 +92,6 @@ class MyList extends Component {
       //   </div>
       // </div>
       <Link to={"/movie/"+ movie.tmdbID}className="singlebubble" style={sectionStyle}>
->>>>>>> eb721b2f3270c95e4b127d2c4bb60c6498bcb0ee
       <div className="bubble-bg">
 
       </div>

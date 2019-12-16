@@ -62,7 +62,7 @@ class App extends Component {
         <Route exact path="/sign-up" render={(props)=><SignUp {...props} setUser={this.setUser} />} />
         <Route exact path="/log-in" render={(props) => <LogIn {...props} setUser={this.setUser}/>} />
         <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state.user}/>} />
-        <Route exact path="/add" render={(props) => <SearchMovies {...props} user={this.state.user}  />} />
+        <Route exact path="/add" render={(props) => <SearchMovies {...props} user={this.state.user} updateData={this.updateData}  />} />
         <Route exact path="/movie/:id" render={(props) => <Movie {...props} user={this.state.user} updateData={this.updateData} />} />
         <Route exact path="/tv/:id" render={(props) => <Show {...props} user={this.state.user} updateData={this.updateData} />} />
         <Route exact path="/my-friends" render={(props) => <Friends {...props}/>} />
