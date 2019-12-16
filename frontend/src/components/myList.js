@@ -5,6 +5,7 @@ import {NavLink} from 'react-router-dom'
 import { loadPartialConfig } from '@babel/core';
 import StarRatingComponent from 'react-star-rating-component';
 import listcss from '../css/listcss.css'
+import {Link} from 'react-router-dom'
 
 
 class MyList extends Component {
@@ -80,14 +81,36 @@ class MyList extends Component {
         backgroundPosition: 'center'
       };
       return (
+<<<<<<< HEAD
       <div className="singlebubble" style={sectionStyle}>
+=======
+      // <div className="my-list-item">
+      //   <div className="listing-img">
+      //       <img src={movie.img} alt="img" className="poster-size"/>
+      //   </div>
+      //   <div className="my-list-item-header-div">
+      //     <h1 className="my-list-item-header">
+      //         {movie.name} 
+      //     </h1>
+      //   </div>
+      // </div>
+      <Link to={"/movie/"+ movie.tmdbID}className="singlebubble" style={sectionStyle}>
+>>>>>>> eb721b2f3270c95e4b127d2c4bb60c6498bcb0ee
       <div className="bubble-bg">
 
       </div>
           <div className="bubble-info">
             <p className="bubble-header">{movie.name}</p>
             {review.rating &&
-              <p className="bubble-rating">{review.rating}/10</p>
+              <p className="bubble-rating">
+              <StarRatingComponent 
+                          starCount={1}
+                          value={1}
+                          onStarClick={this.onStarClick.bind(this)}
+                          className="list-star"
+                  />
+              {review.rating} 
+              </p>
             }
             {!review.rating && !this.state.ratings[review._id] && !this.state.loading[review._id] &&
               <div>
@@ -107,7 +130,7 @@ class MyList extends Component {
               </div>
             }
           </div>       
-        </div>
+        </Link>
       )
     })
   }

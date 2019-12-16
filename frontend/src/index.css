@@ -5,6 +5,8 @@ body {
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #eee2dc;
+  /* background-color: #eee2dc; */
 }
 
 code {
@@ -22,7 +24,19 @@ code {
 .navbar-item{
   width: 25%;
   height: 100%;
-  border: 1px solid black;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  background-color: #123c69;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.last-navbar-item{
+  width: 25%;
+  height: 100%;
+  border-bottom: 2px solid black;
+  background-color: #123c69;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,11 +60,12 @@ code {
 .navbar-icons{
   height: 80%;
   width: auto;
+  color: #edc7b7
 }
 
 .poster-size{
   width: auto;
-  height: 100px;
+  height: 200px;
 }
 
 .listing-img{
