@@ -3,11 +3,14 @@ const Schema = mongoose.Schema
 
 const showSchema = new Schema(
     {
-        epsSeen: Number,
-        rating: Number,
-        review: String,
-        show: {type: Schema.Types.ObjectId, ref: "Show"},
-        user: {type: Schema.Types.ObjectId, ref: "User"}
+        tmdbID: String,
+        name: String,
+        img: String,
+        plot: String,
+        number_of_episodes: Number,
+        number_of_seasons: Number,
+        first_air_date: String,
+        genres: Array
     }
 );
 

@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component';
 import actions from '../services/index'
-export default class CreatePost extends Component {
+
+
+export default class Movie extends Component {
 
     state = {
         rating: null,
         review: '',
-        status: 'Completed',
+        status: 'completed',
     }
 
     truncDate = (a) =>{
@@ -53,11 +55,10 @@ export default class CreatePost extends Component {
     }
 
     submitForm = (e) =>{
+        e.preventDefault()
         if(!this.props.user._id){
             this.props.history.push('/')
         }
-        e.preventDefault()
-
         let subData = {
             rating: this.state.rating,
             review: this.state.review,
@@ -66,8 +67,9 @@ export default class CreatePost extends Component {
             img: this.state.poster,
             status: this.state.status
         }
-        actions.addMovie(subData)
-        console.log(subData)
+        actions.addMovie(subData);
+        this.props.updateData();
+        this.reroute();
     }
     
     render() {
@@ -93,8 +95,8 @@ export default class CreatePost extends Component {
                 }
                 <div>
                 <select onChange={this.handleChange} name="status">
-                    <option>Completed</option>
-                    <option>To-watch</option>
+                    <option value="completed">Completed</option>
+                    <option value="want-to-watch">Wanna watch</option>
                 </select>
                     <h2>Rate It</h2>
                     <StarRatingComponent 
@@ -105,7 +107,7 @@ export default class CreatePost extends Component {
                     />
                 </div>
                 <div>
-                    <h2>Leave your thoughts</h2>
+                    <h2>What did you think of it?</h2>
                     <br />
                     <textarea className="review-input" name="review" onChange={this.handleChange}/>
                 </div>

@@ -3,27 +3,87 @@ const router        = express.Router();
 const User          = require('../models/User');
 const Movie         = require('../models/Movie');
 const MovieReview   = require('../models/MovieReview');
+const isLoggedIn    = require('../middleware');
 
-router.get('/movie-list', async (req, res, next) => {
-    console.log(req)
-    let theUser = await User.findById(req.body.user);
-    for (let movieListItem of theUser.movieList){
-        await movieListItem.populate('movie');
-        await movieListItem.populate('review');
+
+
+router.post('/add-show', isLoggedIn, async (req, res, next) => {
+    // Stores new show info
+    let newShow = {
+        tmdbID: req.body.show.id,
+        name: req.body.show.name,
+        img: req.body.img,
+        plot: req.body.show.overview,
+        number_of_episodes: req.body.show.number_of_episodes,
+        number_of_seasons: req.body.show.number_of_seasons,
+        first_air_date: req.body.show.first_air_date,
+        genres: req.body.show.genres
+    };
+    // Checks to see if show is already in db, adds it to db if it isn't
+    let dbShow = await Show.findOne({"tmdbID": newShow.tmdbID});
+    if (!dbShow) {
+        dbShow = await Show.create(newShow).catch( err => res.json(err) )
     }
-    console.log(theUser.movieList);
-    res.json({movieList: theUser.movieList});
+    // Stores new review info
+    let newReview = {
+        rating: req.body.rating,
+        review: req.body.review,
+        show: dbShow._id,
+
+        user: req.body.user
+    };
+    // Checks to see if user already has a review, adds it to db if it isn't
+
+    let dbReview = await ShowReview.findOne({$and : [{'user': req.body.user}, {show: dbShow._id}]});
+    if (!dbReview){
+        dbReview = await ShowReview.create(newReview);
+    }
+    let showListItem = {
+        show: dbShow._id,
+        review: dbReview._id,
+        status: req.body.status,
+        epsSeen: req.body.epsSeen
+    };
+    let userReview = await User.findOne({$and : [{_id: req.body.user}, {'showList.show': showListItem.show}]});
+    if (!userReview){
+        let updatedList = await User.updateOne({'_id': req.body.user}, {
+            $push: { showList: showListItem }
+        });
+    }
 })
 
-// router.get('/show-list', (req, res, next) => {
+// Adds a rating to a movie on the user's list
+router.post('/update-rating', isLoggedIn, async (req, res, next) => {
+    let newMovieReview = await MovieReview.findByIdAndUpdate(req.body.id, { rating: req.body.rating }, {new: true});
+    return res.json(newMovieReview);
+})
 
-// })
+// Returns a user's friends list and pending requests
+router.get('/friends-list', isLoggedIn, async (req, res, next) => {
+    let theUser = await User.findById(req.user._id).populate('friends').populate('requests');
+    let social = {
+        friends: [],
+        requests: []
+    };
+    for (let friend of theUser.friends) {
+        social.friends.push({
+            _id: friend._id,
+            firstName: friend.firstName,
+            lastName:  friend.lastName,
+        })
+    }
+    for (let request of theUser.requests) {
+        social.requests.push({
+            _id: request._id,
+            firstName: request.firstName,
+            lastName:  request.lastName,
+        })
+    }
+    res.json({social: social});
+})
 
-// router.get('/friends-list', (req, res, next) => {
-
-// })
-
-router.post('/add-movie', async (req, res, next) => {
+// Adds movie to user's list, creates review, and adds movie to our db
+router.post('/add-movie', isLoggedIn, async (req, res, next) => {
     // Stores new movie info
     let newMovie = {
         tmdbID: req.body.movie.id,

@@ -3,10 +3,14 @@ const Schema = mongoose.Schema
 
 const MovieReviewSchema = new Schema(
     {
-        rating: Number,
-        review: String,
+        rating: {type: Number, default: null},
+        review: {type: String, default: null},
         movie: {type: Schema.Types.ObjectId, ref: "Movie"},
         user: {type: Schema.Types.ObjectId, ref: "User"}
+    },
+    {
+        timestamps: true,
+        versionKey: false
     }
 );
 

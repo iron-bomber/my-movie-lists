@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 
-export default class displayMovies extends Component {
+export default class displayItems extends Component {
 
     state = {
         posters: [],
@@ -12,8 +12,8 @@ export default class displayMovies extends Component {
         return a.substring(0,4)
     }
 
-    showMovies = () =>{
-        return this.props.state.movies.map((each, i)=>{
+    showItems = () =>{
+        return this.props.state.results.map((each, i)=>{
             return (
                 <div className="one-movie-result">
                 <div className="listing-img">
@@ -21,7 +21,7 @@ export default class displayMovies extends Component {
                     <div>
                         <img src={this.props.state[each.id]} alt="img" className="poster-size"/>
                         <Link to={{
-                        pathname: `/movies/${each.id}`,
+                        pathname: `/${this.props.state.type}/${each.id}`,
                         each: {
                             each
                         }}} className="listing-add-btn">
@@ -32,12 +32,22 @@ export default class displayMovies extends Component {
                 </div>
                 <div className="listing-info">
                     <h3>
-                        {each.original_title} 
+                        {each.name &&
+                            each.name
+                        }
+                        {!each.name &&
+                            each.original_title
+                        }
                     </h3>
                     <h4>
+                    {each.first_air_date &&
+                        <div>
+                            {this.truncDate(each.first_air_date)}
+                        </div>    
+                    }
                     {each.release_date &&
                         <div>
-                        {this.truncDate(each.release_date)}
+                            {this.truncDate(each.release_date)}
                         </div>
                     }
                     </h4>
@@ -55,7 +65,7 @@ export default class displayMovies extends Component {
         console.log('rerendering', this.props)
         return (
             <div>
-                {this.showMovies()}
+                {this.showItems()}
             </div>
         )
     }

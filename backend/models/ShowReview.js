@@ -3,10 +3,14 @@ const Schema = mongoose.Schema
 
 const ShowReviewSchema = new Schema(
     {
-        rating: Number,
-        review: String,
+        rating: {type: Number, default: null},
+        review: {type: String, default: null},
         show: {type: Schema.Types.ObjectId, ref: "Show"},
         user: {type: Schema.Types.ObjectId, ref: "User"}
+    },
+    {
+        timestamps: true,
+        versionKey: false
     }
 );
 

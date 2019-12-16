@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const passport = require('../config/passport');
+const isLoggedIn    = require('../middleware');
+
 
 router.post('/signup', (req, res, next) => {
   
@@ -21,7 +23,6 @@ router.post('/validEmail', (req, res, next) => {
   let email = req.body.email;
     User.findOne({"email": email})
     .then((user) => {
-      console.log(user)
         if (!user) {
             res.json({
                 free: true
@@ -43,13 +44,21 @@ router.post('/validEmail', (req, res, next) => {
 
 
 //return await service.get('/is-logged-in');
-router.get('/is-logged-in', (req, res, next) => {  
-  res.json(req.user)
+router.get('/is-logged-in', isLoggedIn, async (req, res, next) => {
+  console.log(req.user);
+  const user = await User.findById(req.user._id)
+    .populate('movieList.movie')
+    .populate('movieList.review')
+  res.json(user);
 })
 
 
-router.post('/login', passport.authenticate('local'), (req, res, next) => {
-  const { user } = req;
+router.post('/login', passport.authenticate('local'), async (req, res, next) => {
+  const user = await User.findById(req.user._id)
+    .populate('movieList.movie')
+    .populate('movieList.review')
+    // .populate('showList.movie')
+    // .populate('showList.review')
   res.status(200).json(user);
 });
 
