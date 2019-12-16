@@ -19,11 +19,16 @@ class App extends Component {
   
   async componentDidMount() {
     let user = await actions.isLoggedIn()
-    this.setState({...user.data})
-    // let res = await actions.getList(user.data._id)
-    // this.setState({
-    //   list: res.list
-    // })
+    this.setState(
+      {
+        user: {...user.data},
+        
+      })
+    let res = await actions.getList(user.data._id)
+    this.setState({
+      list: res.list
+    })
+    console.log(user)
   }
 
   setUser = (user) => this.setState(user)
@@ -55,12 +60,12 @@ class App extends Component {
         </NavLink>
       </nav>
       <Switch>
-        <Route exact path="/" render={(props) => <MyList {...props} list = {this.state.list} user={this.state}/>} />
+        <Route exact path="/" render={(props) => <MyList {...props} list = {this.state.list} user={this.state.user}/>} />
         <Route exact path="/sign-up" render={(props)=><SignUp {...props} setUser={this.setUser} />} />
         <Route exact path="/log-in" render={(props) => <LogIn {...props} setUser={this.setUser}/>} />
-        <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state}/>} />
-        <Route exact path="/add" render={(props) => <SearchMovies {...props} user={this.state}/>} />
-        <Route exact path="/movies/:id" render={(props) => <Movie {...props} user={this.state}/>} />
+        <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state.user}/>} />
+        <Route exact path="/add" render={(props) => <SearchMovies {...props} user={this.state.user}/>} />
+        <Route exact path="/movies/:id" render={(props) => <Movie {...props} user={this.state.user}/>} />
         <Route exact path="/my-friends" render={(props) => <Friends {...props}/>} />
         <Route exact path="/my-feed" render={(props) => <Feed {...props}/>} />
 

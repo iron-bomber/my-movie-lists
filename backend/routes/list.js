@@ -5,6 +5,7 @@ const Movie         = require('../models/Movie');
 const MovieReview   = require('../models/MovieReview');
 
 router.get('/movie-list', async (req, res, next) => {
+    console.log(req)
     let theUser = await User.findById(req.body.user);
     for (let movieListItem of theUser.movieList){
         await movieListItem.populate('movie');

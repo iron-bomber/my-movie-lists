@@ -27,7 +27,7 @@ const actions = {
     return await service.post('/add-movie', data);
   },
   getList: async (data) => {
-    return await service.get('/my-list', data);
+    return await service.get('/movie-list', data);
   }
 };
 
