@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import actions from '../services'
+import NotLoggedIn from './notLoggedIn';
 
 export default class friends extends Component {
 
@@ -26,13 +27,12 @@ export default class friends extends Component {
     searchFriends = async (e) =>{
         e.preventDefault()
         let email = this.state.search
-        let users = await actions.findUsers(email)
+        let users = await actions.findUsers(email);
         console.log(users.data)
-        let newList = this.state.users
-        newList.push(users.data)
         this.setState({
-            users: newList
+            users: users.data
         })
+
     }
 
     sendReq = async (e) =>{
@@ -64,16 +64,19 @@ export default class friends extends Component {
 
 
     render() {
-        console.log(this.props.user)
-        return (
-            <div>
-                Friends
-                <form className="form-inline" onSubmit={this.searchFriends}>
-                    <input type="text" className="form-control" name="search" placeholder="Search user by email" autocomplete="off" onChange={this.updateValues} />
-                </form>
-                {this.showUsers()}
-                {this.showFriends()}
-            </div>
-        )
+        if (this.props.user){
+            return (
+                <div>
+                    Friends
+                    <form className="form-inline" onSubmit={this.searchFriends}>
+                        <input type="text" className="form-control" name="search" placeholder="Search for a user" autocomplete="off" onChange={this.updateValues} />
+                    </form>
+                    {this.showUsers()}
+                    {this.showFriends()}
+                </div>
+            )
+        } else {
+            return <NotLoggedIn/>
+        }
     }
 }

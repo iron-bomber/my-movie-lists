@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component';
 import actions from '../services/index'
+import NotLoggedIn from './notLoggedIn';
 
 
 export default class Movie extends Component {
@@ -112,7 +113,8 @@ export default class Movie extends Component {
     }
     
     render() {
-        return (
+        if (this.props.user){
+                    return (
             <div>
                 {this.state.movie && 
                     <div className="one-movie-result">
@@ -157,5 +159,8 @@ export default class Movie extends Component {
                 </div>
             </div>
         )
+        } else {
+            return <NotLoggedIn/>
+        }
     }
 }

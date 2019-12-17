@@ -4,6 +4,8 @@ import axios from 'axios'
 import { FaEdit } from "react-icons/fa";
 import { MdPlaylistAddCheck, MdPlaylistAdd, MdRemoveCircleOutline } from "react-icons/md";
 import actions from '../services';
+import NotLoggedIn from './notLoggedIn';
+
 
 export default class displayItems extends Component {
 
@@ -112,10 +114,16 @@ export default class displayItems extends Component {
 
     render() {
         console.log('rerendering', this.props)
-        return (
-            <div>
-                {this.showItems()}
-            </div>
-        )
+        if (this.props.user){
+            return (
+                <div>
+                    {this.showItems()}
+                </div>
+            )
+        } else {
+            return (
+                <NotLoggedIn/>
+            )
+        }
     }
 }

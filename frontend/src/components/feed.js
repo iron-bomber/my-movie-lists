@@ -1,11 +1,17 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import NotLoggedIn from './notLoggedIn';
 
 export default class feed extends Component {
     render() {
-        return (
-            <div>
-                Feed
-            </div>
-        )
+        if (this.props.user){  
+            return (
+                <div>
+                    Feed
+                </div>
+            )
+        } else {
+            return <NotLoggedIn/>
+        }
     }
+
 }

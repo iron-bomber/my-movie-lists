@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
-import DisplayMovies from './displayMovies'
-import axios from 'axios'
-import { FaSearch } from "react-icons/fa"
+import React, { Component } from 'react';
+import DisplayMovies from './displayMovies';
+import axios from 'axios';
+import { FaSearch } from "react-icons/fa";
+import NotLoggedIn from './notLoggedIn';
+
 
 
 export default class add extends Component {
@@ -64,7 +66,8 @@ export default class add extends Component {
       }
 
     render() {
-        return (
+        if (this.props.user){
+                  return (
             <div>
               <div className="d-flex justify-content-center mt-4">
                 <form className="form-inline" onSubmit={this.searchApi}>
@@ -83,5 +86,9 @@ export default class add extends Component {
               }
             </div>
         )
+        } else {
+          return <NotLoggedIn/>
+        }
+
     }
 }

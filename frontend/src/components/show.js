@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component';
 import actions from '../services/index';
+import NotLoggedIn from './notLoggedIn';
 
 
 export default class Show extends Component {
@@ -135,62 +136,68 @@ export default class Show extends Component {
     }
     
     render() {
-        return (
-            <div>
-                {this.state.show && 
-                    <div className="one-movie-result">
-                    <div className="listing-img">
-                        <img src={this.state.poster} alt="img" className="poster-size"/>
-                    </div>
-                    <div className="listing info">
-                        <h1>
-                            {this.state.show.name} 
-                        </h1>
-                        <h3>
-                            {this.truncDate(this.state.show.first_air_date)}
-                        </h3>
-                        <p className="description">
-                            {this.state.show.overview}
-                        </p>
-                    </div>
-                </div>
-                }
+        if (this.props.user){
+            return (
                 <div>
-                    <select onChange={this.handleChange} name="status">
-                        <option value="watching">Currently watching</option>
-                        <option value="completed">Completed</option>
-                        <option value="want-to-watch">Wanna watch</option> 
-                    </select>
-                    {this.state.watching &&
-                        <div>
-                            <h4>Season</h4>
-                            <select onChange={this.handleChange} name="season">
-                                {this.displaySeasons()}
-                            </select>
-                            <select onChange={this.handleChange} name="episode">
-                                {this.displayEpisodes()}
-                            </select>
+                    {this.state.show && 
+                        <div className="one-movie-result">
+                        <div className="listing-img">
+                            <img src={this.state.poster} alt="img" className="poster-size"/>
                         </div>
+                        <div className="listing info">
+                            <h1>
+                                {this.state.show.name} 
+                            </h1>
+                            <h3>
+                                {this.truncDate(this.state.show.first_air_date)}
+                            </h3>
+                            <p className="description">
+                                {this.state.show.overview}
+                            </p>
+                        </div>
+                    </div>
                     }
-                    <h2>Rate It</h2>
-                    <StarRatingComponent 
-                        name="rate1" 
-                        starCount={10}
-                        value={this.state.rating}
-                        onStarClick={this.onStarClick.bind(this)}
-                    />
+                    <div>
+                        <select onChange={this.handleChange} name="status">
+                            <option value="watching">Currently watching</option>
+                            <option value="completed">Completed</option>
+                            <option value="want-to-watch">Wanna watch</option> 
+                        </select>
+                        {this.state.watching &&
+                            <div>
+                                <h4>Season</h4>
+                                <select onChange={this.handleChange} name="season">
+                                    {this.displaySeasons()}
+                                </select>
+                                <select onChange={this.handleChange} name="episode">
+                                    {this.displayEpisodes()}
+                                </select>
+                            </div>
+                        }
+                        <h2>Rate It</h2>
+                        <StarRatingComponent 
+                            name="rate1" 
+                            starCount={10}
+                            value={this.state.rating}
+                            onStarClick={this.onStarClick.bind(this)}
+                        />
+                    </div>
+                    <div>
+                        <h2>What did you think of it?</h2>
+                        <br />
+                        <textarea className="review-input" name="review" onChange={this.handleChange}/>
+                    </div>
+                    <div>
+                        <button className="submit-rating" onClick={this.submitForm}>
+                            Submit
+                        </button>
+                    </div>
                 </div>
-                <div>
-                    <h2>What did you think of it?</h2>
-                    <br />
-                    <textarea className="review-input" name="review" onChange={this.handleChange}/>
-                </div>
-                <div>
-                    <button className="submit-rating" onClick={this.submitForm}>
-                        Submit
-                    </button>
-                </div>
-            </div>
-        )
+            )
+        } else {
+            return (
+                <NotLoggedIn/>
+            )
+        }
     }
 }

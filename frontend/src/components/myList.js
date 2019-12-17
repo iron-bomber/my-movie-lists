@@ -6,6 +6,7 @@ import { loadPartialConfig } from '@babel/core';
 import StarRatingComponent from 'react-star-rating-component';
 import listcss from '../css/listcss.css'
 import {Link} from 'react-router-dom'
+import NotLoggedIn from './notLoggedIn';
 
 
 class MyList extends Component {
@@ -132,8 +133,8 @@ class MyList extends Component {
   }
 
   render() {
-  
-    return (
+    if (this.props.user){
+          return (
     <div>
       <NavLink to="/add">Add a movie</NavLink>
       <nav>
@@ -155,6 +156,10 @@ class MyList extends Component {
         </div>
     </div>
     );
+    } else {
+      return <NotLoggedIn/>
+    }
+
   }
 }
 
