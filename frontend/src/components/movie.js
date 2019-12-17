@@ -115,7 +115,6 @@ export default class Movie extends Component {
     }
     
     render() {
-        console.log('123 ', this.state.status, this.state.completed);
         if (this.props.user){
                     return (
             <div>

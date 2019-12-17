@@ -56,6 +56,8 @@ class SignUp extends Component {
                 } else {
                     return {valid: true}
                 }
+            default:
+                break;
         }
     }
 

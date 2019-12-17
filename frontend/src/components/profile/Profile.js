@@ -1,10 +1,11 @@
 import React from 'react';
 // import {NavLink} from 'react-router-dom'
+import ChangeInfo from '../changeInfo'
 
 class Profile extends React.Component {
 
     state = {
-        
+
     }
     
     render(){
@@ -15,6 +16,8 @@ class Profile extends React.Component {
             <div>
             Profile
                 <button onClick={() => this.props.logOut(this.props.history)}>Log out</button>
+
+            <ChangeInfo />
             </div>
         );
     }
