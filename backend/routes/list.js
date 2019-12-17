@@ -156,17 +156,15 @@ router.post('/add-movie', isLoggedIn, async (req, res, next) => {
 
 router.post('/find-users', async (req, res, next)=>{
     console.log(req.body.email)
-    let users = await User.find({$or: [{"email":{$regex:".*req.body.email.*"}}, {"firstName": {$regex: ".*req.body.email.*"}}, {"lastName": {$regex: ".*req.body.email.*"}} ] } );
+    let users = await User.find({$or: [{"email": {$regex: `.*${req.body.email}.*`, $options: "i"}}, {"firstName": {$regex: `.*${req.body.email}.*`, $options: "i"}}, {"lastName": {$regex: `.*${req.body.email}.*`, $options: "i"}} ] } );
     console.log('160 ', users);
     let user = await User.findOne({'email': req.body.email})
     res.json(users);
 })
 
 router.post('/send-req', isLoggedIn, async (req, res, next)=>{
-    let myId = req.body.myId
-    let theirId = req.body.theirId
-    let updatedList = await User.findByIdAndUpdate({'_id': theirId}, {
-        $push: { requests: myId }
+    let updatedList = await User.updateOne({'_id': req.body.user}, {
+        $push: { requests: req.body._id }
     });
     res.json(updatedList)
 })
