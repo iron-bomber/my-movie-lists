@@ -56,6 +56,8 @@ router.post('/login', passport.authenticate('local'), async (req, res, next) => 
   const user = await User.findById(req.user._id)
     .populate('movieList.movie')
     .populate('movieList.review')
+    .populate('friends')
+    .populate('requests')
     // .populate('showList.movie')
     // .populate('showList.review')
   res.status(200).json(user);
