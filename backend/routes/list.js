@@ -156,8 +156,10 @@ router.post('/add-movie', isLoggedIn, async (req, res, next) => {
 
 router.post('/find-users', async (req, res, next)=>{
     console.log(req.body.email)
+    let users = await User.find({$or: [{"email":{$regex:".*req.body.email.*"}}, {"firstName": {$regex: ".*req.body.email.*"}}, {"lastName": {$regex: ".*req.body.email.*"}} ] } );
+    console.log('160 ', users);
     let user = await User.findOne({'email': req.body.email})
-    res.json(user)
+    res.json(users);
 })
 
 router.post('/send-req', isLoggedIn, async (req, res, next)=>{
