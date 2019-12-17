@@ -89,7 +89,7 @@ export default class Movie extends Component {
     submitForm = async (e) =>{
         e.preventDefault()
         if(!this.props.user._id){
-            this.props.history.push('/log-in')
+            this.props.history.push('/log-in');
         }
         let subData = {
             rating: this.state.rating,
@@ -100,21 +100,16 @@ export default class Movie extends Component {
             status: this.state.status
         }
         if(this.state.found){
-            let review = {
+            let updatedReview = {
                 review: this.state.review,
-                id: this.state.id
-            }
-            let rating = {
                 rating: this.state.rating,
+                status: this.state.status,
                 id: this.state.id
             }
-            let stuff = await actions.updateReview(review)
-            let go = await actions.updateRating(rating)
-            console.log(stuff)
+            await actions.updateReview(updatedReview)
             this.reroute();
         }else{
             let newMovie = await actions.addMovie(subData);
-            console.log(newMovie, "ok");
             this.reroute();
         }
     }

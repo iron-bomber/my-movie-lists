@@ -90,7 +90,7 @@ export default class friends extends Component {
             </div>
         )
         } else {
-            <NotLoggedIn/>
+            return <NotLoggedIn/>
         }
 
     }

@@ -73,9 +73,9 @@ router.post('/add-show', isLoggedIn, async (req, res, next) => {
     }
 })
 
-// Adds a rating to a movie on the user's list
+// Updates a user's MovieReview
 router.post('/update-rating', isLoggedIn, async (req, res, next) => {
-    let newMovieReview = await MovieReview.findByIdAndUpdate(req.body.id, { rating: req.body.rating }, {new: true});
+    let newMovieReview = await MovieReview.findByIdAndUpdate(req.body.id, { rating: req.body.rating, review: req.body.review, status: req.body.status,  }, {new: true});
     return res.json(newMovieReview);
 })
 
