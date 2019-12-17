@@ -161,7 +161,6 @@ router.post('/find-users', async (req, res, next)=>{
         {"firstName": {$regex: `.*${req.body.email}.*`, $options: "i"}}, 
         {"lastName": {$regex: `.*${req.body.email}.*`, $options: "i"}} 
     ]});
-    console.log('160 ', users);
     res.json(users);
 })
 
