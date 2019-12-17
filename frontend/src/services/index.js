@@ -44,8 +44,8 @@ const actions = {
   findUsers: async email => {
     return await service.post('/find-users', {email: email});
   },
-  sendReq: async _id => {
-    return await service.post('/send-req', {_id: _id});
+  sendReq: async data => {
+    return await service.post('/send-req', data);
   }
 };
 

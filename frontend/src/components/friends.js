@@ -4,7 +4,7 @@ import actions from '../services'
 export default class friends extends Component {
 
     state = {
-        user: [],
+        users: [],
     }
 
     showFriends = () =>{
@@ -37,11 +37,11 @@ export default class friends extends Component {
 
     sendReq = async (e) =>{
         e.preventDefault()
-        let _ids = {
-            mine: this.props.user._id,
-            theirs: this.
+        let data = {
+            myId: this.props.user._id,
+            theirId: e.target.name
         }
-        let res = await actions.sendReq(_ids)
+        let res = await actions.sendReq(data)
         console.log(res)
     }
 
@@ -53,7 +53,7 @@ export default class friends extends Component {
                         {each.email}
                         {each.firstName}
                         {each.lastName}
-                        <button onClick={this.sendReq}>
+                        <button name={each._id} onClick={this.sendReq}>
                             Add
                         </button>
                     </div>
