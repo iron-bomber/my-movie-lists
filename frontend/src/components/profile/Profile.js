@@ -2,6 +2,10 @@ import React from 'react';
 // import {NavLink} from 'react-router-dom'
 
 class Profile extends React.Component {
+
+    state = {
+        
+    }
     
     render(){
         if(!this.props.user){ 
