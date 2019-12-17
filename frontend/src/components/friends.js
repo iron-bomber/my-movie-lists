@@ -7,7 +7,8 @@ export default class friends extends Component {
 
     state = {
         users: [],
-        friendToggle: true
+        friendToggle: true,
+        requestsToggle: false
     }
 
     showFriends = () =>{
@@ -20,6 +21,17 @@ export default class friends extends Component {
         })
     }
 
+    showRequests = () =>{
+       return this.props.user.requests.map(each=>{
+           console.log(each)
+           return (
+               <div>
+
+               </div>
+           )
+       })
+    }
+
     updateValues = (e) =>{
         this.setState({
           [e.target.name]: e.target.value
@@ -30,11 +42,8 @@ export default class friends extends Component {
         e.preventDefault()
         let email = this.state.search
         let users = await actions.findUsers(email)
-        console.log(users.data)
-        let newList = this.state.users
-        newList.push(users.data)
         this.setState({
-            users: newList
+            users: users
         })
     }
 
@@ -66,8 +75,14 @@ export default class friends extends Component {
     }
 
     toggleFriends = ()=> {
-        this.searchFriends({
+        this.setState({
             friendToggle: !this.state.friendToggle
+        })
+    }
+
+    toggleRequests = () =>{
+        this.setState({
+            requestsToggle: !this.state.requestsToggle
         })
     }
 
@@ -76,21 +91,46 @@ export default class friends extends Component {
         if (this.props.user){
                     return (
             <div>
+
+            <button onClick={this.toggleRequests}>Requests</button>
+
+
             <button onClick={this.toggleFriends}>
                 Friends
             </button>
             <button onClick={this.toggleFriends}>
                 Add Friends
             </button>
-                <form className="form-inline" onSubmit={this.searchFriends}>
-                    <input type="text" className="form-control" name="search" placeholder="Search user by email" autocomplete="off" onChange={this.updateValues} />
-                </form>
-                {this.showUsers()}
-                {this.showFriends()}
+
+
+
+            {this.state.requestsToggle &&
+                <div>
+                    {this.showRequests()}
+                </div>
+            }
+            {this.state.friendToggle &&
+                <div>
+                    <form className="form-inline" onSubmit={this.searchFriends}>
+                        <input type="text" className="form-control" name="searchfriends" placeholder="Search friends" autocomplete="off" onChange={this.updateValues} />
+                    </form>
+                </div>
+            }
+            {!this.state.friendToggle &&
+                <div>
+                    <form className="form-inline" onSubmit={this.searchFriends}>
+                        <input type="text" className="form-control" name="search" placeholder="Search user by email" autocomplete="off" onChange={this.updateValues} />
+                    </form>
+                    {this.showUsers()}
+                    {this.showFriends()}
+                </div>
+            }
             </div>
         )
         } else {
+            return (
             <NotLoggedIn/>
+            )
         }
 
     }
