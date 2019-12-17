@@ -24,13 +24,26 @@ export default class friends extends Component {
 
     showRequests = () =>{
        return this.props.user.requests.map(each=>{
-           console.log(each, this.props.user)
-           return (
-               <div>
-               {each.firstName}
-               </div>
-           )
+           if(each.received){
+               console.log(each)
+               return (
+                   <div>
+                    {each.user.email}
+                    <button onClick={this.acceptReq} name={each.user._id}>Accept :)</button>
+                   </div>
+               )
+           }else return
        })
+    }
+
+    acceptReq = async (e) =>{
+        e.preventDefault()
+        let data = {
+            theirId: e.target.name,
+            myId: this.props.user._id
+        }
+        let done = await actions.acceptReq(data)
+        console.log(done)
     }
 
     updateValues = (e) =>{
@@ -55,20 +68,35 @@ export default class friends extends Component {
             theirId: e.target.name
         }
         let res = await actions.sendReq(data)
-        console.log(res)
+        let update = await this.props.updateData()
+        console.log(res, update)
     }
 
     showUsers = () =>{
         if(this.state.users.length > 0){
             return this.state.users.map(each=>{
+                let exists = this.props.user.requests.find(each2=>{
+                    console.log(each._id, each2.user._id)
+                    return each._id == each2.user._id
+                })
+                if(this.props.user._id == each._id){
+                    return
+                }
                 return (
                     <div>
                         {each.email}
                         {each.firstName}
                         {each.lastName}
-                        <button name={each._id} onClick={this.sendReq}>
-                            Add
-                        </button>
+                        {!exists &&
+                            <button name={each._id} onClick={this.sendReq}>
+                                Add
+                            </button>
+                        }
+                        {exists &&
+                            <p>
+                                Request pending...
+                            </p>
+                        }
                     </div>
                 )
             })
