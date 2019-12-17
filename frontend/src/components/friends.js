@@ -7,8 +7,9 @@ export default class friends extends Component {
 
     state = {
         users: [],
-        friendToggle: true,
-        requestsToggle: false
+        friendOn: true,
+        requestsOn: false,
+        findOn: false
     }
 
     showFriends = () =>{
@@ -23,10 +24,10 @@ export default class friends extends Component {
 
     showRequests = () =>{
        return this.props.user.requests.map(each=>{
-           console.log(each)
+           console.log(each, this.props.user)
            return (
                <div>
-
+               {each.firstName}
                </div>
            )
        })
@@ -74,15 +75,27 @@ export default class friends extends Component {
         }
     }
 
-    toggleFriends = ()=> {
+    toggleFriend = ()=> {
         this.setState({
-            friendToggle: !this.state.friendToggle
+            requestsOn: false,
+            findOn: false,
+            friendOn: true
+        })
+    }
+
+    toggleFind = ()=> {
+        this.setState({
+            requestsOn: false,
+            findOn: true,
+            friendOn: false
         })
     }
 
     toggleRequests = () =>{
         this.setState({
-            requestsToggle: !this.state.requestsToggle
+            requestsOn: true,
+            findOn: false,
+            friendOn: false
         })
     }
 
@@ -94,29 +107,29 @@ export default class friends extends Component {
 
             <button onClick={this.toggleRequests}>Requests</button>
 
-
-            <button onClick={this.toggleFriends}>
+            <button onClick={this.toggleFriend}>
                 Friends
             </button>
-            <button onClick={this.toggleFriends}>
+            <button onClick={this.toggleFind}>
                 Add Friends
             </button>
 
 
 
-            {this.state.requestsToggle &&
+            {this.state.requestsOn &&
                 <div>
+                Reqs
                     {this.showRequests()}
                 </div>
             }
-            {this.state.friendToggle &&
+            {this.state.friendOn &&
                 <div>
                     <form className="form-inline" onSubmit={this.searchFriends}>
                         <input type="text" className="form-control" name="searchfriends" placeholder="Search friends" autocomplete="off" onChange={this.updateValues} />
                     </form>
                 </div>
             }
-            {!this.state.friendToggle &&
+            {this.state.findOn &&
                 <div>
                     <form className="form-inline" onSubmit={this.searchFriends}>
                         <input type="text" className="form-control" name="search" placeholder="Search user by email" autocomplete="off" onChange={this.updateValues} />

@@ -48,6 +48,8 @@ router.get('/is-logged-in', isLoggedIn, async (req, res, next) => {
   const user = await User.findById(req.user._id)
     .populate('movieList.movie')
     .populate('movieList.review')
+    .populate('friends')
+    .populate('requests')
   res.json(user);
 })
 
