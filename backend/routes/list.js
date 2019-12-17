@@ -182,7 +182,7 @@ router.post('/accept-req', isLoggedIn, async (req, res, next)=>{
         }
     );
 
-    res.json(sender, receiver)
+    res.json({sender, receiver})
 })
 
 // router.post('/add-show', (req, res, next) => {

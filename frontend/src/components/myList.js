@@ -12,14 +12,15 @@ import NotLoggedIn from './notLoggedIn';
 class MyList extends Component {
 
   state = {
-    movieList: false,
+    movieList: true,
     ratings: {},
     loading: {},
   }
 
-  async componentDidMount() {
-    if (this.props.user.movieList.length > 0){
-      this.setState({movieList: true});
+  componentDidMount() {
+    console.log(this.props.user.movieList.length)
+    if (this.props.user.movieList.length == 0){
+      this.setState({movieList: false});
     }
   }
 
@@ -80,6 +81,13 @@ class MyList extends Component {
       default: break;
 
     }
+    if(list.length == 0){
+      return(
+        <div>
+            <h2>It looks like you don't currently have a list. Get to work!</h2>
+        </div>
+      )
+    }
     return list.map((each, i) => {
       console.log(each);
       let movie = each.movie
@@ -112,8 +120,7 @@ class MyList extends Component {
             }
             {!review.rating && !this.state.ratings[review._id] && !this.state.loading[review._id] &&
               <div>
-                <h6>You haven't rated this yet.</h6>
-                <button onClick={() => {this.openStarRater(review._id, i)}}>Rate it!</button>
+                NA
               </div>
             }
             {this.state.ratings[review._id] &&
@@ -169,16 +176,9 @@ class MyList extends Component {
         <button onClick={this.decideShowing} name="want">Want to watch</button>
       </nav>
         <div className="container-fluid">
-          {this.state.movieList &&
           <div className="row">
             {this.showList()}
-          </div>
-          }
-          {!this.state.movieList &&
-            <div>
-              <h2>It looks like you don't currently have a list. Get to work!</h2>
-            </div>
-          }
+          </div>   
         </div>
     </div>
     );

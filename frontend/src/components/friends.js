@@ -16,7 +16,7 @@ export default class friends extends Component {
         return this.props.user.friends.map(each=>{
             return (
                 <div>
-                    {each.name}
+                    {each.firstName} // {each.email}
                 </div>
             )
         })
@@ -42,8 +42,8 @@ export default class friends extends Component {
             theirId: e.target.name,
             myId: this.props.user._id
         }
-        let done = await actions.acceptReq(data)
-        console.log(done)
+        await actions.acceptReq(data)
+        this.props.updateData()
     }
 
     updateValues = (e) =>{
@@ -68,8 +68,8 @@ export default class friends extends Component {
             theirId: e.target.name
         }
         let res = await actions.sendReq(data)
-        let update = await this.props.updateData()
-        console.log(res, update)
+        console.log(res)
+        await this.props.updateData()
     }
 
     showUsers = () =>{
@@ -155,6 +155,7 @@ export default class friends extends Component {
                     <form className="form-inline" onSubmit={this.searchFriends}>
                         <input type="text" className="form-control" name="searchfriends" placeholder="Search friends" autoComplete="off" onChange={this.updateValues} />
                     </form>
+                    {this.showFriends()}
                 </div>
             }
             {this.state.findOn &&
@@ -163,7 +164,6 @@ export default class friends extends Component {
                         <input type="text" className="form-control" name="search" placeholder="Search user by email" autoComplete="off" onChange={this.updateValues} />
                     </form>
                     {this.showUsers()}
-                    {this.showFriends()}
                 </div>
             }
             </div>
