@@ -186,4 +186,31 @@ router.post('/send-req', isLoggedIn, async (req, res, next)=>{
     res.json(senderList)
 })
 
+router.post('/accept-req', isLoggedIn, async (req, res, next)=>{
+    let sender = await User.update({'_id': req.body.myId}, 
+        {
+            $pull: { requests: {user: req.body.theirId} },
+            $push: { friends: req.body.theirId}
+        }
+    );
+            
+
+    let receiver = await User.update({'_id': req.body.theirId}, 
+        {
+            $pull: { requests: {user: req.body.myId} },
+            $push: { friends: req.body.myId}
+        }
+    );
+
+    res.json({sender, receiver})
+})
+
+// router.post('/add-show', (req, res, next) => {
+
+// })
+
+// router.post('/add-friend', (req, res, next) => {
+
+// })
+
 module.exports = router;

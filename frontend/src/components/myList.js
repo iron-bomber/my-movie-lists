@@ -12,14 +12,15 @@ import NotLoggedIn from './notLoggedIn';
 class MyList extends Component {
 
   state = {
-    movieList: false,
+    movieList: true,
     ratings: {},
     loading: {},
   }
 
-  async componentDidMount() {
-    if (this.props.user.movieList.length > 0){
-      this.setState({movieList: true});
+  componentDidMount() {
+    console.log(this.props.user.movieList.length)
+    if (this.props.user.movieList.length == 0){
+      this.setState({movieList: false});
     }
   }
 
@@ -69,7 +70,25 @@ class MyList extends Component {
   }
 
   showList = () =>{
-    return this.props.user.movieList.map((each, i) => {
+    let list = this.props.user.movieList;
+    switch(this.state.decide){
+      case "watching":
+        list.filter(each=>{return each.status === "watching"})
+        break;
+      case "want":
+        list.filter(each=>{return each.status === "want-to-watch"})
+        break;
+      default: break;
+
+    }
+    if(list.length == 0){
+      return(
+        <div>
+            <h2>It looks like you don't currently have a list. Get to work!</h2>
+        </div>
+      )
+    }
+    return list.map((each, i) => {
       console.log(each);
       let movie = each.movie
       let review = each.review
@@ -82,16 +101,6 @@ class MyList extends Component {
         backgroundPosition: 'center'
       };
       return (
-      // <div className="my-list-item">
-      //   <div className="listing-img">
-      //       <img src={movie.img} alt="img" className="poster-size"/>
-      //   </div>
-      //   <div className="my-list-item-header-div">
-      //     <h1 className="my-list-item-header">
-      //         {movie.name} 
-      //     </h1>
-      //   </div>
-      // </div>
       <Link to={"/movie/"+ movie.tmdbID}className="singlebubble" style={sectionStyle}>
       <div className="bubble-bg">
 
@@ -111,8 +120,7 @@ class MyList extends Component {
             }
             {!review.rating && !this.state.ratings[review._id] && !this.state.loading[review._id] &&
               <div>
-                <h6>You haven't rated this yet.</h6>
-                <button onClick={() => {this.openStarRater(review._id, i)}}>Rate it!</button>
+                NA
               </div>
             }
             {this.state.ratings[review._id] &&
@@ -132,27 +140,45 @@ class MyList extends Component {
     })
   }
 
+  decideShowing = (e)=>{
+
+    switch(e.target.name){
+      case "watching":
+        this.setState({
+          decide: 'watching'
+        })
+        break;
+      case "want":
+        this.setState({
+          decide: 'want'
+        })
+        break;
+      case "all":
+        this.setState({
+          decide: 'all'
+        })
+        break;
+      default:
+        break;
+    }
+    console.log(this.state)
+
+  }
+
   render() {
     if (this.props.user){
           return (
     <div>
       <NavLink to="/add">Add a movie</NavLink>
       <nav>
-        <button>All</button>
-        <button>Watching</button>
-        <button>Want to watch</button>
+        <button onClick={this.decideShowing} name="all">All</button>
+        <button onClick={this.decideShowing} name="watching">Watching</button>
+        <button onClick={this.decideShowing} name="want">Want to watch</button>
       </nav>
         <div className="container-fluid">
-          {this.state.movieList &&
           <div className="row">
             {this.showList()}
-          </div>
-          }
-          {!this.state.movieList &&
-            <div>
-              <h2>It looks like you don't currently have a list. Get to work!</h2>
-            </div>
-          }
+          </div>   
         </div>
     </div>
     );
