@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
-import actions from '../services'
+import React, { Component } from 'react';
+import actions from '../services';
+import NotLoggedIn from './notLoggedIn';
+
 
 export default class friends extends Component {
 
@@ -71,8 +73,8 @@ export default class friends extends Component {
 
 
     render() {
-        console.log(this.props.user)
-        return (
+        if (this.props.user){
+                    return (
             <div>
             <button onClick={this.toggleFriends}>
                 Friends
@@ -87,5 +89,9 @@ export default class friends extends Component {
                 {this.showFriends()}
             </div>
         )
+        } else {
+            <NotLoggedIn/>
+        }
+
     }
 }
