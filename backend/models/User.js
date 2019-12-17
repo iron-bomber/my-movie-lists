@@ -7,7 +7,10 @@ const userSchema = new Schema(
     firstName:  {type: String, required: true},
     lastName:  {type: String, required: true},
     friends: [{type: Schema.Types.ObjectId, ref: "User"}],
-    requests: [{type: Schema.Types.ObjectId, ref: "User"}],
+    requests: [{
+      user: {type: Schema.Types.ObjectId, ref: "User"},
+      received: {type: Boolean},
+    }],
     movieList: [{
       movie: {type: Schema.Types.ObjectId, ref: "Movie"},
       review: {type: Schema.Types.ObjectId, ref: "MovieReview"},

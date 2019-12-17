@@ -26,7 +26,7 @@ export default class friends extends Component {
            console.log(each)
            return (
                <div>
-
+                
                </div>
            )
        })

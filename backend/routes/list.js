@@ -165,8 +165,8 @@ router.post('/find-users', async (req, res, next)=>{
 })
 
 router.post('/send-req', isLoggedIn, async (req, res, next)=>{
-    let updatedList = await User.updateOne({'_id': req.body.user}, {
-        $push: { requests: req.body._id }
+    let updatedList = await User.updateOne({'_id': req.body.myId}, {
+        $push: { requests: req.body.theirId }
     });
     res.json(updatedList)
 })
