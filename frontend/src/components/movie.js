@@ -10,7 +10,7 @@ export default class Movie extends Component {
     state = {
         rating: null,
         review: '',
-        status: 'completed',
+        status: '',
     }
 
     truncDate = (a) =>{
@@ -23,23 +23,21 @@ export default class Movie extends Component {
     }
 
     checkStatus = () =>{
-        console.log('hi', this.props.user)
         if(this.props.user){
             let ok = this.props.user.movieList.find((each)=>{
                 return each.movie.tmdbID == this.props.match.params.id
             })
             if(ok){
                 let completed;
-                if (ok.status == 'completed'){
+                if (ok.review.status == 'completed'){
                     completed = true;
                 } else {
                     completed = false;
                 }
-                console.log(ok)
                 this.setState({
                     rating: ok.review.rating,
                     review: ok.review.review,
-                    status: ok.status,
+                    status: ok.review.status,
                     found: true,
                     id: ok.review._id,
                     completed: completed
@@ -72,6 +70,7 @@ export default class Movie extends Component {
     }
 
     handleChange = e => {
+        console.log('74 ', e.target.name, ' - ', e.target.value );
         this.setState({
             [e.target.name]: e.target.value
         })
@@ -115,7 +114,6 @@ export default class Movie extends Component {
     }
     
     render() {
-        console.log('123 ', this.state.status, this.state.completed);
         if (this.props.user){
                     return (
             <div>
@@ -142,13 +140,13 @@ export default class Movie extends Component {
                     {this.state.completed &&
                         <Fragment>
                             <option value="completed" selected>Completed</option>
-                            <option value="want-to-watch">Wanna watch</option>
+                            <option value="want">Wanna watch</option>
                         </Fragment>
                     }
                     {!this.state.completed &&
                         <Fragment>
                             <option value="completed">Completed</option>
-                            <option value="want-to-watch" selected>Wanna watch</option>
+                            <option value="want" selected>Wanna watch</option>
                         </Fragment>
                     }
                 </select>

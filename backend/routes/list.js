@@ -71,8 +71,9 @@ router.post('/add-show', isLoggedIn, async (req, res, next) => {
 
 // Updates a user's MovieReview
 router.post('/update-review', isLoggedIn, async (req, res, next) => {
-    console.log(req.body, "65")
+    console.log("74 ", req.body)
     let newMovieReview = await MovieReview.findByIdAndUpdate(req.body.id, { review: req.body.review, rating: req.body.rating, status: req.body.status }, {new: true});
+    console.log('76 ', newMovieReview);
     return res.json(newMovieReview);
 })
 
@@ -123,7 +124,8 @@ router.post('/add-movie', isLoggedIn, async (req, res, next) => {
         rating: req.body.rating,
         review: req.body.review,
         movie: dbMovie._id,
-        user: req.body.user
+        user: req.body.user,
+        status: req.body.status
     };
     // Checks to see if user already has a review, adds it to db if it isn't
 
@@ -133,8 +135,7 @@ router.post('/add-movie', isLoggedIn, async (req, res, next) => {
     }
     let movieListItem = {
         movie: dbMovie._id,
-        review: dbReview._id,
-        status: req.body.status
+        review: dbReview._id
     };
     let userReview = await User.findOne({$and : [{_id: req.body.user}, {'movieList.movie': movieListItem.movie}]});
     if (!userReview){

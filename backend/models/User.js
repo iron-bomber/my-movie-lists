@@ -13,8 +13,7 @@ const userSchema = new Schema(
     }],
     movieList: [{
       movie: {type: Schema.Types.ObjectId, ref: "Movie"},
-      review: {type: Schema.Types.ObjectId, ref: "MovieReview"},
-      status: {type: String}
+      review: {type: Schema.Types.ObjectId, ref: "MovieReview"}
     }],
     showList: [{
       show: {type: Schema.Types.ObjectId, ref: "Show"},
