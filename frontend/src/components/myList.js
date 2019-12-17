@@ -136,7 +136,6 @@ class MyList extends Component {
     return (
     <div>
       <NavLink to="/add">Add a movie</NavLink>
-      <button onClick={() => this.props.logOut(this.props.history)} >Log out</button>
       <nav>
         <button>All</button>
         <button>Watching</button>

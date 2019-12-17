@@ -9,7 +9,6 @@ export default class Home extends Component {
             <div>
                 {this.props.user &&
                     <div>
-                        <h2>Welcome, {this.props.user.firstName}!</h2>
                         <MyList {...this.props} user={this.props.user} updateData={this.props.updateData}/>
                     </div>
                 }

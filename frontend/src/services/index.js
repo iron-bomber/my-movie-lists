@@ -40,6 +40,12 @@ const actions = {
   },
   removeMovie: async movieId => {
     return await service.post('/remove-movie', {movieId: movieId});
+  },
+  findUsers: async email => {
+    return await service.post('/find-users', {email: email});
+  },
+  sendReq: async _id => {
+    return await service.post('/send-req', {_id: _id});
   }
 };
 

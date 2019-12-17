@@ -154,6 +154,19 @@ router.post('/add-movie', isLoggedIn, async (req, res, next) => {
     }
 })
 
+router.post('/find-users', async (req, res, next)=>{
+    console.log(req.body.email)
+    let user = await User.findOne({'email': req.body.email})
+    res.json(user)
+})
+
+router.post('/send-req', isLoggedIn, async (req, res, next)=>{
+    let updatedList = await User.updateOne({'_id': req.body.user}, {
+        $push: { requests: req.body._id }
+    });
+    res.json(updatedList)
+})
+
 // router.post('/add-show', (req, res, next) => {
 
 // })

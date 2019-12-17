@@ -36,11 +36,14 @@
 }
 
 .bubble-header{
-    width: 80%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     padding-left: 8px;
+    display: block !important;
+    padding-top: 2px;
+    margin: auto;
+    text-align: center;
 }
 
 .bubble-rating{
@@ -110,8 +113,14 @@ select{
     }
     
     .bubble-header{
-        width: 80%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         padding-left: 8px;
+        display: block !important;
+        padding-top: 14px;
+        margin: auto;
+        text-align: center;
     }
     
     .bubble-rating{
