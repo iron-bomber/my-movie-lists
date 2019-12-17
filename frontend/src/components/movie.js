@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component';
 import actions from '../services/index'
@@ -29,13 +29,20 @@ export default class Movie extends Component {
                 return each.movie.tmdbID == this.props.match.params.id
             })
             if(ok){
+                let completed;
+                if (ok.status == 'completed'){
+                    completed = true;
+                } else {
+                    completed = false;
+                }
                 console.log(ok)
                 this.setState({
                     rating: ok.review.rating,
                     review: ok.review.review,
                     status: ok.status,
                     found: true,
-                    id: ok.review._id
+                    id: ok.review._id,
+                    completed: completed
                 })
             }
         }
@@ -113,6 +120,7 @@ export default class Movie extends Component {
     }
     
     render() {
+        console.log('123 ', this.state.status, this.state.completed);
         if (this.props.user){
                     return (
             <div>
@@ -135,9 +143,19 @@ export default class Movie extends Component {
                 </div>
                 }
                 <div>
-                <select onChange={this.handleChange} name="status">
-                    <option value="completed">Completed</option>
-                    <option value="want-to-watch">Wanna watch</option>
+                <select onChange={this.handleChange} name="status" value={this.state.value}>
+                    {this.state.completed &&
+                        <Fragment>
+                            <option value="completed" selected>Completed</option>
+                            <option value="want-to-watch">Wanna watch</option>
+                        </Fragment>
+                    }
+                    {!this.state.completed &&
+                        <Fragment>
+                            <option value="completed">Completed</option>
+                            <option value="want-to-watch" selected>Wanna watch</option>
+                        </Fragment>
+                    }
                 </select>
                     <h2>Rate It</h2>
                     <StarRatingComponent 
