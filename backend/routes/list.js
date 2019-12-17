@@ -70,11 +70,6 @@ router.post('/add-show', isLoggedIn, async (req, res, next) => {
 })
 
 // Updates a user's MovieReview
-router.post('/update-rating', isLoggedIn, async (req, res, next) => {
-    let newMovieReview = await MovieReview.findByIdAndUpdate(req.body.id, { rating: req.body.rating, review: req.body.review, status: req.body.status,  }, {new: true});
-    return res.json(newMovieReview);
-})
-
 router.post('/update-review', isLoggedIn, async (req, res, next) => {
     console.log(req, "65")
     let newMovieReview = await MovieReview.findByIdAndUpdate(req.body.id, { review: req.body.review }, {new: true});
