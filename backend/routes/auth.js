@@ -49,7 +49,7 @@ router.get('/is-logged-in', isLoggedIn, async (req, res, next) => {
     .populate('movieList.movie')
     .populate('movieList.review')
     .populate('friends')
-    .populate('requests')
+    .populate('requests.user')
   res.json(user);
 })
 
@@ -59,7 +59,7 @@ router.post('/login', passport.authenticate('local'), async (req, res, next) => 
     .populate('movieList.movie')
     .populate('movieList.review')
     .populate('friends')
-    .populate('requests')
+    .populate('requests.user')
     // .populate('showList.movie')
     // .populate('showList.review')
   res.status(200).json(user);

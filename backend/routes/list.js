@@ -70,11 +70,6 @@ router.post('/add-show', isLoggedIn, async (req, res, next) => {
 })
 
 // Updates a user's MovieReview
-router.post('/update-rating', isLoggedIn, async (req, res, next) => {
-    let newMovieReview = await MovieReview.findByIdAndUpdate(req.body.id, { rating: req.body.rating, review: req.body.review, status: req.body.status,  }, {new: true});
-    return res.json(newMovieReview);
-})
-
 router.post('/update-review', isLoggedIn, async (req, res, next) => {
     console.log(req, "65")
     let newMovieReview = await MovieReview.findByIdAndUpdate(req.body.id, { review: req.body.review }, {new: true});
@@ -161,12 +156,8 @@ router.post('/find-users', async (req, res, next)=>{
 })
 
 router.post('/send-req', isLoggedIn, async (req, res, next)=>{
-
-    let theirId = req.body.theirId
-    let myId = req.body.myId
-
-    let updatedList = await User.updateOne({'_id': theirId}, {
-        $push: { requests: myId }
+    let updatedList = await User.updateOne({'_id': req.body.myId}, {
+        $push: { requests: req.body.theirId }
     });
     console.log(req,updatedList)
     res.json(updatedList)
