@@ -43,7 +43,7 @@ export default class friends extends Component {
         let email = this.state.search
         let users = await actions.findUsers(email)
         this.setState({
-            users: users
+            users: users.data
         })
     }
 
