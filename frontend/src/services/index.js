@@ -43,6 +43,9 @@ const actions = {
   },
   sendReq: async data => {
     return await service.post('/send-req', data);
+  },
+  acceptReq: async data => {
+    return await service.post('/accept-req', data);
   }
 };
 

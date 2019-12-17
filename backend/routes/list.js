@@ -7,10 +7,6 @@ const Show         = require('../models/Show');
 const ShowReview   = require('../models/ShowReview');
 const isLoggedIn    = require('../middleware');
 
-
-
-
-
 router.post('/remove-show', isLoggedIn, async (req, res, next) => {
     let theShowObject = await Show.findOne({tmdbID: req.body.showId});
     await User.update({_id: req.user._id}, {$pull: {showList: {show: theShowObject._id} } });
@@ -168,6 +164,7 @@ router.post('/send-req', isLoggedIn, async (req, res, next)=>{
     let updatedList = await User.updateOne({'_id': req.body.myId}, {
         $push: { requests: req.body.theirId }
     });
+    console.log(req,updatedList)
     res.json(updatedList)
 })
 
