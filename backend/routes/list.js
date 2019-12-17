@@ -158,12 +158,11 @@ router.post('/find-users', async (req, res, next)=>{
 
 router.post('/send-req', isLoggedIn, async (req, res, next)=>{
     let senderList = await User.updateOne({'_id': req.body.myId}, {
-        $push: { requests: {user: req.body.theirId, received: false }}
+        $push: { requests: {user: req.body.theirId, received: false } }
     });
     let receiverList = await User.updateOne({'_id': req.body.theirId}, {
-        $push: { requests: {user: req.body.myId, received: true }}
+        $push: { requests: {user: req.body.myId, received: true } }
     });
-
     res.json(senderList)
 })
 
