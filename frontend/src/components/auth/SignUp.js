@@ -135,9 +135,9 @@ class SignUp extends Component {
     render() {
 
         return (
-            <div className="container" id="wrap">
+            <div className="container">
                 <div className="row">
-                    <div className="col-6 offset-3">
+                    <div className="col-10 col-md-6">
                         <form accept-charset="utf-8" className="form" role="form" onSubmit={this.handleSubmit}>   <legend>Sign Up</legend>
                             <div className="row">
                                 <div className="col-6 mb-2">
