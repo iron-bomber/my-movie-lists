@@ -20,7 +20,16 @@ export default class friends extends Component {
                     <Link to={'/userpage/' + each._id}>
                         {each.firstName} // {each.email}
                     </Link>
-                    <button name={each._id} onClick={this.removeFriend}>Remove friend</button>
+                    {this.state[each._id] && this.state[each._id].removed ?
+                    (
+                        <button name={each._id} className="removed">Removed</button>
+                    )
+                    : (
+                        <button name={each._id} onClick={this.removeFriend}>Remove friend</button>
+                    )
+
+                    }
+                    
                 </div>
             )
         })
@@ -32,7 +41,11 @@ export default class friends extends Component {
             theirId: e.target.name,
             myId: this.props.user._id
         }
-        console.log(ids)
+        this.setState({
+            [e.target.name]: {
+                removed: true
+            }
+        })
         await actions.removeFriend(ids)
         this.props.updateData()
     }
@@ -44,7 +57,14 @@ export default class friends extends Component {
                return (
                    <div>
                     {each.user.email}
-                    <button onClick={this.acceptReq} name={each.user._id}>Accept :)</button>
+                    {this.state[each._id] && this.state[each._id].added ?
+                    (
+                        <button name={each.user._id} className="removed">Accepted!</button>
+                    )
+                    : (
+                        <button onClick={this.acceptReq} name={each.user._id}>Accept :)</button>
+                    )
+                    }
                    </div>
                )
            }else return
@@ -57,6 +77,11 @@ export default class friends extends Component {
             theirId: e.target.name,
             myId: this.props.user._id
         }
+        this.setState({
+            [e.target.name]: {
+                added: true
+            }
+        })
         await actions.acceptReq(data)
         this.props.updateData()
     }
@@ -82,6 +107,11 @@ export default class friends extends Component {
             myId: this.props.user._id,
             theirId: e.target.name
         }
+        this.setState({
+            [e.target.name]: {
+                sent: true
+            }
+        })
         let res = await actions.sendReq(data)
         console.log(res)
         await this.props.updateData()
@@ -97,20 +127,24 @@ export default class friends extends Component {
                 if(this.props.user._id == each._id){
                     return
                 }
+                console.log(this.state[each._id])
                 return (
                     <div>
                         {each.email}
                         {each.firstName}
                         {each.lastName}
-                        {!exists &&
-                            <button name={each._id} onClick={this.sendReq}>
-                                Add
-                            </button>
-                        }
-                        {exists &&
+                        {(this.state[each._id] && this.state[each._id].sent) || exists ? 
+                        (
                             <p>
                                 Request pending...
                             </p>
+                        ) 
+                        :
+                        (
+                            <button name={each._id} onClick={this.sendReq}>
+                                Add
+                            </button>
+                        )
                         }
                     </div>
                 )

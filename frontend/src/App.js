@@ -48,7 +48,7 @@ class App extends Component {
   }
   
   logOut = async () => {
-    let res = await actions.logOut()
+    await actions.logOut()
     this.setUser(null);
   }
 
