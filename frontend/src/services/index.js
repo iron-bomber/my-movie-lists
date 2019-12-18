@@ -58,7 +58,10 @@ const actions = {
   },
   changePassword: async data => {
     return await service.post('/change-password', data);
-  }
+  },
+  populateFeed: async data => {
+    return await service.post('/populate-feed', {feed: data});
+  },
   
 };
 

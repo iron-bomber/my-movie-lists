@@ -224,7 +224,7 @@ export default class friends extends Component {
             {this.state.findOn &&
                 <div>
                     <form className="form-inline" onSubmit={this.searchFriends} className="align-center">
-                        <input type="text" className="form-control friend-search" name="search" placeholder="Search user by email" autoComplete="off" onChange={this.updateValues} />
+                        <input type="text" className="form-control friend-search" name="search" placeholder="Search user by email or name" autoComplete="off" onChange={this.updateValues} />
                     </form>
                     {this.showUsers()}
                 </div>

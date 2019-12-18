@@ -87,6 +87,7 @@ router.get('/is-logged-in', isLoggedIn, async (req, res, next) => {
     .populate('movieList.review')
     .populate('friends')
     .populate('requests.user')
+    .populate('feed.review')
   res.json(user);
 })
 
@@ -97,6 +98,7 @@ router.post('/login', passport.authenticate('local'), async (req, res, next) => 
     .populate('movieList.review')
     .populate('friends')
     .populate('requests.user')
+    .populate('feed.review')
     // .populate('showList.movie')
     // .populate('showList.review')
   res.status(200).json(user);

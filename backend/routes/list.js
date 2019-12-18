@@ -25,7 +25,14 @@ router.post('/remove-movie', isLoggedIn, async (req, res, next) => {
 router.post('/update-review', isLoggedIn, async (req, res, next) => {
     console.log("74 ", req.body)
     let newMovieReview = await MovieReview.findByIdAndUpdate(req.body.id, { review: req.body.review, rating: req.body.rating, status: req.body.status }, {new: true});
-    console.log('76 ', newMovieReview);
+    let theUser = await User.findById(req.user._id).populate('friends');
+    let feedItem = {
+        status: 'updated',
+        review: newMovieReview._id
+    };
+    for (let friend of theUser.friends){      
+        await User.update({_id: friend._id}, {$push: {feed: feedItem}});
+    }
     return res.json(newMovieReview);
 })
 
@@ -67,6 +74,14 @@ router.post('/add-movie', isLoggedIn, async (req, res, next) => {
     let dbReview = await MovieReview.findOne({$and : [{'user': req.body.user}, {movie: dbMovie._id}]});
     if (!dbReview){
         dbReview = await MovieReview.create(newReview);
+    }
+    let theUser = await User.findById(req.user._id).populate('friends');
+    let feedItem = {
+        status: req.body.status,
+        review: dbReview._id
+    };
+    for (let friend of theUser.friends){      
+        await User.update({_id: friend._id}, {$push: {feed: feedItem}});
     }
     let movieListItem = {
         movie: dbMovie._id,
@@ -228,6 +243,16 @@ router.post('/remove-friend', isLoggedIn, async (req, res, next)=>{
     );
 
     res.json({sender, receiver})
+})
+
+router.post('/populate-feed', isLoggedIn, async (req, res, next) => {
+    let newFeed = [];
+    for (let item of req.body.feed){
+        let thisReview = MovieReview.findById(item.review._id).populate('movie').populate('user');
+        console.log(thisReview);
+        newFeed.push(thisReview);
+    }
+    res.json({done: 'yes'});
 })
 
 

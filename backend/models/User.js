@@ -21,6 +21,10 @@ const userSchema = new Schema(
       status: String,
       currentSeason: Number,
       currentEpisode: Number
+    }],
+    feed: [{
+      status: String,
+      review: {type: Schema.Types.ObjectId, ref: "MovieReview"},
     }]
   },
   {
