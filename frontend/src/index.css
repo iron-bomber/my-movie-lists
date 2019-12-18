@@ -25,7 +25,7 @@ code {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 10vh;
+  height: 8vh;
   width: 100%;
 }
 
@@ -51,7 +51,6 @@ code {
 }
 
 .one-movie-result{
-  margin-bottom: 8px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -59,22 +58,50 @@ code {
 }
 
 .movie-header{
-  background-color: #17252a;
-  color: white;
+  background-color: #e1e7f5;
+  color: black;
   font-size: 1.8em;
-  padding: 8px 0px;
+  padding: 8px;
+  text-align: left;
+  margin-bottom: 0px;
 }
 
 .description{
   text-align: left;
   height: auto;
-  background-color: #edc7b7;
   padding: 8px;
-  margin: 8px;
-  margin-bottom: 16px !important;
-  -moz-box-shadow: 5px 5px 5px rgb(112, 112, 112);
-  -webkit-box-shadow: 5px 5px 5px rgb(112, 112, 112);
-  box-shadow: 5px 5px 5px rgb(112, 112, 112);
+  padding-top: 0px;
+}
+
+.synopsis{
+  background-color: #e1e7f5;
+  padding: 8px 0;
+  border-top: 1px solid #b4b4b4;
+  border-bottom: 1px solid #b4b4b4;
+}
+
+.good-button{
+  background-color: white;
+  height: 25px;
+  width: 70px;
+  color: green;
+  font-size: .7em;
+  border: 1px solid green;
+  border-radius: 5px;
+}
+
+.good-button:focus, .bad-button:focus{
+    outline: none;
+}
+
+.bad-button{
+  background-color: white;
+  height: 25px;
+  width: 70px;
+  border: 1px solid gray;
+  color: gray;
+  font-size: .7em;
+  border-radius: 5px;
 }
 
 .navbar-icons{
@@ -86,6 +113,8 @@ code {
 .poster-size{
   width: auto;
   height: 230px;
+  margin-left: 0px;
+  padding-left: 0px;
 }
 
 .listing-img{
@@ -94,6 +123,7 @@ code {
   justify-content: center;
   align-items: center;
   margin: 0px 8px;
+  margin-left: 0px;
 }
 
 .listing-add-btn{
@@ -127,8 +157,6 @@ code {
   margin: 8px;
   align-items: center;
 }
-
-
 
 .dv-star-rating-star i{
   font-size: 2em;
