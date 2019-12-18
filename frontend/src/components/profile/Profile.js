@@ -44,6 +44,9 @@ class Profile extends Component {
                 break;
             case 'password':
                 change.password = true;
+                break;
+            default: 
+                break;
         }
         this.setState({
             change: change
@@ -168,6 +171,8 @@ class Profile extends Component {
                 case 'password':
                     data.password = this.state.password;
                     break;
+                default:
+                    break;
             }
             await actions.updateProfile(data);
             await this.props.updateData();
@@ -183,6 +188,7 @@ class Profile extends Component {
                 <div className="row">
                     <div className="col-12 text-center">
                         <h2>Account settings</h2>
+                        <button onClick={this.props.logOut}>Log Out</button>
                     </div>
                     <div className="col-8 change-name">
                         <div className="row text-left">

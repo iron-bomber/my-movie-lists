@@ -47,10 +47,9 @@ class App extends Component {
     })
   }
   
-  logOut = async (history) => {
-    let res = await actions.logOut()
+  logOut = async () => {
+    await actions.logOut()
     this.setUser(null);
-    history.push('/');
   }
 
   render(){
