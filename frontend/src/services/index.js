@@ -56,6 +56,10 @@ const actions = {
   removeFriend: async data => {
     return await service.post('/remove-friend', data);
   },
+  changePassword: async data => {
+    return await service.post('/change-password', data);
+  }
+  
 };
 
 export default actions;
