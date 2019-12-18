@@ -7,6 +7,7 @@ import StarRatingComponent from 'react-star-rating-component';
 import listcss from '../css/listcss.css'
 import {Link} from 'react-router-dom'
 import NotLoggedIn from './notLoggedIn';
+import {IoIosAddCircle} from 'react-icons/io'
 
 
 class MyList extends Component {
@@ -163,11 +164,18 @@ class MyList extends Component {
     if (this.props.user){
           return (
     <div>
-      <NavLink to="/add">Add a movie</NavLink>
-      <nav>
-        <button onClick={this.decideShowing} name="all">All</button>
-        <button onClick={this.decideShowing} name="watching">Watched</button>
-        <button onClick={this.decideShowing} name="want">Want to watch</button>
+      <nav className="list-nav">
+        <button onClick={this.decideShowing} className="list-nav-item" name="all">All</button>
+        <button onClick={this.decideShowing} className="list-nav-item" name="watching">Watched</button>
+        <button onClick={this.decideShowing} className="list-nav-item" name="want">Want to watch</button>
+        <NavLink to="/add" className="list-nav-item">
+          Add to list  
+        <IoIosAddCircle 
+          color="green"
+          size={26}
+          className="ioioscircle"
+        />
+        </NavLink>
       </nav>
         <div className="container-fluid">
           <div className="row">
