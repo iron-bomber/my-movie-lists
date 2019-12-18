@@ -248,11 +248,15 @@ router.post('/remove-friend', isLoggedIn, async (req, res, next)=>{
 router.post('/populate-feed', isLoggedIn, async (req, res, next) => {
     let newFeed = [];
     for (let item of req.body.feed){
-        let thisReview = MovieReview.findById(item.review._id).populate('movie').populate('user');
-        console.log(thisReview);
-        newFeed.push(thisReview);
+        let thisReview = await MovieReview.findById(item.review._id).populate('movie').populate('user');
+        item.user = {
+            firstName: thisReview.user.firstName,
+            lastName: thisReview.user.lastName,
+        };
+        item.movie = thisReview.movie
+        newFeed.push(item);
     }
-    res.json({done: 'yes'});
+    res.json({feed: newFeed});
 })
 
 
