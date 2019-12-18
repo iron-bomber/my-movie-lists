@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import actions from '../services';
 import NotLoggedIn from './notLoggedIn';
 import {Link} from 'react-router-dom'
+import '../css/listcss.css'
 
 
 export default class friends extends Component {
@@ -51,17 +52,27 @@ export default class friends extends Component {
     }
 
     showRequests = () =>{
+        if(this.props.user.requests.filter(each=>{
+            return each.received
+        }).length == 0
+        ){
+            return (
+                <div className="no-reqs">
+                    No requests
+                </div>
+            )
+        }
        return this.props.user.requests.map(each=>{
            if(each.received){
-               console.log(each)
                return (
                    <div>
                     {each.user.email}
-                    {this.state[each._id] && this.state[each._id].added ?
+                    {this.state[each.user._id] && this.state[each.user._id].added ?
                     (
                         <button name={each.user._id} className="removed">Accepted!</button>
                     )
-                    : (
+                    : 
+                    (
                         <button onClick={this.acceptReq} name={each.user._id}>Accept :)</button>
                     )
                     }
@@ -77,11 +88,12 @@ export default class friends extends Component {
             theirId: e.target.name,
             myId: this.props.user._id
         }
-        this.setState({
+        await this.setState({
             [e.target.name]: {
                 added: true
             }
         })
+        console.log(this.state)
         await actions.acceptReq(data)
         this.props.updateData()
     }
@@ -180,37 +192,39 @@ export default class friends extends Component {
     render() {
         if (this.props.user){
                     return (
-            <div>
+            <div >
 
-            <button onClick={this.toggleRequests}>Requests</button>
+            <nav className="list-nav">
 
-            <button onClick={this.toggleFriend}>
-                Friends
-            </button>
-            <button onClick={this.toggleFind}>
-                Add Friends
-            </button>
+                        <button onClick={this.toggleRequests} className="list-nav-item">Requests</button>
+
+                        <button onClick={this.toggleFriend} className="list-nav-item">
+                            Friends
+                        </button>
+                        <button onClick={this.toggleFind} className="list-nav-item">
+                            Add Friends
+                        </button>
+            </nav>
 
 
 
             {this.state.requestsOn &&
                 <div>
-                Reqs
                     {this.showRequests()}
                 </div>
             }
             {this.state.friendOn &&
                 <div>
-                    <form className="form-inline" onSubmit={this.searchFriends}>
-                        <input type="text" className="form-control" name="searchfriends" placeholder="Search friends" autoComplete="off" onChange={this.updateValues} />
+                    <form className="form-inline" onSubmit={this.searchFriends} className="align-center">
+                        <input type="text" className="form-control friend-search" name="searchfriends" placeholder="Search friends" autoComplete="off" onChange={this.updateValues} />
                     </form>
                     {this.showFriends()}
                 </div>
             }
             {this.state.findOn &&
                 <div>
-                    <form className="form-inline" onSubmit={this.searchFriends}>
-                        <input type="text" className="form-control" name="search" placeholder="Search user by email" autoComplete="off" onChange={this.updateValues} />
+                    <form className="form-inline" onSubmit={this.searchFriends} className="align-center">
+                        <input type="text" className="form-control friend-search" name="search" placeholder="Search user by email" autoComplete="off" onChange={this.updateValues} />
                     </form>
                     {this.showUsers()}
                 </div>

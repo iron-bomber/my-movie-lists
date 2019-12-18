@@ -10,6 +10,7 @@ import {Link} from 'react-router-dom'
 import NotLoggedIn from './notLoggedIn';
 import ReadMoreReact from 'read-more-react';
 
+
 export default class userpage extends Component {
 
     state = {
@@ -54,12 +55,9 @@ export default class userpage extends Component {
       showUser = ()=>{
           let user = this.state.user
           return(
-              <div>
-                <p>
+                <p className="user-header">
                   {user.firstName}'s Profile
-
                 </p>      
-              </div>
           )
       }
     
@@ -167,11 +165,11 @@ export default class userpage extends Component {
             {this.showUser()}
         </div>
 
-          <nav>
-            <button onClick={this.decideShowing} name="all">All</button>
-            <button onClick={this.decideShowing} name="watching">Watching</button>
-            <button onClick={this.decideShowing} name="want">Want to watch</button>
-          </nav>
+        <nav className="list-nav">
+        <button onClick={this.decideShowing} className="list-nav-item" name="all">All</button>
+        <button onClick={this.decideShowing} className="list-nav-item" name="watching">Watched</button>
+        <button onClick={this.decideShowing} className="list-nav-item" name="want">Want to watch</button>
+      </nav>
             <div className="container-fluid">
               <div className="row">
                 {this.showList()}

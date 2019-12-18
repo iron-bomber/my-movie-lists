@@ -10,7 +10,8 @@ export default class Movie extends Component {
     state = {
         rating: null,
         review: '',
-        status: '',
+        status: 'completed',
+        completed: true
     }
 
     truncDate = (a) =>{
