@@ -4,6 +4,7 @@ import StarRatingComponent from 'react-star-rating-component';
 import actions from '../services/index'
 import NotLoggedIn from './notLoggedIn';
 import '../css/listcss.css'
+import {Modal, Button} from 'react-bootstrap';
 
 
 export default class Movie extends Component {
@@ -42,7 +43,8 @@ export default class Movie extends Component {
                     status: ok.review.status,
                     found: true,
                     id: ok.review._id,
-                    completed: completed
+                    completed: completed,
+                    onList: true
                 })
             }
         }
@@ -87,8 +89,7 @@ export default class Movie extends Component {
         this.props.history.push('/')
     }
 
-    submitForm = async (e) =>{
-        e.preventDefault()
+    submitForm = async () =>{
         if(!this.props.user._id){
             this.props.history.push('/log-in');
         }
@@ -108,10 +109,10 @@ export default class Movie extends Component {
                 id: this.state.id
             }
             await actions.updateReview(updatedReview)
-            this.reroute();
+            this.props.updateData()
         }else{
             let newMovie = await actions.addMovie(subData);
-            this.reroute();
+            this.props.updateData()
         }
     }
 
@@ -132,56 +133,38 @@ export default class Movie extends Component {
             }
         })
     }
-    
-    render() {
-        console.log(this.state.movie)
-        if (this.props.user){
-                    return (
-            <div>
-                {this.state.movie && 
-                <div>
-                    <h1 className="movie-header">
-                        {this.state.movie.original_title} 
-                    </h1>
-                    <div className="one-movie-result">
-                    <div className="listing-img">
-                        <img src={this.state.poster} alt="img" className="poster-size"/>
-                    </div>
-                    <div className="listing-info">
-                        <p className="make-inline-flex">
-                            <span><b>Avg Rating: &nbsp;</b></span>
-                            <span className="gold">★</span> {this.state.movie.vote_average} 
-                        </p>
 
-                        <p className="make-inline-flex">
-                            <span><b>Runtime: &nbsp;</b></span>
-                            {this.state.movie.runtime}
-                        </p>
+     Modal() {
+      
+        const handleClose = () => this.setState({ show: false })
+        const submitIt = () => {
+            this.submitForm()
+            this.setState({ show: false })
+        }
+        const handleShow = () => this.setState({ show: true })
+      
+        return (
+          <>
 
-                        <p className="make-inline-flex">
-                            <span><b>Release Date: &nbsp;</b></span>
-                            {this.truncDate(this.state.movie.release_date)}
-                        </p>
+            {this.state.onList ? 
+            (
+                <button className="good-button" variant="primary" onClick={handleShow}>
+                    Added
+                </button>
+            ) :
+            (
+                <button className="bad-button" variant="primary" onClick={handleShow}>
+                    Add to list
+                </button>
+            )
 
-                        <p className="make-inline-flex">
-                            <p><b>Genres: &nbsp;</b></p>
-                            <p>
-                                {this.displayGenres()}
-                            </p>
-                        </p>
-                    </div>
-                </div>
-                    <h4><b>Synopsis</b></h4>
-
-                        <p className="description">
-                            {this.state.movie.overview}
-                        </p>
-                </div>
-                }
+            }
 
 
 
-
+            {this.state.show &&
+                <Modal show={handleShow} onHide={handleClose}>
+                <Modal.Body>
                 <div>
                 <select onChange={this.handleChange} name="status" value={this.state.value}>
                     {this.state.completed &&
@@ -210,11 +193,77 @@ export default class Movie extends Component {
                     <br />
                     <textarea className="review-input" name="review" value={this.state.review} onChange={this.handleChange}/>
                 </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                    Close
+                    </Button>
+                    <Button variant="primary" onClick={submitIt}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+                </Modal>
+
+                
+            }
+          </>
+        )
+      }
+    
+    render() {
+        console.log(this.state.movie)
+        if (this.props.user){
+                    return (
+            <div>
+                {this.state.movie && 
                 <div>
-                    <button className="submit-rating" onClick={this.submitForm}>
-                        Submit
-                    </button>
+                    <h1 className="movie-header">
+                        {this.state.movie.original_title} 
+                    </h1>
+                    <div className="one-movie-result">
+                    <div className="listing-img">
+                        <img src={this.state.poster} alt="img" className="poster-size"/>
+                    </div>
+                    <div className="listing-info">
+                        <p className="make-inline-flex">
+                            <span><b>Avg Rating: &nbsp;</b></span>
+                            <span className="gold">★</span> {this.state.movie.vote_average} 
+                        </p>
+
+                        <p className="make-inline-flex">
+                            <span><b>Runtime: &nbsp;</b></span>
+                            {this.state.movie.runtime} mins
+                        </p>
+
+                        <p className="make-inline-flex">
+                            <span><b>Release Date: &nbsp;</b></span>
+                            {this.truncDate(this.state.movie.release_date)}
+                        </p>
+
+                        <p className="make-inline-flex">
+                            <p><b>Genres: &nbsp;</b></p>
+                            <p>
+                                {this.displayGenres()}
+                            </p>
+                        </p>
+                    </div>
                 </div>
+                    <h4 className="synopsis"><b>Synopsis</b></h4>
+
+                        <p className="description">
+                            {this.state.movie.overview}
+                        </p>
+                </div>
+                }
+
+                <div>
+                    {this.Modal()}
+                </div>
+
+
+
+
+                
             </div>
         )
         } else {
