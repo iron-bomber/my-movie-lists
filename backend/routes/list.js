@@ -213,12 +213,21 @@ router.post('/get-user', isLoggedIn, async (req, res, next) => {
     res.json(user);
 })
 
-// router.post('/add-show', (req, res, next) => {
+router.post('/remove-friend', isLoggedIn, async (req, res, next)=>{
+    let sender = await User.update({'_id': req.body.myId}, 
+        {
+            $pull: { friends: req.body.theirId}
+        }
+    );
 
-// })
+    let receiver = await User.update({'_id': req.body.theirId}, 
+        {
+            $pull: { friends: req.body.myId}
+        }
+    );
 
-// router.post('/add-friend', (req, res, next) => {
+    res.json({sender, receiver})
+})
 
-// })
 
 module.exports = router;

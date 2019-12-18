@@ -20,9 +20,21 @@ export default class friends extends Component {
                     <Link to={'/userpage/' + each._id}>
                         {each.firstName} // {each.email}
                     </Link>
+                    <button name={each._id} onClick={this.removeFriend}>Remove friend</button>
                 </div>
             )
         })
+    }
+
+    removeFriend = async (e) =>{
+        e.preventDefault()
+        let ids = {
+            theirId: e.target.name,
+            myId: this.props.user._id
+        }
+        console.log(ids)
+        await actions.removeFriend(ids)
+        this.props.updateData()
     }
 
     showRequests = () =>{

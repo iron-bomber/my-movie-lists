@@ -50,6 +50,9 @@ const actions = {
   getUser: async data => {
     return await service.post('/get-user', data);
   },
+  removeFriend: async data => {
+    return await service.post('/remove-friend', data);
+  },
 };
 
 export default actions;

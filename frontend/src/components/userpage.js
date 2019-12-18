@@ -50,6 +50,18 @@ export default class userpage extends Component {
           console.log(err)
         })
       }
+
+      showUser = ()=>{
+          let user = this.state.user
+          return(
+              <div>
+                <p>
+                  {user.firstName}'s Profile
+
+                </p>      
+              </div>
+          )
+      }
     
       showList = () =>{
         let list = this.state.user.movieList;
@@ -151,6 +163,10 @@ export default class userpage extends Component {
         if (this.state.user){
               return (
         <div>
+        <div>
+            {this.showUser()}
+        </div>
+
           <nav>
             <button onClick={this.decideShowing} name="all">All</button>
             <button onClick={this.decideShowing} name="watching">Watching</button>
