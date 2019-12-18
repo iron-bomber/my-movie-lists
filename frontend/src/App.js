@@ -14,6 +14,7 @@ import Friends from './components/friends';
 import Feed from './components/feed'
 import Axios from 'axios';
 import Navbar from './components/navbar';
+import Userpage from './components/userpage.js'
 
 
 class App extends Component {
@@ -67,6 +68,7 @@ class App extends Component {
         <Route exact path="/tv/:id" render={(props) => <Show {...props} user={this.state.user} updateData={this.updateData} />} />
         <Route exact path="/my-friends" render={(props) => <Friends {...props} user={this.state.user} updateData={this.updateData}/>} />
         <Route exact path="/my-feed" render={(props) => <Feed {...props} user={this.state.user} />} />
+        <Route exact path="/userpage/:id" render={(props) => <Userpage {...props} user={this.state.user} />} />
 
         <Route component={NotFound} />
 

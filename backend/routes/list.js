@@ -185,6 +185,14 @@ router.post('/accept-req', isLoggedIn, async (req, res, next)=>{
     res.json({sender, receiver})
 })
 
+router.post('/get-user', isLoggedIn, async (req, res, next) => {
+    const user = await User.findById(req.body.id)
+      .populate('movieList.movie')
+      .populate('movieList.review')
+      .populate('friends')
+    res.json(user);
+})
+
 // router.post('/add-show', (req, res, next) => {
 
 // })

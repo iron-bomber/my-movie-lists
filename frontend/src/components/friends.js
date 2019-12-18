@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import actions from '../services';
 import NotLoggedIn from './notLoggedIn';
+import {Link} from 'react-router-dom'
 
 
 export default class friends extends Component {
@@ -16,7 +17,9 @@ export default class friends extends Component {
         return this.props.user.friends.map(each=>{
             return (
                 <div>
-                    {each.firstName} // {each.email}
+                    <Link to={'/userpage/' + each._id}>
+                        {each.firstName} // {each.email}
+                    </Link>
                 </div>
             )
         })

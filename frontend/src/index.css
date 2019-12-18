@@ -5,8 +5,8 @@ body {
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #eee2dc;
-  /* background-color: #eee2dc; */
+  background-color: #feffff;
+  /* background-color: #ffffff; */
 }
 
 code {
@@ -26,7 +26,7 @@ code {
   height: 100%;
   border-right: 2px solid black;
   border-bottom: 2px solid black;
-  background-color: #123c69;
+  background-color: #2b7a78;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,7 +36,7 @@ code {
   width: 25%;
   height: 100%;
   border-bottom: 2px solid black;
-  background-color: #123c69;
+  background-color: #2b7a78;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,7 +63,7 @@ code {
 .navbar-icons{
   height: 80%;
   width: auto;
-  color: #edc7b7
+  color: #feffff
 }
 
 .poster-size{

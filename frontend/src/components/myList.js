@@ -18,7 +18,6 @@ class MyList extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.user.movieList.length)
     if (this.props.user.movieList.length == 0){
       this.setState({movieList: false});
     }
@@ -39,12 +38,6 @@ class MyList extends Component {
     .catch((err)=>{
       console.log(err)
     })
-  }
-
-  openStarRater = (i) => {
-    let ratings = {};
-    ratings[i] = true;
-    this.setState({ratings: ratings, rating: null});
   }
 
   updateRating = async (reviewId, i) => {
@@ -71,22 +64,23 @@ class MyList extends Component {
 
   showList = () =>{
     let list = this.props.user.movieList;
-    switch(this.state.decide){
-      case "watching":
-        list.filter(each=>{return each.status === "watching"})
-        break;
-      case "want":
-        list.filter(each=>{return each.status === "want-to-watch"})
-        break;
-      default: break;
-
-    }
     if(list.length == 0){
       return(
         <div>
             <h2>It looks like you don't currently have a list. Get to work!</h2>
         </div>
       )
+    }
+    switch(this.state.decide){
+      case "watching":
+        list = list.filter(each=>{
+          console.log(each.review.status)
+          return each.review.status === "completed"})
+        break;
+      case "want":
+        list = list.filter(each=>{return each.review.status === "want"})
+        break;
+      default: break;
     }
     return list.map((each, i) => {
       console.log(each);
@@ -172,7 +166,7 @@ class MyList extends Component {
       <NavLink to="/add">Add a movie</NavLink>
       <nav>
         <button onClick={this.decideShowing} name="all">All</button>
-        <button onClick={this.decideShowing} name="watching">Watching</button>
+        <button onClick={this.decideShowing} name="watching">Watched</button>
         <button onClick={this.decideShowing} name="want">Want to watch</button>
       </nav>
         <div className="container-fluid">

@@ -47,6 +47,9 @@ const actions = {
   acceptReq: async data => {
     return await service.post('/accept-req', data);
   },
+  getUser: async data => {
+    return await service.post('/get-user', data);
+  },
 };
 
 export default actions;
