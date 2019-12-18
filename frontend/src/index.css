@@ -145,7 +145,19 @@ code {
 .not-a-button{
   background: none!important;
   border: none;
+  margin-right: 3px;
   padding: 0!important;
-  text-decoration: underline;
+  color: blue;
   cursor: pointer;
+}
+
+.change-name{
+  border-top: 1px solid black;
+  border-bottom: 1px solid lightgray;
+  font-size: 1.2em
+}
+
+.change-email{
+  border-bottom: 1px solid lightgray;
+  font-size: 1.2em
 }

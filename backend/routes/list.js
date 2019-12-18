@@ -186,6 +186,7 @@ router.post('/send-req', isLoggedIn, async (req, res, next)=>{
     res.json(senderList)
 })
 
+
 router.post('/accept-req', isLoggedIn, async (req, res, next)=>{
     let sender = await User.update({'_id': req.body.myId}, 
         {

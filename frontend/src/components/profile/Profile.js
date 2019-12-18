@@ -3,25 +3,68 @@ import React, {Component, Fragment} from 'react';
 import NotLoggedIn from '../notLoggedIn';
 import {FiEdit3} from "react-icons/fi";
 import classNames from 'classnames';
+import actions from '../../services/index';
 
 
 class Profile extends Component {
 
 
     state = {
-        changeName: false,
-        changeEmail: false,
-        changePassword: false,
+        change: {
+            name: false,
+            email: false,
+            password: false
+        }
     }
 
     componentDidMount(){
         if (this.props.user){
-            this.setState({
-                firstName: this.props.user.firstName,
-                lastName: this.props.user.lastName,
-                email: this.props.user.email,
-                password: '',
-            })
+            this.mountDataInState();
+        }
+    }
+
+    mountDataInState = () => {
+        this.setState({
+            firstName: this.props.user.firstName,
+            lastName: this.props.user.lastName,
+            email: this.props.user.email,
+            password: '',
+        })
+    }
+
+    change = input => {
+        this.mountDataInState();
+        let change = {name: false, email: false, password: false};
+        switch (input){
+            case 'name':
+                change.name = true;
+                break;
+            case 'email': 
+                change.email = true;
+                break;
+            case 'password':
+                change.password = true;
+        }
+        this.setState({
+            change: change
+        })
+        this.isValidEmail();
+    }
+
+    cancel = () => {
+        this.mountDataInState();
+        let change = {name: false, email: false, password: false};
+        this.setState({
+            change: change
+        })
+    }
+
+    handleChange = async e => {
+        await this.setState({
+            [e.target.name]: e.target.value
+        })
+        if (this.state.change.email){
+            this.isValidEmail();
         }
     }
 
@@ -46,8 +89,11 @@ class Profile extends Component {
                 } else {
                     return {valid: true}
                 }
+            default:
+                break;
         }
     }
+
     isValid = input => {
         let wert = {}
         let valid = this.validator(input);
@@ -59,85 +105,160 @@ class Profile extends Component {
             wert.class = classNames('form-control', 'input-lg', 'is-valid' );
         } return wert;
     }
-    
-    handleChange = async e => {
-        await this.setState({
-            [e.target.name]: e.target.value
-        })
-        if (this.state.changeEmail){
+
+    isValidEmail = () => {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)){ 
+            actions.validEmail(this.state.email)
+            .then((validEmail) => {
+                console.log(validEmail.data);
+                if (validEmail.data.free){
+                    let theClass = classNames('form-control', 'input-lg', 'is-valid');
+                    this.setState({
+                        emailClass: theClass,
+                        emailMessage: ""
+                    })
+                } else {
+                    if (this.props.user.email == this.state.email){
+                        let message = 'You said you wanted to change it!';
+                        let theClass = classNames('form-control', 'input-lg', 'is-invalid');
+                        this.setState({
+                            emailClass: theClass,
+                            emailMessage: message
+                        })
+                    } else {
+                        let message = 'That email is already in use, please choose another.';
+                        let theClass = classNames('form-control', 'input-lg', 'is-invalid');
+                        this.setState({
+                            emailClass: theClass,
+                            emailMessage: message
+                        })
+                    }
+                }
+            })
+        } else {
+            let message = 'Invalid email address.';
+            let theClass = classNames('form-control', 'input-lg', 'is-invalid');
+            this.setState({
+                emailClass: theClass,
+                emailMessage: message
+            })
+        }
+    }
+
+    submitChanges = async (input) => {
+        let valid = false;
+        if (input == 'name'){
+            valid = this.validator('firstName').valid && this.validator('lastName').valid;
+        } else if (input == 'email'){
             this.isValidEmail();
+            if (this.state.emailMessage.length == 0){
+                valid = true;
+            }
+        }
+        if (valid){
+            let data = {};
+            switch (input){
+                case 'name':
+                    data.firstName = this.state.firstName;
+                    data.lastName = this.state.lastName;
+                    break;
+                case 'email': 
+                    data.email = this.state.email;
+                    break;
+                case 'password':
+                    data.password = this.state.password;
+                    break;
+            }
+            await actions.updateProfile(data);
+            await this.props.updateData();
+            this.cancel();
         }
     }
-
-    changeMy = (field) => {
-        switch (field){
-            case 'name':
-                this.setState({
-                    changeName: true,
-                    changeEmail: false,
-                    changePassword: false,
-                })
-                break;
-            case 'email':
-                this.setState({
-                    changeName: false,
-                    changeEmail: true,
-                    changePassword: false,
-                })
-                break;
-            case 'password':
-                this.setState({
-                    changeName: false,
-                    changeEmail: false,
-                    changePassword: true,
-                })
-                break;
-        }
-    }
-
-
-
+    
     
     render(){
         if (this.props.user){
         return (
-            <div className="container-fluid">
+            <div className="container">
                 <div className="row">
-                    <div className="col-12">
-                    <button className="btn btn-danger" onClick={() => this.props.logOut(this.props.history)}>Log out</button>
+                    <div className="col-12 text-center">
+                        <h2>Account settings</h2>
                     </div>
-                    <div className="col-12 mb-2 text-left">
-                        {!this.state.changeName &&
-                            <div>
-                                <h3>Your name: {this.props.user.firstName} {this.props.user.lastName}</h3>
-                                <button onClick={() => {this.changeMy("name")}}><FiEdit3/> Edit</button>
-                            </div>
-                        }
-                        {this.state.changeName &&
+                    <div className="col-8 change-name">
+                        <div className="row text-left">
+                        <div className="col-2">
+                            <b>Name</b>
+                        </div>
+                        {!this.state.change.name &&
                             <Fragment>
-                                <div>
+                                <div className="col-8 text-secondary">
+                                    {this.props.user.firstName} {this.props.user.lastName}
+                                </div>
+                                <div className="col-2">
+                                    <button onClick={() => {this.change('name')}} className="not-a-button">Edit</button>
+                                </div>
+                            </Fragment>
+
+                        }
+                        {this.state.change.name &&
+                            <Fragment>
+                                <div className="col-4">
                                     <input type="text" name="firstName" value={this.state.firstName} className={this.isValid('firstName').class} onChange={this.handleChange} placeholder="First Name"/>
                                     <div className="valid-feedback text-left">
-                                        Looks good!
                                     </div>
                                     <div className="invalid-feedback text-left">
                                         Field cannot be empty
                                     </div>
                                 </div>
-                                <div>
+                                <div className="col-4">
                                     <input type="text" name="lastName" value={this.state.lastName} className={this.isValid('lastName').class} onChange={this.handleChange} placeholder="Last Name"/>
+                                    <div className="valid-feedback text-left">
+                                    </div>
+                                    <div className="invalid-feedback text-left">
+                                        Field cannot be empty
+                                    </div>
+                                </div>
+                                <div className="col-2">
+                                    <button onClick={() => {this.submitChanges('name')}} className="badge badge-primary">Save</button>
+                                    <button onClick={this.cancel} className="badge badge-danger">Cancel</button>
+                                </div>
+                            </Fragment>
+                        }
+                        </div>
+                    </div>
+                    <div className="col-8 change-email">
+                        <div className="row text-left">
+                        <div className="col-2">
+                            <b>Email</b>
+                        </div>
+                        {!this.state.change.email &&
+                            <Fragment>
+                                <div className="col-8 text-secondary">
+                                    {this.props.user.email}
+                                </div>
+                                <div className="col-2">
+                                    <button onClick={() => {this.change('email')}} className="not-a-button">Edit</button>
+                                </div>
+                            </Fragment>
+
+                        }
+                        {this.state.change.email &&
+                            <Fragment>
+                                <div className="col-8">
+                                    <input type="email" name="email" value={this.state.email} className={this.state.emailClass} onChange={this.handleChange} placeholder="Your Email"/>
                                     <div className="valid-feedback text-left">
                                         Looks good!
                                     </div>
                                     <div className="invalid-feedback text-left">
-                                        Field cannot be empty
+                                        {this.state.emailMessage}
                                     </div>
                                 </div>
-                                <button className="btn btn-primary" onClick={this.submitChanges}>Save</button>
+                                <div className="col-2">
+                                    <button onClick={() => {this.submitChanges('name')}} className="badge badge-primary">Save</button>
+                                    <button onClick={this.cancel} className="badge badge-danger">Cancel</button>
+                                </div>
                             </Fragment>
                         }
-                        <div>
-                            Your email: {this.props.user.email}
                         </div>
                     </div>
                 </div>

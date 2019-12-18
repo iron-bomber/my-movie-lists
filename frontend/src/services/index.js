@@ -47,6 +47,9 @@ const actions = {
   acceptReq: async data => {
     return await service.post('/accept-req', data);
   },
+  updateProfile: async data => {
+    return await service.post('/update-profile', data);
+  }
 };
 
 export default actions;

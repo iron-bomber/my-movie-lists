@@ -23,6 +23,7 @@ router.post('/validEmail', (req, res, next) => {
   let email = req.body.email;
     User.findOne({"email": email})
     .then((user) => {
+      console.log(user)
         if (!user) {
             res.json({
                 free: true
@@ -40,6 +41,16 @@ router.post('/validEmail', (req, res, next) => {
         error: error
       })
     })
+})
+
+router.post('/update-profile', isLoggedIn, async (req, res, next) => {
+  let response;
+  if (req.body.firstName){
+    response = await User.findByIdAndUpdate(req.user._id, {firstName: req.body.firstName, lastName: req.body.lastName})
+  } else if (req.body.email){
+    response = await User.findByIdAndUpdate(req.user._id, {email: req.body.email});
+  }
+  res.json(response);
 })
 
 

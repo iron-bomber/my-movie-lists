@@ -32,19 +32,6 @@ class SignUp extends Component {
                 } else {
                     return {valid: true}
                 }
-            // case 'email':
-            //     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)){ 
-            //         let validEmail = await actions.validEmail(this.state.email);
-            //         if (validEmail.data.free){
-            //             return {valid: true};
-            //         } else {
-            //             let message = 'That email is already in use, please choose another.';
-            //             return {valid: false, message: message};
-            //         }
-            //     } else {
-            //         let message = 'Invalid email address.';
-            //         return {valid: false, message: message};
-            //     }
             case 'password':
             case 'confirmPassword':
                 if (this.state.password.length < 6) {
