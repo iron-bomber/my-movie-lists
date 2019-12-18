@@ -18,6 +18,29 @@ router.post('/signup', (req, res, next) => {
     });
 });
 
+router.post('/change-password', isLoggedIn, (req, res, next) => {
+  let theResponse = {message: ""};
+  User.findById(req.user._id) 
+  .then(foundUser => {
+      foundUser.changePassword(req.body.oldPassword, req.body.newPassword)
+          .then(() => {
+              console.log('password changed');
+              theResponse.message = 'success';
+              res.json(theResponse);
+          })
+          .catch((error) => {
+              console.log('31 ', error.message);
+              theResponse.message = 'incorrect';
+              res.json(theResponse);
+          })
+  })
+  .catch((error) => {
+      console.log('36 ', error);
+      theResponse.message = 'error 2'
+      res.json(theResponse);
+  });
+});
+
 // Checks db to see if email is taken during registration
 router.post('/validEmail', (req, res, next) => {
   let email = req.body.email;

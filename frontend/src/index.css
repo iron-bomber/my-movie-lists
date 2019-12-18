@@ -185,10 +185,10 @@ code {
 .change-name{
   border-top: 1px solid black;
   border-bottom: 1px solid lightgray;
-  font-size: 1.2em
+  font-size: 1.2em;
 }
 
 .change-email{
   border-bottom: 1px solid lightgray;
-  font-size: 1.2em
+  font-size: 1.2em;
 }
