@@ -1,0 +1,44 @@
+.friend-listing{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+}
+
+.friend-img{
+    height: 200px;
+    width: auto;
+}
+
+.friend-header{
+    width: 100%;
+    height: auto;
+    font-size: 1.3em;
+    margin-bottom: 0px;
+}
+
+.friend-info{
+    padding-left: 8px;
+    width: 100%;
+    background-color: #ffd5dc;
+    border-radius: 5px;
+    margin-left: 8px;
+}
+
+.rating-bg{
+    
+}
+
+.rating{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 8px;
+}
+
+.underline{
+    text-decoration: underline;
+    margin-bottom: 0px;
+}

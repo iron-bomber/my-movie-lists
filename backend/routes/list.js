@@ -206,12 +206,29 @@ router.post('/accept-req', isLoggedIn, async (req, res, next)=>{
     res.json({sender, receiver})
 })
 
-// router.post('/add-show', (req, res, next) => {
+router.post('/get-user', isLoggedIn, async (req, res, next) => {
+    const user = await User.findById(req.body.id)
+      .populate('movieList.movie')
+      .populate('movieList.review')
+      .populate('friends')
+    res.json(user);
+})
 
-// })
+router.post('/remove-friend', isLoggedIn, async (req, res, next)=>{
+    let sender = await User.update({'_id': req.body.myId}, 
+        {
+            $pull: { friends: req.body.theirId}
+        }
+    );
 
-// router.post('/add-friend', (req, res, next) => {
+    let receiver = await User.update({'_id': req.body.theirId}, 
+        {
+            $pull: { friends: req.body.myId}
+        }
+    );
 
-// })
+    res.json({sender, receiver})
+})
+
 
 module.exports = router;
