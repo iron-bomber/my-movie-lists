@@ -9,6 +9,10 @@ body {
   /* background-color: #ffffff; */
 }
 
+p{
+  margin-bottom: 0px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
@@ -47,9 +51,18 @@ code {
 }
 
 .one-movie-result{
-  border-bottom: 1px solid palevioletred;
-  margin: 8px 0px;
+  margin-bottom: 8px;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.movie-header{
+  background-color: #17252a;
+  color: white;
+  font-size: 1.8em;
+  padding: 8px 0px;
 }
 
 .description{
@@ -72,7 +85,7 @@ code {
 
 .poster-size{
   width: auto;
-  height: 200px;
+  height: 230px;
 }
 
 .listing-img{
@@ -92,16 +105,30 @@ code {
 .listing-info{
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
   max-width: inherit;
   margin-bottom: 8px;
+  margin-right: 16px;
 }
 
-.listing-info h1, .listing-info h2, .listing-info h3, .listing-info h4, .listing-info h5,.listing-info p{
-  margin: 0 16px;
-  padding: 8px;
+.gold{
+  color: #ffb400
 }
+
+.listing-info h1, .listing-info h2, .listing-info h3, .listing-info h4, .listing-info h5,.listing-info p. .listing-info span{
+  padding: 8px;
+  text-align: left;
+  margin: 0;
+}
+
+.make-inline-flex{
+  display: flex;
+  margin: 8px;
+  align-items: center;
+}
+
+
 
 .dv-star-rating-star i{
   font-size: 2em;

@@ -3,6 +3,7 @@ import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component';
 import actions from '../services/index'
 import NotLoggedIn from './notLoggedIn';
+import '../css/listcss.css'
 
 
 export default class Movie extends Component {
@@ -113,29 +114,74 @@ export default class Movie extends Component {
             this.reroute();
         }
     }
+
+    displayGenres = () =>{
+        return this.state.movie.genres.map((each, i)=>{
+            if(i +1 !== this.state.movie.genres.length){
+                return (
+                    <span>
+                        {each.name}, &nbsp;
+                    </span>
+                )
+            }else{
+                return (
+                    <span>
+                        {each.name}
+                    </span>
+                )
+            }
+        })
+    }
     
     render() {
+        console.log(this.state.movie)
         if (this.props.user){
                     return (
             <div>
                 {this.state.movie && 
+                <div>
+                    <h1 className="movie-header">
+                        {this.state.movie.original_title} 
+                    </h1>
                     <div className="one-movie-result">
                     <div className="listing-img">
                         <img src={this.state.poster} alt="img" className="poster-size"/>
                     </div>
-                    <div className="listing info">
-                        <h1>
-                            {this.state.movie.original_title} 
-                        </h1>
-                        <h3>
+                    <div className="listing-info">
+                        <p className="make-inline-flex">
+                            <span><b>Avg Rating: &nbsp;</b></span>
+                            <span className="gold">★</span> {this.state.movie.vote_average} 
+                        </p>
+
+                        <p className="make-inline-flex">
+                            <span><b>Runtime: &nbsp;</b></span>
+                            {this.state.movie.runtime}
+                        </p>
+
+                        <p className="make-inline-flex">
+                            <span><b>Release Date: &nbsp;</b></span>
                             {this.truncDate(this.state.movie.release_date)}
-                        </h3>
-                        <p className="description">
-                            {this.state.movie.overview}
+                        </p>
+
+                        <p className="make-inline-flex">
+                            <p><b>Genres: &nbsp;</b></p>
+                            <p>
+                                {this.displayGenres()}
+                            </p>
                         </p>
                     </div>
                 </div>
+                    <h4><b>Synopsis</b></h4>
+
+                        <p className="description">
+                            {this.state.movie.overview}
+                        </p>
+                </div>
                 }
+
+
+
+
                 <div>
                 <select onChange={this.handleChange} name="status" value={this.state.value}>
                     {this.state.completed &&
