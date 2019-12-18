@@ -7,6 +7,28 @@ const Show         = require('../models/Show');
 const ShowReview   = require('../models/ShowReview');
 const isLoggedIn    = require('../middleware');
 
+
+/*
+    MOVIE LIST ROUTES
+*/
+
+
+// Removes a movie from your list
+router.post('/remove-movie', isLoggedIn, async (req, res, next) => {
+    let theMovieObject = await Movie.findOne({tmdbID: req.body.movieId});
+    await User.update({_id: req.user._id}, {$pull: {movieList: {movie: theMovieObject._id} } });
+    let deletedReview = await MovieReview.deleteOne({$and : [{'user': req.user._id}, {movie: theMovieObject._id}]});
+    res.json(deletedReview);
+})
+
+// Updates a user's MovieReview
+router.post('/update-review', isLoggedIn, async (req, res, next) => {
+    console.log("74 ", req.body)
+    let newMovieReview = await MovieReview.findByIdAndUpdate(req.body.id, { review: req.body.review, rating: req.body.rating, status: req.body.status }, {new: true});
+    console.log('76 ', newMovieReview);
+    return res.json(newMovieReview);
+})
+
 router.post('/remove-show', isLoggedIn, async (req, res, next) => {
     let theShowObject = await Show.findOne({tmdbID: req.body.showId});
     await User.update({_id: req.user._id}, {$pull: {showList: {show: theShowObject._id} } });
@@ -14,12 +36,55 @@ router.post('/remove-show', isLoggedIn, async (req, res, next) => {
     res.json(deletedReview);
 })
 
-router.post('/remove-movie', isLoggedIn, async (req, res, next) => {
-    let theMovieObject = await Movie.findOne({tmdbID: req.body.movieId});
-    await User.update({_id: req.user._id}, {$pull: {movieList: {movie: theMovieObject._id} } });
-    let deletedReview = await MovieReview.deleteOne({$and : [{'user': req.user._id}, {movie: theMovieObject._id}]});
-    res.json(deletedReview);
+// Adds movie to user's list, creates review, and adds movie to our db
+router.post('/add-movie', isLoggedIn, async (req, res, next) => {
+    // Stores new movie info
+    let newMovie = {
+        tmdbID: req.body.movie.id,
+        name: req.body.movie.original_title,
+        img: req.body.img,
+        plot: req.body.movie.overview,
+        rating: req.body.movie.vote_average,
+        runtime: req.body.movie.runtime,
+        release_date: req.body.movie.release_date,
+        genres: req.body.movie.genres
+    };
+    // Checks to see if movie is already in db, adds it to db if it isn't
+    let dbMovie = await Movie.findOne({"tmdbID": newMovie.tmdbID});
+    if (!dbMovie) {
+        dbMovie = await Movie.create(newMovie).catch( err => res.json(err) )
+    }
+    // Stores new review info
+    let newReview = {
+        rating: req.body.rating,
+        review: req.body.review,
+        movie: dbMovie._id,
+        user: req.body.user,
+        status: req.body.status
+    };
+    // Checks to see if user already has a review, adds it to db if it isn't
+
+    let dbReview = await MovieReview.findOne({$and : [{'user': req.body.user}, {movie: dbMovie._id}]});
+    if (!dbReview){
+        dbReview = await MovieReview.create(newReview);
+    }
+    let movieListItem = {
+        movie: dbMovie._id,
+        review: dbReview._id
+    };
+    let userReview = await User.findOne({$and : [{_id: req.body.user}, {'movieList.movie': movieListItem.movie}]});
+    if (!userReview){
+        let updatedList = await User.updateOne({'_id': req.body.user}, {
+            $push: { movieList: movieListItem }
+        });
+        res.json(updatedList)
+    }
 })
+
+
+/*
+    SHOW LIST ROUTES
+*/
 
 
 // Adds a show to your show list
@@ -69,13 +134,11 @@ router.post('/add-show', isLoggedIn, async (req, res, next) => {
     }
 })
 
-// Updates a user's MovieReview
-router.post('/update-review', isLoggedIn, async (req, res, next) => {
-    console.log("74 ", req.body)
-    let newMovieReview = await MovieReview.findByIdAndUpdate(req.body.id, { review: req.body.review, rating: req.body.rating, status: req.body.status }, {new: true});
-    console.log('76 ', newMovieReview);
-    return res.json(newMovieReview);
-})
+
+/* 
+    FRIEND LIST ROUTES
+*/
+
 
 // Returns a user's friends list and pending requests
 router.get('/friends-list', isLoggedIn, async (req, res, next) => {
@@ -101,51 +164,7 @@ router.get('/friends-list', isLoggedIn, async (req, res, next) => {
     res.json({social: social});
 })
 
-// Adds movie to user's list, creates review, and adds movie to our db
-router.post('/add-movie', isLoggedIn, async (req, res, next) => {
-    // Stores new movie info
-    let newMovie = {
-        tmdbID: req.body.movie.id,
-        name: req.body.movie.original_title,
-        img: req.body.img,
-        plot: req.body.movie.overview,
-        rating: req.body.movie.vote_average,
-        runtime: req.body.movie.runtime,
-        release_date: req.body.movie.release_date,
-        genres: req.body.movie.genres
-    };
-    // Checks to see if movie is already in db, adds it to db if it isn't
-    let dbMovie = await Movie.findOne({"tmdbID": newMovie.tmdbID});
-    if (!dbMovie) {
-        dbMovie = await Movie.create(newMovie).catch( err => res.json(err) )
-    }
-    // Stores new review info
-    let newReview = {
-        rating: req.body.rating,
-        review: req.body.review,
-        movie: dbMovie._id,
-        user: req.body.user,
-        status: req.body.status
-    };
-    // Checks to see if user already has a review, adds it to db if it isn't
-
-    let dbReview = await MovieReview.findOne({$and : [{'user': req.body.user}, {movie: dbMovie._id}]});
-    if (!dbReview){
-        dbReview = await MovieReview.create(newReview);
-    }
-    let movieListItem = {
-        movie: dbMovie._id,
-        review: dbReview._id
-    };
-    let userReview = await User.findOne({$and : [{_id: req.body.user}, {'movieList.movie': movieListItem.movie}]});
-    if (!userReview){
-        let updatedList = await User.updateOne({'_id': req.body.user}, {
-            $push: { movieList: movieListItem }
-        });
-        res.json(updatedList)
-    }
-})
-
+// Search for users by name or email
 router.post('/find-users', async (req, res, next)=>{
     console.log(req.body.email)
     let users = await User.find({$or: [
@@ -156,6 +175,7 @@ router.post('/find-users', async (req, res, next)=>{
     res.json(users);
 })
 
+// Send a friend request to a user
 router.post('/send-req', isLoggedIn, async (req, res, next)=>{
     let senderList = await User.updateOne({'_id': req.body.myId}, {
         $push: { requests: {user: req.body.theirId, received: false } }
