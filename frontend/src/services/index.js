@@ -21,7 +21,7 @@ const actions = {
     return await service.get('/logout');
   },
   validEmail: async (email) => {
-    return await service.post('/validEmail', email);
+    return await service.post('/validEmail', {email: email});
   },
   addMovie: async (data) => {
     return await service.post('/add-movie', data);

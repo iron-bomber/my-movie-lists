@@ -170,7 +170,7 @@ class Profile extends Component {
                     break;
             }
             await actions.updateProfile(data);
-            await this.props.updateData();
+            this.props.updateData();
             this.cancel();
         }
     }
@@ -182,6 +182,7 @@ class Profile extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-12 text-center">
+                    <button className="btn btn-secondary" onClick={this.props.logOut}>Log out</button>
                         <h2>Account settings</h2>
                     </div>
                     <div className="col-8 change-name">
@@ -254,8 +255,11 @@ class Profile extends Component {
                                     </div>
                                 </div>
                                 <div className="col-2">
-                                    <button onClick={() => {this.submitChanges('name')}} className="badge badge-primary">Save</button>
+                                    <button onClick={() => {this.submitChanges('email')}} className="badge badge-primary">Save</button>
                                     <button onClick={this.cancel} className="badge badge-danger">Cancel</button>
+                                </div>
+                                <div className="col-12 text-center">
+                                    <i>You will be logged out if you change this</i>
                                 </div>
                             </Fragment>
                         }

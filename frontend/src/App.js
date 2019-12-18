@@ -27,7 +27,7 @@ class App extends Component {
   }
 
   updateData = async () => {
-    let user = await actions.isLoggedIn()
+    let user = await actions.isLoggedIn();
     if (user.data.error){
       this.setState({
         user: null
@@ -47,10 +47,9 @@ class App extends Component {
     })
   }
   
-  logOut = async (history) => {
+  logOut = async () => {
     let res = await actions.logOut()
     this.setUser(null);
-    history.push('/');
   }
 
   render(){

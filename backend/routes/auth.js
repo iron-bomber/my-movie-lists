@@ -21,6 +21,7 @@ router.post('/signup', (req, res, next) => {
 // Checks db to see if email is taken during registration
 router.post('/validEmail', (req, res, next) => {
   let email = req.body.email;
+  console.log(email);
     User.findOne({"email": email})
     .then((user) => {
       console.log(user)
@@ -45,9 +46,11 @@ router.post('/validEmail', (req, res, next) => {
 
 router.post('/update-profile', isLoggedIn, async (req, res, next) => {
   let response;
+  console.log('49 ', req.body);
   if (req.body.firstName){
     response = await User.findByIdAndUpdate(req.user._id, {firstName: req.body.firstName, lastName: req.body.lastName})
   } else if (req.body.email){
+    console.log(req.body.email);
     response = await User.findByIdAndUpdate(req.user._id, {email: req.body.email});
   }
   res.json(response);
