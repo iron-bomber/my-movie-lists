@@ -14,8 +14,8 @@ export default class LandingPage extends Component {
                     </div>
                 </div>
                 <div className="landing-text">
-                    <h1></h1>
-                    <h4></h4>
+                    <h1>Whatcha watchin?</h1>
+                    <h4>Keep track of the movies you've seen and want to see. Share your lists with your friends.</h4>
                     <div>
                         <NavLink to="/log-in" className="btn btn-primary mr-2">Login</NavLink>
                         <NavLink to="/sign-up" className="btn btn-secondary">Signup</NavLink>

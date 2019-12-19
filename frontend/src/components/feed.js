@@ -15,8 +15,9 @@ export default class feed extends Component {
     }
 
     populateFeed = async () => {
+        console.log('18 ', this.props.user.feed)
         let theFeed = await actions.populateFeed(this.props.user.feed);
-        console.log(theFeed);
+        console.log('20 ', theFeed);
         this.setState({
             feed: theFeed.data.feed
         })

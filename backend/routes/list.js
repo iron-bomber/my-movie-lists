@@ -17,6 +17,14 @@ const isLoggedIn    = require('../middleware');
 router.post('/remove-movie', isLoggedIn, async (req, res, next) => {
     let theMovieObject = await Movie.findOne({tmdbID: req.body.movieId});
     await User.update({_id: req.user._id}, {$pull: {movieList: {movie: theMovieObject._id} } });
+    let theUser = await User.findOne({_id: req.user._id}).populate('friends');
+    console.log(theUser);
+    let theReview = await MovieReview.findOne({$and : [{'user': req.user._id}, {movie: theMovieObject._id}]});
+    if (theUser.friends.length > 0){
+        for (let friend of theUser.friends){
+            User.update({_id: friend._id}, {$push: {feed: {review: theReview._id}}});
+        }
+    }
     let deletedReview = await MovieReview.deleteOne({$and : [{'user': req.user._id}, {movie: theMovieObject._id}]});
     res.json(deletedReview);
 })
@@ -248,13 +256,16 @@ router.post('/remove-friend', isLoggedIn, async (req, res, next)=>{
 router.post('/populate-feed', isLoggedIn, async (req, res, next) => {
     let newFeed = [];
     for (let item of req.body.feed){
-        let thisReview = await MovieReview.findById(item.review._id).populate('movie').populate('user');
-        item.user = {
-            firstName: thisReview.user.firstName,
-            lastName: thisReview.user.lastName,
-        };
-        item.movie = thisReview.movie
-        newFeed.push(item);
+        if (item.review){
+            let thisReview = await MovieReview.findById(item.review._id).populate('movie').populate('user');
+            console.log(thisReview);
+            item.user = {
+                firstName: thisReview.user.firstName,
+                lastName: thisReview.user.lastName,
+            };
+            item.movie = thisReview.movie
+            newFeed.push(item);
+        }
     }
     res.json({feed: newFeed});
 })

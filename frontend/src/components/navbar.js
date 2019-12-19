@@ -19,7 +19,6 @@ export default class Navbar extends React.Component{
     }
 
     setIt = () =>{
-        console.log('setit')
         switch(this.state.selected){
             case 1:
                 this.setState({
@@ -59,32 +58,27 @@ export default class Navbar extends React.Component{
     }
 
     selOne = () =>{
-        console.log('one')
         this.setState({
           selected: 1
         },()=>{this.setIt()})
       }
       selTwo = () =>{
-        console.log('two')
         this.setState({
           selected: 2
         },()=>{this.setIt()})
       }
       selThree = () =>{
-        console.log('three')
         this.setState({
           selected: 3
         },()=>{this.setIt()})
       }
       selFour = () =>{
-        console.log('four')
         this.setState({
           selected: 4
         },()=>{this.setIt()})
       }
 
     render(){
-        console.log(this.state)
         return (
             <div>
                 <nav className="ourbar">
