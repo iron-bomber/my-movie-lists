@@ -183,7 +183,14 @@ code {
 .listing-add-btn{
   position: absolute;
   top: 0;
-  right: 0
+  right: 0;
+  color: white;
+  margin-right: 8px;
+  margin-top: 8px;
+  text-align: right;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .listing-info{
@@ -260,7 +267,7 @@ code {
   border: none;
   margin-right: 3px;
   padding: 0!important;
-  color: blue;
+  color: rgb(219, 48, 48);
   cursor: pointer;
 }
 
@@ -353,7 +360,7 @@ code {
 @media only screen and (min-width: 1199px) {
 
   .ourbar{
-    height: 100px;
+    height: 80px;
   }
 
   .navbar-icons{
@@ -375,7 +382,7 @@ code {
 
   .poster-size{
     height: 400px;
-    margin: 32px 0px;
+    /* margin: 32px 0px; */
     margin-left: 80px;
   }
 
