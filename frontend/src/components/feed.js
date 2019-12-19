@@ -40,17 +40,21 @@ export default class feed extends Component {
             } else {
                 theStatus = 'finished watching';
             }
+            let date = new Date(feedItem.review.updatedAt);
+            date = date.toDateString()
             return (
-                <div className="col-3 feed-item mt-3">
-                yesyesyes
-                    {/* <div className="row">
+                <div className="col-6 mt-3">
+                    <div className="row feed-item">
                         <div className="col-6">
-                            <h4><Link to={`/userpage/${feedItem.user._id}`}>{feedItem.user.firstName} {feedItem.user.lastName}</Link> {theStatus} <Link to={`/movie/${feedItem.movie.tmdbID}`}>{feedItem.movie.name}</Link></h4>
+                            <h4><Link to={`/userpage/${feedItem.user._id}`}>{feedItem.user.firstName} {feedItem.user.lastName}</Link> <br/> {theStatus} <br/> <Link to={`/movie/${feedItem.movie.tmdbID}`}>{feedItem.movie.name}</Link></h4>
                             <img className="feed-image-size" src={feedItem.movie.img} alt="movie poster"/>
                         </div>
                         <div className="col-6">
                             {feedItem.review.rating &&
                                 <Fragment>
+                                    <h4>
+                                        {date}
+                                    </h4>
                                     Their rating:
                                     <div className="rating-bg">
                                         <StarRatingComponent 
@@ -71,10 +75,8 @@ export default class feed extends Component {
                                     </div>
                                 </Fragment> 
                             }
-                            
-
                         </div>
-                    </div> */}
+                    </div>
                 </div>
             )
         })
@@ -86,7 +88,9 @@ export default class feed extends Component {
                 <Fragment>
                     {this.state.feed &&
                         <div className="container-fluid">
-                            {this.displayFeed()}
+                            <div className="row">
+                                {this.displayFeed()}
+                            </div>
                         </div>
                     }
                     {!this.state.feed &&

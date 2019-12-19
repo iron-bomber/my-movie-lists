@@ -366,7 +366,11 @@ code {
 .feed-image-size{
   height: 200px;
   margin: 16px 0px;
-  margin-left: 80px;
+  text-align: center;
+}
+
+a:hover {
+  color: darkblue;
 }
 
 
@@ -455,8 +459,10 @@ code {
   }
 
   .feed-item{
-    border-bottom: 1px solid black;
-    margin-bottom: 5px;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px;
+    background-color: rgb(235, 235, 235);
   }
 
 

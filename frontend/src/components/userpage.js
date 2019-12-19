@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import actions from '../services/index'
 import axios from 'axios'
 import {NavLink} from 'react-router-dom'
@@ -9,6 +9,7 @@ import friend from '../css/friend.css'
 import {Link} from 'react-router-dom'
 import NotLoggedIn from './notLoggedIn';
 import ReadMoreReact from 'read-more-react';
+
 
 
 export default class userpage extends Component {
@@ -85,49 +86,55 @@ export default class userpage extends Component {
           console.log(each);
           let movie = each.movie
           let review = each.review
+          let date = new Date(review.updatedAt);
+          date = date.toDateString()
           return (
-              <div className="friend-listing">              
-                <Link to={"/movie/"+ movie.tmdbID}  >
-                    <img src={movie.img} alt="img" className="friend-img"/>
-                </Link>
-
-                <div className="friend-info">
-                    <Link to={"/movie/"+ movie.tmdbID}  >
-                        <p className="friend-header">{movie.name}</p>
-                    </Link>
-                    {review.rating &&
-                    <div className="rating">
-                    <p className="underline">
-                        Their Rating
-                    </p>
-                        <div className="rating-bg">
-
-                        <StarRatingComponent 
-                                    starCount={10}
-                                    value={review.rating}
-                                    className="list-star friend-rating"
-                            />
-                            </div>
-                    </div>
-                    }
-                    {!review.rating &&
-                        <div>
-                        NA
+                  <div className="col-6 mt-3">
+                    <div className="row feed-item">
+                        <div className="col-6">
+                        <Link to={`/movie/${movie.tmdbID}`}><h4>{movie.name}</h4></Link>
+                            <img className="feed-image-size" src={movie.img} alt="movie poster"/>
                         </div>
-                    }
-                        <p className="underline">
-                            Their Thoughts
-                        </p>
-                    <div className="rating-bg thoughts">
-                    <ReadMoreReact text={review.review}
-                min={40}
-                ideal={50}
-                max={60}
-                readMoreText="Read more..."/>
+                        <div className="col-6">
+                            <h4>
+                                {date}
+                            </h4>
+                            <h6>Their rating:</h6>
+                            {review.rating &&
+                                <Fragment>
+                                  <div className="rating-bg">
+                                      <StarRatingComponent 
+                                          starCount={10}
+                                          value={review.rating}
+                                          className="list-star"
+                                      />
+                                  </div>
+                                </Fragment>
+                            }
+                            {!review.rating &&
+                              <div>
+                                N/A
+                              </div>
+                            }
+                            <h6>Their review:</h6>
+                            {review.review &&
+                                <Fragment>
+                                    
+                                    <div>
+                                        <p>
+                                            {review.review}
+                                        </p>
+                                    </div>
+                                </Fragment> 
+                            }
+                            {!review.review &&
+                              <div>
+                                N/A
+                              </div>
+                            }
+                        </div>
                     </div>
-                </div>       
-            
-            </div>
+                </div>
           )
         })
       }

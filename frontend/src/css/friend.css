@@ -1,10 +1,10 @@
-.friend-listing{
+/* .friend-listing{
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     padding: 16px;
-}
+} */
 
 .friend-img{
     height: 200px;
