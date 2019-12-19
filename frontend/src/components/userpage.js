@@ -18,10 +18,59 @@ export default class userpage extends Component {
         movieList: true,
         ratings: {},
         loading: {},
+        one: 'list-nav-google',
+        two: 'non-list-nav-google',
+        three: 'non-list-nav-google',
       }
 
     componentDidMount (){
         this.findUser()
+    }
+
+    setIt = () =>{
+      switch(this.state.selected){
+          case 1:
+              this.setState({
+                  one: 'list-nav-google',
+                  two: 'non-list-nav-google',
+                  three: 'non-list-nav-google',
+                  four: 'non-list-nav-item',
+              })
+              break;
+          case 2:
+              this.setState({
+                  one: 'non-list-nav-google',
+                  two: 'list-nav-google',
+                  three: 'non-list-nav-google',
+                  four: 'non-list-nav-item',
+              })
+              break;
+          case 3:
+              this.setState({
+                  one: 'non-list-nav-google',
+                  two: 'non-list-nav-google',
+                  three: 'list-nav-google',
+                  four: 'non-list-nav-item',
+              })
+              break;
+          default:
+              break;
+      }
+    }
+    selOne = () =>{
+      this.setState({
+        selected: 1
+      },()=>{this.setIt()})
+    }
+    selTwo = () =>{
+      this.setState({
+        selected: 2
+      },()=>{this.setIt()})
+    }
+    selThree = () =>{
+      this.setState({
+        selected: 3
+      },()=>{this.setIt()})
     }
 
     findUser = async ()=>{
@@ -172,10 +221,10 @@ export default class userpage extends Component {
             {this.showUser()}
         </div>
 
-        <nav className="list-nav">
-        <button onClick={this.decideShowing} className="list-nav-item" name="all">All</button>
-        <button onClick={this.decideShowing} className="list-nav-item" name="watching">Watched</button>
-        <button onClick={this.decideShowing} className="list-nav-item" name="want">Want to watch</button>
+        <nav className="align-center container">
+          <button onClick={(e)=>{this.decideShowing(e); this.selOne()}} className={this.state.one} name="all">All</button>
+          <button onClick={(e)=>{this.decideShowing(e); this.selTwo()}}  className={this.state.two} name="watching">Watched</button>
+          <button onClick={(e)=>{this.decideShowing(e); this.selThree()}}  className={this.state.three} name="want">Want to watch</button>
       </nav>
             <div className="container-fluid">
               <div className="row">
