@@ -164,6 +164,7 @@ class MyList extends Component {
     if (this.props.user){
           return (
     <div>
+    <div className="align-center">
       <nav className="list-nav">
         <button onClick={this.decideShowing} className="list-nav-item" name="all">All</button>
         <button onClick={this.decideShowing} className="list-nav-item" name="watching">Watched</button>
@@ -177,6 +178,7 @@ class MyList extends Component {
         />
         </NavLink>
       </nav>
+    </div>
         <div className="container-fluid">
           <div className="row">
             {this.showList()}
