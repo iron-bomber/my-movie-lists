@@ -17,20 +17,27 @@ export default class friends extends Component {
     showFriends = () =>{
         return this.props.user.friends.map(each=>{
             return (
-                <div>
-                    <Link to={'/userpage/' + each._id}>
-                        {each.firstName} // {each.email}
-                    </Link>
-                    {this.state[each._id] && this.state[each._id].removed ?
-                    (
-                        <button name={each._id} className="removed">Removed</button>
-                    )
-                    : (
-                        <button name={each._id} onClick={this.removeFriend}>Remove friend</button>
-                    )
-
-                    }
-                    
+                <div className="col-12 mt-3 change-email">
+                    <div className="row text-left">
+                        <div className="col-3 mt-auto mb-auto">
+                            <b>Name // Email</b>
+                        </div>
+                        <div className="col-6 text-secondary">
+                            <Link to={'/userpage/' + each._id}>
+                                <h4>{each.firstName} // {each.email}</h4>
+                            </Link>
+                        </div>
+                        <div className="col-3">
+                            {this.state[each._id] && this.state[each._id].removed ?
+                                (
+                                    <button name={each._id} className="removed">Removed</button>
+                                )
+                            :   (
+                                    <button className="btn btn-danger" name={each._id} onClick={this.removeFriend}>Remove friend</button>
+                                )
+                            }
+                        </div>
+                    </div>
                 </div>
             )
         })
@@ -195,17 +202,15 @@ export default class friends extends Component {
             <div>
 
             <div className="align-center">
-                        <nav className="list-nav">
-
-                                    <button onClick={this.toggleRequests} className="list-nav-item">Requests</button>
-
-                                    <button onClick={this.toggleFriend} className="list-nav-item">
-                                        Friends
-                                    </button>
-                                    <button onClick={this.toggleFind} className="list-nav-item">
-                                        Add Friends
-                                    </button>
-                        </nav>
+                <nav className="list-nav">
+                    <button onClick={this.toggleRequests} className="list-nav-item">Requests</button>
+                    <button onClick={this.toggleFriend} className="list-nav-item">
+                        Friends
+                    </button>
+                    <button onClick={this.toggleFind} className="list-nav-item">
+                        Add Friends
+                    </button>
+                </nav>
             </div>
 
 
@@ -220,7 +225,9 @@ export default class friends extends Component {
                     <form className="form-inline" onSubmit={this.searchFriends} className="align-center-search">
                         <input type="text" className="form-control friend-search" name="searchfriends" placeholder="Search your friends" autoComplete="off" onChange={this.updateValues} />
                     </form>
-                    {this.showFriends()}
+                    <div className="container">
+                        {this.showFriends()}
+                    </div> 
                 </div>
             }
             {this.state.findOn &&
