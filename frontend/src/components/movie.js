@@ -49,11 +49,11 @@ export default class Movie extends Component {
             }else{
                 this.setState({
                     rating: null,
-                    review: null,
-                    status: null,
+                    review: '',
+                    status: 'completed',
                     found: false,
                     id: null,
-                    completed: null,
+                    completed: true,
                     onList: false
                 })
             }
@@ -167,8 +167,7 @@ export default class Movie extends Component {
             {this.state.onList ? 
             (
                 <Fragment>
-                <div className="add-button-div">
-
+                <div className="absolute">
                     <button className="good-button" variant="primary" onClick={handleShow}>
                         Added
                     </button>
@@ -180,7 +179,7 @@ export default class Movie extends Component {
 
             ) :
             (
-                <div className="add-button-div">
+                <div className="absolute">
                     <button className="bad-button" variant="primary" onClick={handleShow}>
                         Add to list
                     </button>
@@ -246,9 +245,12 @@ export default class Movie extends Component {
             <div>
                 {this.state.movie && 
                 <div>
+
+                
                     <h1 className="movie-header">
                         {this.state.movie.original_title} 
                     </h1>
+                    <div className="relative">
                     <div className="one-movie-result">
                     <div className="listing-img">
                         <img src={this.state.poster} alt="img" className="poster-size"/>
@@ -277,6 +279,9 @@ export default class Movie extends Component {
                         </p>
                     </div>
                 </div>
+                        
+                            {this.Modal()}
+                </div>
                     <h4 className="synopsis"><b>Synopsis</b></h4>
 
                         <p className="description">
@@ -285,9 +290,7 @@ export default class Movie extends Component {
                 </div>
                 }
 
-                <div>
-                    {this.Modal()}
-                </div>
+                
 
 
 
