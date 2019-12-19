@@ -262,6 +262,7 @@ router.post('/populate-feed', isLoggedIn, async (req, res, next) => {
             item.user = {
                 firstName: thisReview.user.firstName,
                 lastName: thisReview.user.lastName,
+                _id: thisReview.user._id
             };
             item.movie = thisReview.movie
             newFeed.push(item);
