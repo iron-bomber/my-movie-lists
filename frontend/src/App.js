@@ -19,7 +19,8 @@ import Userpage from './components/userpage.js'
 
 class App extends Component {
   state = { 
-    user: null
+    user: null,
+    selected: 1
   }
   
   componentDidMount() {
@@ -54,7 +55,6 @@ class App extends Component {
 
   render(){
     return (
-      
     <BrowserRouter>
       {this.state.user &&
         <Navbar/>
@@ -70,7 +70,6 @@ class App extends Component {
         <Route exact path="/my-friends" render={(props) => <Friends {...props} user={this.state.user} updateData={this.updateData}/>} />
         <Route exact path="/my-feed" render={(props) => <Feed {...props} user={this.state.user} />} />
         <Route exact path="/userpage/:id" render={(props) => <Userpage {...props} user={this.state.user} />} />
-
         <Route component={NotFound} />
 
       </Switch>
