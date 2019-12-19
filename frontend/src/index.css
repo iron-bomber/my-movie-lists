@@ -220,3 +220,15 @@ code {
   border-bottom: 1px solid lightgray;
   font-size: 1.2em;
 }
+
+.landing-page-top{
+  color: white;
+  padding-top: 150px;
+}
+
+.whole-landing-page{
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-image: url('./images/background.jpg');
+}

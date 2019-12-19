@@ -56,7 +56,9 @@ class App extends Component {
     return (
       
     <BrowserRouter>
-      <Navbar/>
+      {this.state.user &&
+        <Navbar/>
+      }
       <Switch>
         <Route exact path="/" render={(props) => <Home {...props} user={this.state.user}  updateData={this.updateData} /> } />
         <Route exact path="/sign-up" render={(props)=><SignUp {...props} setUser={this.setUser} />} />

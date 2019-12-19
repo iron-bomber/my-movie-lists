@@ -134,6 +134,12 @@ export default class Movie extends Component {
         })
     }
 
+    removeItem = async (itemId) => {
+        await actions.removeMovie(itemId);
+        await this.props.updateData();
+        this.props.history.push('/')
+    }
+
      Modal() {
       
         const handleClose = () => this.setState({ show: false })
@@ -148,9 +154,15 @@ export default class Movie extends Component {
 
             {this.state.onList ? 
             (
-                <button className="good-button" variant="primary" onClick={handleShow}>
-                    Added
-                </button>
+                <Fragment>
+                    <button className="good-button" variant="primary" onClick={handleShow}>
+                        Added
+                    </button>
+                    <button className="bad-button" variant="primary" onClick={() => {this.removeItem(this.state.movie.id)}}>
+                        Remove
+                    </button>
+                </Fragment>
+
             ) :
             (
                 <button className="bad-button" variant="primary" onClick={handleShow}>
