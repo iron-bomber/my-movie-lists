@@ -5,6 +5,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdPlaylistAddCheck, MdPlaylistAdd, MdRemoveCircleOutline } from "react-icons/md";
 import actions from '../services';
 import NotLoggedIn from './notLoggedIn';
+import ReadMoreReact from 'read-more-react'
 
 
 export default class displayItems extends Component {
@@ -51,12 +52,13 @@ export default class displayItems extends Component {
                         <div>
                             <img src={this.props.state[each.id]} alt="img" className="poster-size"/>
                             {onMyList &&
-                                <div className="listing-add-btn text-left">
+                                <div className="listing-add-btn">
                                     <div><MdPlaylistAddCheck/> On my list</div>
                                     <div>
                                         <Link to={{
                                             pathname: `/${this.props.state.type}/${each.id}`,
-                                            edit: true
+                                            edit: true,
+                                            show: true
                                             }} >
                                             <FaEdit/> Edit
                                         </Link>
@@ -70,8 +72,9 @@ export default class displayItems extends Component {
                             {!onMyList &&
                                 <Link to={{
                                     pathname: `/${this.props.state.type}/${each.id}`,
-                                    edit: false
-                                    }} className="listing-add-btn text-left">
+                                    edit: false,
+                                    show: true
+                                    }} className="listing-add-btn">
                                         <MdPlaylistAdd/> Add
                                 </Link>
                             }
@@ -99,8 +102,17 @@ export default class displayItems extends Component {
                             </div>
                         }
                         </h4>
-                        <p className="description">
-                            {each.overview}
+                        <p >
+                        {/* <ReadMoreReact 
+                        text={each.overview}
+                            min={80}
+                            ideal={100}
+                            max={120}
+                            readMoreText="Read more..."
+                            className="description"
+                            /> */}
+                            
+                        {each.overview}
                         </p>
                     </div>
                     </div>

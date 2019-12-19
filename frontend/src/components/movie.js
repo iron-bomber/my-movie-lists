@@ -23,6 +23,9 @@ export default class Movie extends Component {
     componentDidMount(){
         this.apiGets()
         this.checkStatus()
+        if(this.props.location.show){
+            this.show()
+        }
     }
 
     checkStatus = () =>{
@@ -192,6 +195,9 @@ export default class Movie extends Component {
 
             {this.state.show &&
                 <Modal show={handleShow} onHide={handleClose}>
+                <Modal.Header>
+                    <h1>{this.state.movie.title}</h1>
+                </Modal.Header>
                 <Modal.Body>
                 <div>
                 <select onChange={this.handleChange} name="status" value={this.state.value}>
@@ -237,6 +243,12 @@ export default class Movie extends Component {
           </>
         )
       }
+
+      show = () =>{
+          this.setState({
+              show: true
+          })
+      }
     
     render() {
         console.log(this.state)
@@ -279,7 +291,6 @@ export default class Movie extends Component {
                         </p>
                     </div>
                 </div>
-                        
                             {this.Modal()}
                 </div>
                     <h4 className="synopsis"><b>Synopsis</b></h4>

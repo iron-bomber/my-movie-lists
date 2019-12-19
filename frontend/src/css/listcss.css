@@ -107,12 +107,13 @@ select{
     padding: 8px;
 }
 
-.align-center{
+.align-center-search{
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 8px;
 }
+
 
 .no-reqs{
     font-size: 1.3em;
@@ -207,5 +208,12 @@ select{
 
     .align-center{
         height: 60px;
+    }
+
+    .align-center{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
     }
   }
