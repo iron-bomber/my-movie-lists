@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import styled, { css } from 'styled-components'
 import Home from './components/home';
 import NotFound from './components/404/NotFound.js';
@@ -15,6 +15,8 @@ import Feed from './components/feed'
 import Axios from 'axios';
 import Navbar from './components/navbar';
 import Userpage from './components/userpage.js'
+
+
 
 
 
@@ -61,7 +63,7 @@ class App extends Component {
         <Navbar/>
       }
       <Switch>
-        <Route exact path="/" render={(props) => <Home {...props} user={this.state.user}  updateData={this.updateData} /> } />
+        <Route exact path="/" render={(props) => <Home {...props} setUser={this.setUser} user={this.state.user}  updateData={this.updateData} /> } />
         <Route exact path="/sign-up" render={(props)=><SignUp {...props} setUser={this.setUser} />} />
         <Route exact path="/log-in" render={(props) => <LogIn {...props} setUser={this.setUser}/>} />
         <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state.user}  logOut={this.logOut} updateData={this.updateData} />} />
