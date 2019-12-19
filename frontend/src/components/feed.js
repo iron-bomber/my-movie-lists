@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NotLoggedIn from './notLoggedIn';
 import actions from '../services';
+import { Link } from 'react-router-dom';
 
 export default class feed extends Component {
 
@@ -24,10 +25,25 @@ export default class feed extends Component {
     }
 
     displayFeed = () => {
-        return this.state.feed.map((feedItem) => {
+        return this.state.feed.reverse().map((feedItem) => {
+            console.log(feedItem);
+            let theStatus;
+            if (feedItem.status == 'want'){
+                theStatus = 'wants to watch';
+            } else {
+                theStatus = 'finished watching';
+            }
             return (
-                <div>
-                    <h4>{feedItem.user.firstName} {feedItem.user.lastName} {feedItem.status} {feedItem.movie.name}</h4>
+                <div className="col-12 feed-item">
+                    <div className="row">
+                        <div className="col-6">
+                            <h4><Link to={`/userpage/${feedItem.user._id}`}>{feedItem.user.firstName} {feedItem.user.lastName}</Link> {theStatus} <Link to={`/movie/${feedItem.movie.tmdbID}`}>{feedItem.movie.name}</Link></h4>
+                            <img className="feed-image-size" src={feedItem.movie.img} alt="movie poster"/>
+                        </div>
+                        <div className="col-6">
+                            They rated it: 
+                        </div>
+                    </div>
                 </div>
             )
         })
@@ -38,7 +54,7 @@ export default class feed extends Component {
             return (
                 <div>
                     {this.state.feed &&
-                        <div>
+                        <div className="container text-left">
                             {this.displayFeed()}
                         </div>
                     }

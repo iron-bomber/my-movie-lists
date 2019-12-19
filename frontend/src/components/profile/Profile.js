@@ -222,22 +222,21 @@ class Profile extends Component {
         return (
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-12 text-center">
-                    <button className="btn btn-secondary" onClick={this.props.logOut}>Log out</button>
-                        <h2>Account settings</h2>
-                        <button onClick={this.props.logOut}>Log Out</button>
+                    <div className="col-12 text-right mr-0">
+                        <button className="btn btn-secondary mt-2" onClick={this.props.logOut}>Log out</button>
+                        <h2 className="text-center">Account settings</h2>
                     </div>
                     <div className="col-12 col-md-8 change-name">
                         <div className="row text-left">
-                        <div className="col-2 mt-auto mb-auto">
+                        <div className="col-3 mt-auto mb-auto">
                             <b>Name</b>
                         </div>
                         {!this.state.change.name &&
                             <Fragment>
-                                <div className="col-8 text-secondary">
+                                <div className="col-6 text-secondary">
                                     {this.props.user.firstName} {this.props.user.lastName}
                                 </div>
-                                <div className="col-2 mt-auto mb-auto">
+                                <div className="col-3 mt-auto mb-auto">
                                     <button onClick={() => {this.change('name')}} className="not-a-button">Edit</button>
                                 </div>
                             </Fragment>
@@ -245,7 +244,7 @@ class Profile extends Component {
                         }
                         {this.state.change.name &&
                             <Fragment>
-                                <div className="col-4 mt-auto mb-auto">
+                                <div className="col-3 mt-auto mb-auto">
                                     <input type="text" name="firstName" value={this.state.firstName} className={this.isValid('firstName').class} onChange={this.handleChange} placeholder="First Name"/>
                                     <div className="valid-feedback text-left">
                                     </div>
@@ -253,7 +252,7 @@ class Profile extends Component {
                                         Field cannot be empty
                                     </div>
                                 </div>
-                                <div className="col-4 mt-auto mb-auto">
+                                <div className="col-3 mt-auto mb-auto">
                                     <input type="text" name="lastName" value={this.state.lastName} className={this.isValid('lastName').class} onChange={this.handleChange} placeholder="Last Name"/>
                                     <div className="valid-feedback text-left">
                                     </div>
@@ -261,7 +260,7 @@ class Profile extends Component {
                                         Field cannot be empty
                                     </div>
                                 </div>
-                                <div className="col-2 mt-auto mb-auto">
+                                <div className="col-3 mt-auto mb-auto">
                                     <button onClick={() => {this.submitChanges('name')}} className="badge badge-primary">Save</button>
                                     <button onClick={this.cancel} className="badge badge-danger">Cancel</button>
                                 </div>
@@ -271,15 +270,15 @@ class Profile extends Component {
                     </div>
                     <div className="col-12 col-md-8 change-email">
                         <div className="row text-left">
-                        <div className="col-2 mt-auto mb-auto">
+                        <div className="col-3 mt-auto mb-auto">
                             <b>Email</b>
                         </div>
                         {!this.state.change.email &&
                             <Fragment>
-                                <div className="col-8 text-secondary">
+                                <div className="col-6 text-secondary">
                                     {this.props.user.email}
                                 </div>
-                                <div className="col-2">
+                                <div className="col-3">
                                     <button onClick={() => {this.change('email')}} className="not-a-button">Edit</button>
                                 </div>
                             </Fragment>
@@ -287,7 +286,7 @@ class Profile extends Component {
                         }
                         {this.state.change.email &&
                             <Fragment>
-                                <div className="col-8 mt-auto mb-auto">
+                                <div className="col-6 mt-auto mb-auto">
                                     <input type="email" name="email" value={this.state.email} className={this.state.emailClass} onChange={this.handleChange} placeholder="Your Email"/>
                                     <div className="valid-feedback text-left">
                                     </div>
@@ -295,7 +294,7 @@ class Profile extends Component {
                                         {this.state.emailMessage}
                                     </div>
                                 </div>
-                                <div className="col-2 mt-auto mb-auto">
+                                <div className="col-3 mt-auto mb-auto">
                                     <button onClick={() => {this.submitChanges('email')}} className="badge badge-primary">Save</button>
                                     <button onClick={this.cancel} className="badge badge-danger">Cancel</button>
                                 </div>
@@ -308,21 +307,21 @@ class Profile extends Component {
                     </div>
                     <div className="col-12 col-md-8 change-email">
                         <div className="row text-left">
-                        <div className="col-2 mt-auto mb-auto">
+                        <div className="col-3 mt-auto mb-auto">
                             <b>Password</b>
                         </div>
                         {!this.state.change.password &&
                             <Fragment>
-                                <div className="col-8">
+                                <div className="col-6">
                                 </div>
-                                <div className="col-2">
+                                <div className="col-3">
                                     <button onClick={() => {this.change('password')}} className="not-a-button">Change</button>
                                 </div>
                             </Fragment>
                         }
                         {this.state.change.password &&
                             <Fragment>
-                                <div className="col-8 mb-auto mt-auto">
+                                <div className="col-6 mb-auto mt-auto">
                                     <div className="row">
                                         <div className="col-12 mb-3">
                                             <input type="password" name="oldPassword" value={this.state.oldPassword} className={this.state.passwordClass} onChange={this.handleChange} placeholder="Current Password"/>
@@ -348,7 +347,7 @@ class Profile extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-2 mt-auto mb-auto">
+                                <div className="col-3 mt-auto mb-auto">
                                     <button onClick={() => {this.submitChanges('password')}} className="badge badge-primary">Save</button>
                                     <button onClick={this.cancel} className="badge badge-danger">Cancel</button>
                                 </div>

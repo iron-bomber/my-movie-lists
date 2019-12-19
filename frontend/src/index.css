@@ -344,6 +344,12 @@ code {
   position: relative;
 }
 
+.feed-image-size{
+  height: 200px;
+  margin: 16px 0px;
+  margin-left: 80px;
+}
+
 @media only screen and (min-width: 1199px) {
 
   .ourbar{
@@ -425,6 +431,11 @@ code {
     top: 0;
     right: 0;
     margin-left: 8px;
+  }
+
+  .feed-item{
+    border-bottom: 1px solid black;
+    margin-bottom: 5px;
   }
 
 
