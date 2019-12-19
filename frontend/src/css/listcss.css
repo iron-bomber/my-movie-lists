@@ -103,6 +103,24 @@ select{
     outline: none;
 }
 
+.list-nav-item{
+    background-color: #17252a;
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-bottom: 3px solid white;
+    color: white;
+}
+
+.list-nav-google{
+    background-color: #17252a;
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-bottom: 3px solid white;
+    color: white;
+}
+
 .friend-search{
     width: 60%;
     padding: 8px;
@@ -139,7 +157,7 @@ select{
 
 
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1199px) {
 
     .singlebubble{
         position: relative;
@@ -199,12 +217,40 @@ select{
 
     .list-nav{
         width: 50%;
-        margin: 20px;
     }
 
     .list-nav-item{
         margin: 4px;
         border-radius: 5px;
+        width: 10%;
+        position: absolute;
+        top: 63px;
+        right: 0;
+    }
+
+    .list-nav-google{
+        background-color: #17252a;
+        width: 100%;
+        height: 50px;
+        border: none;
+        border-bottom: 3px solid white;
+        color: white;
+    }
+
+    .non-list-nav-google{
+        background-color: #17252a;
+        width: 100%;
+        height: 50px;
+        border: none;
+        color: white;
+    }
+    .non-list-nav-item{
+        margin: 4px;
+        border-radius: 5px;
+        width: 10%;
+        position: absolute;
+        top: 63px;
+        right: 0;
     }
 
     .align-center{
@@ -215,6 +261,7 @@ select{
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 8px;
+        padding-bottom: 8px;
+        margin-top: 9px;
     }
   }

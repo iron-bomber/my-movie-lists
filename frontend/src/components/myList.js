@@ -16,12 +16,62 @@ class MyList extends Component {
     movieList: true,
     ratings: {},
     loading: {},
+    one: 'list-nav-google',
+    two: 'non-list-nav-google',
+    three: 'non-list-nav-google',
+    four: 'non-list-nav-item'
   }
 
   componentDidMount() {
     if (this.props.user.movieList.length == 0){
       this.setState({movieList: false});
     }
+  }
+
+  setIt = () =>{
+    switch(this.state.selected){
+        case 1:
+            this.setState({
+                one: 'list-nav-google',
+                two: 'non-list-nav-google',
+                three: 'non-list-nav-google',
+                four: 'non-list-nav-item',
+            })
+            break;
+        case 2:
+            this.setState({
+                one: 'non-list-nav-google',
+                two: 'list-nav-google',
+                three: 'non-list-nav-google',
+                four: 'non-list-nav-item',
+            })
+            break;
+        case 3:
+            this.setState({
+                one: 'non-list-nav-google',
+                two: 'non-list-nav-google',
+                three: 'list-nav-google',
+                four: 'non-list-nav-item',
+            })
+            break;
+        default:
+            break;
+    }
+  }
+  selOne = () =>{
+    this.setState({
+      selected: 1
+    },()=>{this.setIt()})
+  }
+  selTwo = () =>{
+    this.setState({
+      selected: 2
+    },()=>{this.setIt()})
+  }
+  selThree = () =>{
+    this.setState({
+      selected: 3
+    },()=>{this.setIt()})
   }
 
   updateValues = (e) =>{
@@ -165,10 +215,11 @@ class MyList extends Component {
           return (
     <div>
     <div className="align-center">
+    
       <nav className="list-nav">
-        <button onClick={this.decideShowing} className="list-nav-item" name="all">All</button>
-        <button onClick={this.decideShowing} className="list-nav-item" name="watching">Watched</button>
-        <button onClick={this.decideShowing} className="list-nav-item" name="want">Want to watch</button>
+        <button onClick={this.decideShowing} className={this.state.one} onClick={this.selOne} name="all">All</button>
+        <button onClick={this.decideShowing} className={this.state.two} onClick={this.selTwo} name="watching">Watched</button>
+        <button onClick={this.decideShowing} className={this.state.three} onClick={this.selThree} name="want">Want to watch</button>
         <NavLink to="/add" className="list-nav-item">
           Add to list  
         <IoIosAddCircle 

@@ -82,22 +82,27 @@ export default class Navbar extends React.Component{
         return (
             <div>
                 <nav className="ourbar">
+                <div className="bar-logo">
+                    <h1>MML</h1>
+                </div>
+                <div className="bar-list">
                     <NavLink to="/"  className={this.state.one} onClick={this.selOne}>
-                        <span className="hidden-span">My list</span>
                         <IoIosJournal className="navbar-icons"/>
+                        <span className="hidden-span">My list</span>
                     </NavLink>
                     <NavLink to="/my-feed" className={this.state.two} onClick={this.selTwo}>
-                    <span className="hidden-span">Feed</span>
                         <TiMessage  className="navbar-icons"/>
+                    <span className="hidden-span">Feed</span>
                     </NavLink>
                     <NavLink to="/my-friends" className={this.state.three} onClick={this.selThree}>
-                    <span className="hidden-span">Social</span>
                         <IoMdPeople  className="navbar-icons"/>
+                    <span className="hidden-span">Social</span>
                     </NavLink>
                     <NavLink to ="/profile" className={this.state.four} onClick={this.selFour}>
-                    <span className="hidden-span">Settings</span>
                         <MdSettings  className="navbar-icons"/>
+                    <span className="hidden-span">Settings</span>
                     </NavLink>
+                </div>
                 </nav>
             </div>
         )
