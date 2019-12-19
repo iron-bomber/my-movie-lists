@@ -99,6 +99,18 @@ select{
     font-size: 14px;
 }
 
+.friend-nav-item{
+    width: 100%;
+    background-color: #17252a;
+    color: white;
+    border: none;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
 .list-nav-item:focus {
     outline: none;
 }
@@ -228,12 +240,37 @@ select{
         right: 0;
     }
 
+    .friend-nav-item{
+        width: 100%;
+        background-color: #17252a;
+        border-bottom: 4px solid green !important;
+        color: white;
+        border: none;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+    }
+
+    .non-friend-nav-item{
+        width: 100%;
+        background-color: #17252a;
+        color: white;
+        border: none;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+    }
+
     .list-nav-google{
         background-color: #17252a;
         width: 100%;
         height: 50px;
         border: none;
-        border-bottom: 3px solid white;
+        border-bottom: 4px solid #2e9794;
         color: white;
     }
 

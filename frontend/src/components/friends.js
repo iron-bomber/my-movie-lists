@@ -3,6 +3,7 @@ import actions from '../services';
 import NotLoggedIn from './notLoggedIn';
 import {Link} from 'react-router-dom'
 import '../css/listcss.css'
+import { FaSearch } from "react-icons/fa";
 
 
 export default class friends extends Component {
@@ -11,8 +12,57 @@ export default class friends extends Component {
         users: [],
         friendOn: true,
         requestsOn: false,
-        findOn: false
+        findOn: false,
+        one: 'non-list-nav-google',
+        two: 'list-nav-google',
+        three: 'non-list-nav-google',
     }
+
+    setIt = () =>{
+        switch(this.state.selected){
+            case 1:
+                this.setState({
+                    one: 'list-nav-google',
+                    two: 'non-list-nav-google',
+                    three: 'non-list-nav-google',
+                    four: 'non-list-nav-item',
+                })
+                break;
+            case 2:
+                this.setState({
+                    one: 'non-list-nav-google',
+                    two: 'list-nav-google',
+                    three: 'non-list-nav-google',
+                    four: 'non-list-nav-item',
+                })
+                break;
+            case 3:
+                this.setState({
+                    one: 'non-list-nav-google',
+                    two: 'non-list-nav-google',
+                    three: 'list-nav-google',
+                    four: 'non-list-nav-item',
+                })
+                break;
+            default:
+                break;
+        }
+      }
+      selOne = () =>{
+        this.setState({
+          selected: 1
+        },()=>{this.setIt()})
+      }
+      selTwo = () =>{
+        this.setState({
+          selected: 2
+        },()=>{this.setIt()})
+      }
+      selThree = () =>{
+        this.setState({
+          selected: 3
+        },()=>{this.setIt()})
+      }
 
     showFriends = () =>{
         return this.props.user.friends.map(each=>{
@@ -195,17 +245,18 @@ export default class friends extends Component {
             <div>
 
             <div className="align-center">
-                        <nav className="list-nav">
+                <nav className="list-nav">
 
-                                    <button onClick={this.toggleRequests} className="list-nav-item">Requests</button>
-
-                                    <button onClick={this.toggleFriend} className="list-nav-item">
-                                        Friends
-                                    </button>
-                                    <button onClick={this.toggleFind} className="list-nav-item">
-                                        Add Friends
-                                    </button>
-                        </nav>
+                    <button onClick={()=>{this.toggleRequests(); this.selOne()}} className={this.state.one} name="one">
+                        Requests
+                    </button>
+                    <button onClick={()=>{this.toggleFriend(); this.selTwo()}} className={this.state.two} name="two">
+                        Friends
+                    </button>
+                    <button onClick={()=>{this.toggleFind(); this.selThree()}} className={this.state.three} name="three">
+                        Add Friends
+                    </button>
+                </nav>
             </div>
 
 
@@ -219,6 +270,7 @@ export default class friends extends Component {
                 <div>
                     <form className="form-inline" onSubmit={this.searchFriends} className="align-center-search">
                         <input type="text" className="form-control friend-search" name="searchfriends" placeholder="Search your friends" autoComplete="off" onChange={this.updateValues} />
+                        <button type="submit" className="btn"><FaSearch/></button>
                     </form>
                     {this.showFriends()}
                 </div>
@@ -227,6 +279,7 @@ export default class friends extends Component {
                 <div>
                     <form className="form-inline" onSubmit={this.searchFriends} className="align-center-search">
                         <input type="text" className="form-control friend-search" name="search" placeholder="Find a user" autoComplete="off" onChange={this.updateValues} />
+                        <button type="submit" className="btn"><FaSearch/></button>
                     </form>
                     {this.showUsers()}
                 </div>

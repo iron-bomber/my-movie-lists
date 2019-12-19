@@ -217,9 +217,9 @@ class MyList extends Component {
     <div className="align-center">
     
       <nav className="list-nav">
-        <button onClick={this.decideShowing} className={this.state.one} onClick={this.selOne} name="all">All</button>
-        <button onClick={this.decideShowing} className={this.state.two} onClick={this.selTwo} name="watching">Watched</button>
-        <button onClick={this.decideShowing} className={this.state.three} onClick={this.selThree} name="want">Want to watch</button>
+        <button onClick={(e)=>{ this.decideShowing(e); this.selOne(); } } className={this.state.one} name="all">All</button>
+        <button onClick={(e)=>{ this.decideShowing(e); this.selTwo(); } } className={this.state.two}  name="watching">Watched</button>
+        <button onClick={(e)=>{ this.decideShowing(e); this.selThree(); } } className={this.state.three} name="want">Want to watch</button>
         <NavLink to="/add" className="list-nav-item">
           Add to list  
         <IoIosAddCircle 

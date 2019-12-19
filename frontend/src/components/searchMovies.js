@@ -71,11 +71,11 @@ export default class add extends Component {
               <div>
                 <div className="d-flex justify-content-center mt-4">
                   <form className="form-inline" onSubmit={this.searchApi}>
-                    <select className="form-control" onChange={this.updateValues} name="type">
+                    {/* <select className="form-control" onChange={this.updateValues} name="type">
                         <option value="movie">Movies</option>
                         <option value="tv">Shows</option>
-                    </select>
-                    <input type="text" className="form-control" name="search" placeholder="Search" autocomplete="off" onChange={this.updateValues} />
+                    </select> */}
+                    <input type="text" className="form-control" name="search" placeholder="Search for a movie" autocomplete="off" onChange={this.updateValues} />
                     <button type="submit" className="btn"><FaSearch/></button>
                   </form>
                 </div>
