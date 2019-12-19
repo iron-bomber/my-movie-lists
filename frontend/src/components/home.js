@@ -15,7 +15,7 @@ export default class Home extends Component {
                     </div>
                 }
                 {!this.props.user &&
-                    <LandingPage/>
+                    <LandingPage setUser={this.props.setUser} />
                 }    
             </div>
         )

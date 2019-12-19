@@ -30,12 +30,12 @@ class LogIn extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <Fragment>
-                <h2>LogIn</h2>
                 <form onSubmit={this.handleSubmit}>
-                    <input name="email" type="email" onChange={this.handleChange} />
-                    <input name="password" type="password" onChange={this.handleChange} />
+                    <input name="email" type="email" placeholder="Email" onChange={this.handleChange} className="login-part"/>
+                    <input name="password" type="password" placeholder="Password" onChange={this.handleChange} className="login-part"/>
                     <input type="submit" value="Log In"/>
                 </form>
                 {this.state.incorrect &&
