@@ -46,6 +46,16 @@ export default class Movie extends Component {
                     completed: completed,
                     onList: true
                 })
+            }else{
+                this.setState({
+                    rating: null,
+                    review: null,
+                    status: null,
+                    found: false,
+                    id: null,
+                    completed: null,
+                    onList: false
+                })
             }
         }
         
@@ -109,10 +119,12 @@ export default class Movie extends Component {
                 id: this.state.id
             }
             await actions.updateReview(updatedReview)
-            this.props.updateData()
+            await this.props.updateData()
+            this.checkStatus()
         }else{
             let newMovie = await actions.addMovie(subData);
-            this.props.updateData()
+            await this.props.updateData()
+            this.checkStatus()
         }
     }
 
@@ -120,13 +132,13 @@ export default class Movie extends Component {
         return this.state.movie.genres.map((each, i)=>{
             if(i +1 !== this.state.movie.genres.length){
                 return (
-                    <span>
+                    <span className="no-padding">
                         {each.name}, &nbsp;
                     </span>
                 )
             }else{
                 return (
-                    <span>
+                    <span className="no-padding">
                         {each.name}
                     </span>
                 )
@@ -137,7 +149,7 @@ export default class Movie extends Component {
     removeItem = async (itemId) => {
         await actions.removeMovie(itemId);
         await this.props.updateData();
-        this.props.history.push('/')
+        this.checkStatus()
     }
 
      Modal() {
@@ -155,19 +167,24 @@ export default class Movie extends Component {
             {this.state.onList ? 
             (
                 <Fragment>
+                <div className="add-button-div">
+
                     <button className="good-button" variant="primary" onClick={handleShow}>
                         Added
                     </button>
                     <button className="bad-button" variant="primary" onClick={() => {this.removeItem(this.state.movie.id)}}>
                         Remove
                     </button>
+                </div>
                 </Fragment>
 
             ) :
             (
-                <button className="bad-button" variant="primary" onClick={handleShow}>
-                    Add to list
-                </button>
+                <div className="add-button-div">
+                    <button className="bad-button" variant="primary" onClick={handleShow}>
+                        Add to list
+                    </button>
+                </div>
             )
 
             }
@@ -223,7 +240,7 @@ export default class Movie extends Component {
       }
     
     render() {
-        console.log(this.state.movie)
+        console.log(this.state)
         if (this.props.user){
                     return (
             <div>

@@ -1,12 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Overpass&display=swap');
+
 body {
   margin: 0;
   text-align: center;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; */
+    font-family: 'Overpass', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #feffff;
+  background-color: #fafafa;
   /* background-color: #ffffff; */
+}
+
+a:hover{
+  color: white;
+  text-decoration: none;
 }
 
 p{
@@ -273,4 +282,70 @@ code {
   height: 100vh;
   background-size: cover;
   background-image: url('./images/background.jpg');
+}
+
+.hidden-span{
+  visibility: hidden;
+  display: none;
+}
+
+.no-padding{
+  padding: 0px !important;
+}
+
+.add-button-div{
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+
+@media only screen and (min-width: 1199px) {
+
+  .ourbar{
+    height: 100px;
+  }
+
+  .navbar-icons{
+    height: 50px;
+  }
+
+  .hidden-span{
+    visibility: visible;
+    display: contents;
+  }
+
+  .columns{
+    display: flex;
+    flex-direction: column;
+    color: white !important;
+    text-decoration: none !important;
+    font-size: 1.2em;
+  }
+
+  .poster-size{
+    height: 400px;
+    margin: 32px 0px;
+    margin-left: 80px;
+  }
+
+  .make-inline-flex *{
+    font-size: 1.1em;
+  }
+
+  .description{
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    margin-left: 25%;
+    background-color: lightgrey;
+    padding: 8px;
+    border-radius: 5px;
+  }
+
+  .movie-header{
+    font-size: 2.2em;
+    text-align: center;
+  }
+
 }

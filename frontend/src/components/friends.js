@@ -192,19 +192,21 @@ export default class friends extends Component {
     render() {
         if (this.props.user){
                     return (
-            <div >
+            <div>
 
-            <nav className="list-nav">
+            <div className="align-center">
+                        <nav className="list-nav">
 
-                        <button onClick={this.toggleRequests} className="list-nav-item">Requests</button>
+                                    <button onClick={this.toggleRequests} className="list-nav-item">Requests</button>
 
-                        <button onClick={this.toggleFriend} className="list-nav-item">
-                            Friends
-                        </button>
-                        <button onClick={this.toggleFind} className="list-nav-item">
-                            Add Friends
-                        </button>
-            </nav>
+                                    <button onClick={this.toggleFriend} className="list-nav-item">
+                                        Friends
+                                    </button>
+                                    <button onClick={this.toggleFind} className="list-nav-item">
+                                        Add Friends
+                                    </button>
+                        </nav>
+            </div>
 
 
 

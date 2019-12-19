@@ -11,6 +11,10 @@
     border-radius: 5px;
 }
 
+span{
+    padding: 0px;
+}
+
 .bubble-bg{
     opacity: 70%;
     background-color: black;
@@ -189,5 +193,19 @@ select{
         justify-content: flex-end;
         width: 30%;
         height: auto;
+    }
+
+    .list-nav{
+        width: 50%;
+        margin: 20px;
+    }
+
+    .list-nav-item{
+        margin: 4px;
+        border-radius: 5px;
+    }
+
+    .align-center{
+        height: 60px;
     }
   }
