@@ -26,8 +26,8 @@
     margin-left: 8px;
 }
 
-.rating-bg{
-    
+.dv-star-rating-star{
+    cursor: default !important;
 }
 
 .rating{
