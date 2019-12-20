@@ -65,10 +65,17 @@ export default class add extends Component {
         })
       }
 
+      back = () =>{
+        this.props.history.goBack()
+      }
+
     render() {
         if (this.props.user){
           return (
               <div>
+              <div>
+                <button onClick={this.back} className="go-back">&#8592; Back</button>
+              </div>
                 <div className="d-flex justify-content-center mt-4">
                   <form className="form-inline" onSubmit={this.searchApi}>
                     {/* <select className="form-control" onChange={this.updateValues} name="type">

@@ -249,6 +249,10 @@ export default class Movie extends Component {
               show: true
           })
       }
+
+      back = () =>{
+        this.props.history.goBack()
+      }
     
     render() {
         console.log(this.state)
@@ -258,7 +262,11 @@ export default class Movie extends Component {
                 {this.state.movie && 
                 <div>
 
-                
+
+                    <button onClick={this.back} className="go-back"> &#8592; Back</button>
+
+
+
                     <h1 className="movie-header">
                         {this.state.movie.original_title} 
                     </h1>

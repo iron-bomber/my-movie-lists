@@ -4,6 +4,7 @@ import NotLoggedIn from '../notLoggedIn';
 import {FiEdit3} from "react-icons/fi";
 import classNames from 'classnames';
 import actions from '../../services/index';
+import {Redirect} from 'react-router'
 
 
 class Profile extends Component {
@@ -359,7 +360,7 @@ class Profile extends Component {
             </div>
         ); 
         } else {
-            return <NotLoggedIn/>
+            return <Redirect to="/"/>
         }
 
     }

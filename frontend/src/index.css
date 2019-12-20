@@ -105,7 +105,8 @@ code {
   height: 230px;
   margin-left: 0px;
   padding-left: 0px;
-  margin-bottom: 36px;
+  margin-bottom: 16px;
+  margin-top: 16px;
 }
 
 .listing-img{
@@ -228,6 +229,29 @@ code {
   text-align: center;
   height: 100%;
   width: 50%;
+}
+
+.sign-in{
+  width: 50%;
+}
+
+.go-back{
+  background-color: #17252a;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 60px;
+  width: 100px;
+  height: 58px;
+  border: none;
+  color: white;
+  z-index: 5;
+}
+
+.landing-display{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 20%;
 }
 
@@ -291,8 +315,7 @@ code {
   position: absolute; 
   bottom: 0;
   left: 0;
-  margin-left: 4px;
-  margin-bottom: 8px;
+  margin-bottom: -3px;
 }
 
 .relative{

@@ -128,8 +128,8 @@ class SignUp extends Component {
                 password: this.state.password
             });
             this.props.setUser({...user.data})  
-            this.props.history.push('/')
         }
+        this.props.redir()
     }
 
     render() {
@@ -138,7 +138,7 @@ class SignUp extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-10 col-md-6">
-                        <form accept-charset="utf-8" className="form" role="form" onSubmit={this.handleSubmit}>   <legend>Sign Up</legend>
+                        <form acceptCharset="utf-8" className="form" role="form" onSubmit={this.handleSubmit}>   <legend>Sign Up</legend>
                             <div className="row">
                                 <div className="col-6 mb-2">
                                     <input type="text" name="firstName" value={this.state.firstName} className={this.isValid('firstName').class} onChange={this.handleChange} placeholder="First Name"/>

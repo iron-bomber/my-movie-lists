@@ -146,22 +146,22 @@ class MyList extends Component {
         backgroundPosition: 'center'
       };
       return (
-      <Link to={"/movie/"+ movie.tmdbID}className="singlebubble" style={sectionStyle}>
+      <Link to={"/movie/"+ movie.tmdbID} className="singlebubble" style={sectionStyle} key={i}>
       <div className="bubble-bg">
-
       </div>
           <div className="bubble-info">
             <p className="bubble-header">{movie.name}</p>
             {review.rating &&
-              <p className="bubble-rating">
+              <div className="bubble-rating">
               <StarRatingComponent 
+                          name="rating"
                           starCount={1}
                           value={1}
                           onStarClick={this.onStarClick.bind(this)}
                           className="list-star"
                   />
               {review.rating} 
-              </p>
+              </div>
             }
             {!review.rating && !this.state.ratings[review._id] && !this.state.loading[review._id] &&
               <div>

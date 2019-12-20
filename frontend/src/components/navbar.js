@@ -4,6 +4,7 @@ import {FiList} from 'react-icons/fi'
 import {IoMdPeople, IoIosJournal, IoMdSettings} from 'react-icons/io'
 import {MdSettings} from 'react-icons/md'
 import {TiMessage} from 'react-icons/ti'
+import {Link} from 'react-router-dom'
 
 export default class Navbar extends React.Component{
 
@@ -82,9 +83,9 @@ export default class Navbar extends React.Component{
         return (
             <div>
                 <nav className="ourbar">
-                <div className="bar-logo">
+                    <Link to="/" className="bar-logo" style={{textDecoration: 'none', color: 'white'}}>
                     <h1>MML</h1>
-                </div>
+                </Link>
                 <div className="bar-list">
                     <NavLink to="/"  className={this.state.one} onClick={this.selOne}>
                         <IoIosJournal className="navbar-icons"/>
