@@ -120,8 +120,8 @@ code {
 
 .listing-add-btn{
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 12px;
+  right: -4px;
   color: white;
   margin-right: 8px;
   margin-top: 8px;
