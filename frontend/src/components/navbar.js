@@ -84,7 +84,7 @@ export default class Navbar extends React.Component{
             <div>
                 <nav className="ourbar">
                     <Link to="/" className="bar-logo" style={{textDecoration: 'none', color: 'white'}}>
-                    <h1>MML</h1>
+                    <h1 className="pad-it-top">MML</h1>
                 </Link>
                 <div className="bar-list">
                     <NavLink to="/"  className={this.state.one} onClick={this.selOne}>

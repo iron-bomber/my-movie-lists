@@ -263,12 +263,25 @@ code {
 
 .login-part{
   margin-right: 8px;
+  border: none;
+  padding: 4px;
 }
 
 .mml{
   font-size: 1.5em;
   margin-top: 8px;
   margin-left: 8px;
+}
+
+.white{
+  color: white;
+}
+
+.login-btn{
+  background-color: #56ccc8;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 /* .mml-text{
@@ -326,6 +339,10 @@ a:hover {
   align-items: center;
   width: 90%;
   background-color: blue;
+}
+
+.pad-it-top{
+  padding-top: 5px;
 }
 
 @media only screen and (max-width: 455px) {
@@ -417,6 +434,10 @@ a:hover {
 
 
 @media only screen and (min-width: 1199px) {
+
+  .pad-it-top-50{
+    padding-top: 18px;
+  }
 
   .go-back{
     background-color: #17252a;
@@ -582,6 +603,10 @@ a:hover {
   
   .bar-logo{
     width: 10%;
+  }
+
+  .login-div{
+    margin-right: 20px;
   }
 
 

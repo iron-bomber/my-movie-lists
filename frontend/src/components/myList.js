@@ -152,7 +152,7 @@ class MyList extends Component {
           <div className="bubble-info">
             <p className="bubble-header">{movie.name}</p>
             {review.rating &&
-              <div className="bubble-rating">
+              <div className="bubble-rating pad-it-top-50">
               <StarRatingComponent 
                           name="rating"
                           starCount={1}
@@ -164,7 +164,7 @@ class MyList extends Component {
               </div>
             }
             {!review.rating && !this.state.ratings[review._id] && !this.state.loading[review._id] &&
-              <div>
+              <div className="pad-it-top-50">
                 NA
               </div>
             }

@@ -36,7 +36,7 @@ class LogIn extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <input name="email" type="email" placeholder="Email" onChange={this.handleChange} className="login-part"/>
                     <input name="password" type="password" placeholder="Password" onChange={this.handleChange} className="login-part"/>
-                    <input type="submit" value="Log In"/>
+                    <input type="submit" value="Log In" className="login-btn" />
                 </form>
                 {this.state.incorrect &&
                 <p>
