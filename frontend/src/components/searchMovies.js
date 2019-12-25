@@ -73,19 +73,25 @@ export default class add extends Component {
         if (this.props.user){
           return (
               <div>
-              <div>
+
+            <div className="flex-m-header">
                 <button onClick={this.back} className="go-back">&#8592; Back</button>
-              </div>
                 <div className="d-flex justify-content-center">
                   <form className="d-flex justify-content-center align-items-center mt-2 get-smaller" onSubmit={this.searchApi}>
                     {/* <select className="form-control" onChange={this.updateValues} name="type">
                         <option value="movie">Movies</option>
                         <option value="tv">Shows</option>
                     </select> */}
-                    <input type="text" className="form-control" name="search" placeholder="Search for a movie" autocomplete="off" onChange={this.updateValues} />
+                    <input type="text" className="form-control search-4-movie" name="search" placeholder="Search for a movie" autocomplete="off" onChange={this.updateValues} />
                     <button type="submit" className="btn"><FaSearch/></button>
                   </form>
                 </div>
+            </div>
+
+
+
+
+
                 {this.state.results &&
                   <div>
                     <DisplayMovies {...this.props} state = {this.state} user={this.props.user} updateData={this.props.updateData}/>

@@ -47,14 +47,29 @@ code {
 }
 
 .movie-header{
-  position: relative;
   background-color: #e1e7f5;
   color: black;
   font-size: 1.8em;
   padding: 8px;
   text-align: left;
   margin-bottom: 0px;
-  padding-left: 106px;
+}
+
+.m-head-div{
+  width: 100%;
+  height: 100%;
+}
+
+.flex-m-header{
+  display: flex;
+}
+
+.go-back{
+  background-color: #17252a;
+  width: 100px;
+  border: none;
+  color: white;
+  z-index: 5;
 }
 
 .description{
@@ -230,17 +245,13 @@ code {
   text-align: center;
   height: 100%;
   width: 50%;
+  padding: 0px 8px;
 }
 
 .sign-in{
   width: 50%;
-}
-
-.landing-display{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 15%;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
 }
 
 .whole-landing-page{
@@ -258,7 +269,14 @@ code {
   align-items: center;
   color: white;
   background-color: #2b7a78;
-  height: 60px;
+  height: 7vh;
+}
+
+.landing-display{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 93vh;
 }
 
 .login-part{
@@ -282,6 +300,7 @@ code {
   border: none;
   padding: 5px;
   border-radius: 5px;
+  margin-right: 4px;
 }
 
 /* .mml-text{
@@ -330,7 +349,7 @@ code {
 }
 
 a:hover {
-  color: darkblue;
+  color: rgb(255, 255, 255);
 }
 
 .bar-list{
@@ -345,15 +364,40 @@ a:hover {
   padding-top: 5px;
 }
 
+.d-flex{
+  align-self: center;
+  justify-self: center;
+  width: 100%;
+}
+
+.login-form{
+  display: flex;
+}
+
 @media only screen and (max-width: 455px) {
 
   .get-smaller{
-    padding-left: 106px;
+    /* padding-left: 106px; */
   }
 
 }
 
 @media only screen and (max-width: 1198px) {
+
+  .mml{
+    font-size: 1em;
+    margin-top: 8px;
+    margin-left: 8px;
+  }
+
+  .login-part{
+    height: 30px;
+    width: 100px;
+  }
+
+  .search-4-movie{
+    width: 180px;
+  }
 
   .bar-logo{
     display: none;
@@ -417,39 +461,18 @@ a:hover {
     color: white;
   }
 
-  .go-back{
-    background-color: #17252a;
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-top: 65px;
-    width: 100px;
-    height: 50px;
-    border: none;
-    color: white;
-    z-index: 5;
-  }
 
 }
 
 
 @media only screen and (min-width: 1199px) {
 
-  .pad-it-top-50{
-    padding-top: 18px;
+  .search-4-movie{
+    width: 300px;
   }
 
-  .go-back{
-    background-color: #17252a;
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-top: 60px;
-    width: 100px;
-    height: 58px;
-    border: none;
-    color: white;
-    z-index: 5;
+  .pad-it-top-50{
+    padding-top: 18px;
   }
 
   .bar-logo{
