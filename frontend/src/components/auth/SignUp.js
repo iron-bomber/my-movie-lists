@@ -137,12 +137,12 @@ class SignUp extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-10 col-md-6">
+                    <div className="col-10 col-md-6 offset-1 offset-md-3">
                         <form acceptCharset="utf-8" className="form" role="form" onSubmit={this.handleSubmit}>   <legend className="white">Sign Up</legend>
 
 
                             <div className="row flex-col">
-                                <div className="col-6 mb-2">
+                                <div className="col-12 mb-2 col-md-6">
                                     <input type="text" name="firstName" value={this.state.firstName} className={this.isValid('firstName').class} onChange={this.handleChange} placeholder="First Name"/>
                                     <div className="valid-feedback text-left">
                                         Looks good!
@@ -151,7 +151,7 @@ class SignUp extends Component {
                                         Field cannot be empty
                                     </div>
                                 </div>
-                                <div className="col-6 mb-2">
+                                <div className="col-12 mb-2 col-md-6">
                                     <input type="text" name="lastName" value={this.state.lastName} className={this.isValid('lastName').class} onChange={this.handleChange} placeholder="Last Name"/>
                                     <div className="valid-feedback text-left">
                                         Looks good!
@@ -163,7 +163,7 @@ class SignUp extends Component {
                             </div>
 
 
-                            <div>
+                            <div className="mb-2">
                                 <input type="email" name="email" value={this.state.email} className={this.state.emailClass} onChange={this.handleChange} placeholder="Your Email"/>
                                 <div className="valid-feedback text-left">
                                     Looks good!
@@ -172,7 +172,7 @@ class SignUp extends Component {
                                     {this.state.emailMessage}
                                 </div>
                             </div>
-                            <div>
+                            <div className="mb-2">
                                 <input type="password" name="password" value={this.state.password} className={this.isValid('password').class} onChange={this.handleChange} placeholder="Password"/>
                                 <div className="valid-feedback text-left">
                                     Looks good!
@@ -181,7 +181,7 @@ class SignUp extends Component {
                                     {this.isValid('password').message}
                                 </div>
                             </div>
-                            <div>
+                            <div className="mb-2">
                                 <input type="password" name="confirmPassword" value={this.state.confirmPassword} className={this.isValid('confirmPassword').class} onChange={this.handleChange} placeholder="Confirm Password"/>
                                 <div className="valid-feedback text-left">
                                     Looks good!
