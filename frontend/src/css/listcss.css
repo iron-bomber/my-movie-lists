@@ -206,11 +206,7 @@ select{
     }
     
     .bubble-bg{
-<<<<<<< HEAD
-        opacity: 0.7 !important;
-=======
         opacity: 0.7;
->>>>>>> 8f376c67983fecaf49da7727dd06e09526c35d2c
         background-color: black;
         height: 60px;
         width: 100%;
