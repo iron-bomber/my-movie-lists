@@ -139,7 +139,9 @@ class SignUp extends Component {
                 <div className="row">
                     <div className="col-10 col-md-6">
                         <form acceptCharset="utf-8" className="form" role="form" onSubmit={this.handleSubmit}>   <legend className="white">Sign Up</legend>
-                            <div className="row">
+
+
+                            <div className="row flex-col">
                                 <div className="col-6 mb-2">
                                     <input type="text" name="firstName" value={this.state.firstName} className={this.isValid('firstName').class} onChange={this.handleChange} placeholder="First Name"/>
                                     <div className="valid-feedback text-left">
@@ -159,6 +161,8 @@ class SignUp extends Component {
                                     </div>
                                 </div>
                             </div>
+
+
                             <div>
                                 <input type="email" name="email" value={this.state.email} className={this.state.emailClass} onChange={this.handleChange} placeholder="Your Email"/>
                                 <div className="valid-feedback text-left">

@@ -263,13 +263,17 @@ export default class Movie extends Component {
                 <div>
 
 
-                    <button onClick={this.back} className="go-back"> &#8592; Back</button>
 
 
+                    <div className="flex-m-header">
 
-                    <h1 className="movie-header">
-                        {this.state.movie.original_title} 
-                    </h1>
+                        <button onClick={this.back} className="go-back"> &#8592; Back</button>
+                        <div className="m-head-div">
+                            <h1 className="movie-header">
+                                {this.state.movie.original_title} 
+                            </h1>
+                        </div>
+                    </div>
                     <div className="relative">
                     <div className="one-movie-result">
                     <div className="listing-img">

@@ -33,7 +33,7 @@ class LogIn extends Component {
         console.log(this.props)
         return (
             <Fragment>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} className="login-form">
                     <input name="email" type="email" placeholder="Email" onChange={this.handleChange} className="login-part"/>
                     <input name="password" type="password" placeholder="Password" onChange={this.handleChange} className="login-part"/>
                     <input type="submit" value="Log In" className="login-btn" />
