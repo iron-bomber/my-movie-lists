@@ -244,12 +244,12 @@ code {
   color: white;
   text-align: center;
   height: 100%;
-  width: 50%;
+  width: 70%;
   padding: 0px 8px;
 }
 
 .sign-in{
-  width: 50%;
+  width: 30%;
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 5px;
 }
@@ -459,6 +459,25 @@ a:hover {
     justify-content: center;
     flex-direction: column;
     color: white;
+  }
+
+  .landing-text{
+    width: 50%;
+  }
+  .landing-text h1{
+    font-size: 2em;
+  }
+
+  .landing-text h4{
+    font-size: 1.2em;
+  }
+  
+  .sign-in{
+    width: 50%;
+  }
+
+  .sign-in input, .sign-in button{
+    font-size: 0.8em;
   }
 
 

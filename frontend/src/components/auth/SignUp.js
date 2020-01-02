@@ -135,34 +135,28 @@ class SignUp extends Component {
     render() {
 
         return (
-            <div className="container">
+            <div className="container-fluid">
                 <div className="row">
-                    <div className="col-10 col-md-6 offset-1 offset-md-3">
+                    <div className="col-10 col-md-8 mt-3">
                         <form acceptCharset="utf-8" className="form" role="form" onSubmit={this.handleSubmit}>   <legend className="white">Sign Up</legend>
-
-
-                            <div className="row flex-col">
-                                <div className="col-12 mb-2 col-md-6">
-                                    <input type="text" name="firstName" value={this.state.firstName} className={this.isValid('firstName').class} onChange={this.handleChange} placeholder="First Name"/>
-                                    <div className="valid-feedback text-left">
-                                        Looks good!
-                                    </div>
-                                    <div className="invalid-feedback text-left">
-                                        Field cannot be empty
-                                    </div>
+                            <div className="mb-2">
+                                <input type="text" name="firstName" value={this.state.firstName} className={this.isValid('firstName').class} onChange={this.handleChange} placeholder="First Name"/>
+                                <div className="valid-feedback text-left">
+                                    Looks good!
                                 </div>
-                                <div className="col-12 mb-2 col-md-6">
-                                    <input type="text" name="lastName" value={this.state.lastName} className={this.isValid('lastName').class} onChange={this.handleChange} placeholder="Last Name"/>
-                                    <div className="valid-feedback text-left">
-                                        Looks good!
-                                    </div>
-                                    <div className="invalid-feedback text-left">
-                                        Field cannot be empty
-                                    </div>
+                                <div className="invalid-feedback text-left">
+                                    Field cannot be empty
                                 </div>
                             </div>
-
-
+                            <div className="mb-2">
+                                <input type="text" name="lastName" value={this.state.lastName} className={this.isValid('lastName').class} onChange={this.handleChange} placeholder="Last Name"/>
+                                <div className="valid-feedback text-left">
+                                    Looks good!
+                                </div>
+                                <div className="invalid-feedback text-left">
+                                    Field cannot be empty
+                                </div>
+                            </div>
                             <div className="mb-2">
                                 <input type="email" name="email" value={this.state.email} className={this.state.emailClass} onChange={this.handleChange} placeholder="Your Email"/>
                                 <div className="valid-feedback text-left">
@@ -192,7 +186,7 @@ class SignUp extends Component {
                             </div>
                             <br />
                             <button className="btn btn-lg btn-primary btn-block signup-btn" type="submit">
-                                Create my account
+                                Create account
                             </button>
                         </form>          
                     </div>
