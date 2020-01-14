@@ -26,6 +26,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+.slideybutton { 
+  background-size: 200% 100%; 
+  background-image: linear-gradient(to right, white 50%, #2b7a78 50%),
+                    linear-gradient(to right, #2b7a78 50%, white 50%);
+  transition: background-position .09s linear; 
+  -webkit-background-clip: text, border-box;
+  background-clip: text, border-box; 
+  color: transparent; 
+
+} 
+.slideybutton:hover { 
+  background-position: -100% 0; 
+}
+
 .removed{
   color: lightgrey;
 }
